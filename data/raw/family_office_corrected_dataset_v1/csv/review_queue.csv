@@ -1,0 +1,3 @@
+review_id,document_id,related_event_id,priority,exception_type,exception_detail,assigned_to,status,created_date,target_resolution_date
+REV_001,PDF_002,CC_MAY_002,High,Urgent due date / alias mapping / missing required field,Capital call due within 7 days; raw fund name is abbreviated; unfunded after call is missing.,Investment Operations Analyst,Open,2026-05-17,2026-05-20
+REV_002,PDF_005,CS_MAY_002,High,NAV roll-forward and commitment mismatch,Stated ending NAV and commitment reconciliation do not pass validation.,Controller,Open,2026-05-18,2026-05-24

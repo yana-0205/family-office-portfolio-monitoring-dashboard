@@ -1,0 +1,10 @@
+rule_id,rule_name,applies_to,severity,logic,expected_use
+VR001,Fund master match,All documents,High,Extracted fund name must match or fuzzy-match a fund in private_fund_master.,Prevent incorrect fund mapping
+VR002,Required field completeness,All documents,High,"Required fields such as fund name, date, amount, currency, period, and ending NAV must be present.",Detect incomplete extraction
+VR003,Due date urgency,Capital call letters,Medium,Flag capital calls due within 7 calendar days of receipt.,Support liquidity monitoring
+VR004,Cash sufficiency,Capital call letters,High,Compare amount due with available cash for the related entity.,Detect potential liquidity shortfall
+VR005,Commitment consistency,Capital calls and capital statements,High,Paid-in capital plus unfunded commitment should approximately equal total commitment.,Detect commitment record errors
+VR006,NAV roll-forward check,Capital statements,High,Beginning NAV plus contributions plus distributions plus fees and gains/losses should reconcile to Ending NAV.,Detect statement inconsistency
+VR007,Component sum check,Distribution letters,Medium,Distribution components should reconcile to gross and net distribution.,Detect classification or extraction errors
+VR008,Fuzzy fund name warning,Documents with abbreviated names,Medium,Raw fund name differs from master name but can be mapped using fund_aliases.,Require analyst review
+VR009,Low confidence review,All documents,Medium,Extraction confidence score below 0.85 triggers review.,Support human-in-the-loop control

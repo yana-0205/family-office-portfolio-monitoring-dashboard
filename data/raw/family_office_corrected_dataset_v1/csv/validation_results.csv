@@ -1,0 +1,11 @@
+result_id,document_id,rule_id,result,variance_or_issue,recommended_action
+VAL_001,PDF_001,VR001,Pass,,Approve
+VAL_002,PDF_001,VR004,Pass,USD operating cash sufficient before approval.,Approve
+VAL_003,PDF_002,VR003,Warning,Due date 5 days after receipt.,Route to liquidity review
+VAL_004,PDF_002,VR008,Warning,Raw fund name SeedSpring SEA VC I requires alias mapping.,Analyst confirm fund mapping
+VAL_005,PDF_002,VR002,Fail,Unfunded commitment after call missing.,Request manager clarification or compute after confirmation
+VAL_006,PDF_003,VR007,Pass,Components sum to gross/net distribution.,Approve
+VAL_007,PDF_004,VR006,Pass,NAV roll-forward reconciles to ending NAV.,Approve
+VAL_008,PDF_005,VR006,Fail,Calculated ending NAV is 19.1m versus stated 20.0m; variance 0.9m.,Route to review queue
+VAL_009,PDF_005,VR005,Fail,"Paid-in 12.0m plus unfunded 7.0m equals 19.0m, not commitment 20.0m.",Route to review queue
+VAL_010,PDF_006,VR001,Pass,,Approve qualitative extraction

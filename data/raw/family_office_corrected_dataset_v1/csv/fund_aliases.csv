@@ -1,0 +1,4 @@
+alias,fund_id,canonical_fund_name,confidence_hint,notes
+SeedSpring SEA VC I,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,0.86,Used to test fuzzy fund-name handling.
+Northstar BO IV,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,0.92,Common abbreviation.
+LionRock Credit,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,0.9,Abbreviated manager/fund name.

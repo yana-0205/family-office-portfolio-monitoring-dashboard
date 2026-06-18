@@ -1,0 +1,37 @@
+holding_id,ticker,instrument_type,underlying_type,underlying_reference,lookthrough_available_flag,lookthrough_method,benchmark_proxy,gics_sector_current,gics_industry_group_current,region_taxonomy_current,market_cap_bucket_current,classification_status,classification_notes
+H_SPY,SPY,etf,basket,SPY,True,lookthrough,SPY,Multi-Sector / Diversified,Broad Market ETF,North America,Multi Cap,lookthrough,Broad US equity beta.
+H_QQQ,QQQ,etf,basket,QQQ,True,lookthrough,QQQ,Information Technology,Growth / Technology ETF,North America,Mega Cap,lookthrough,Technology-heavy growth proxy.
+H_ACWI,ACWI,etf,basket,ACWI,True,lookthrough,ACWI,Multi-Sector / Diversified,Broad Market ETF,Global / Multi-region,Multi Cap,lookthrough,Global developed and emerging exposure.
+H_BRKB,BRK.B,equity,equity,BRK.B,True,direct,BRK.B,Financials,Multi-Sector Holdings,North America,Mega Cap,direct,Single-name equity.
+H_MSFT,MSFT,equity,equity,MSFT,True,direct,MSFT,Information Technology,Software,North America,Mega Cap,direct,Single-name equity.
+H_GOOGL,GOOGL,equity,equity,GOOGL,True,direct,GOOGL,Communication Services,Interactive Media,North America,Mega Cap,direct,Single-name equity.
+H_NVDA,NVDA,equity,equity,NVDA,True,direct,NVDA,Information Technology,Semiconductors,North America,Mega Cap,direct,Single-name equity.
+H_2800HK,2800.HK,etf,basket,2800.HK,True,lookthrough,2800.HK,Multi-Sector / Diversified,Hong Kong Equity ETF,Greater China,Large Cap,lookthrough,Greater China public equity exposure.
+H_HSTECH,3067.HK,etf,basket,3067.HK,True,lookthrough,3067.HK,Information Technology,Technology ETF,Greater China,Large Cap,lookthrough,Greater China technology beta.
+H_BABA,BABA,equity,equity,BABA,True,direct,BABA,Consumer Discretionary,Broadline Retail,Greater China,Large Cap,direct,Single-name equity.
+H_PDD,PDD,equity,equity,PDD,True,direct,PDD,Consumer Discretionary,Broadline Retail,Greater China,Large Cap,direct,Single-name equity.
+H_JD,JD,equity,equity,JD,True,direct,JD,Consumer Discretionary,Broadline Retail,Greater China,Large Cap,direct,Single-name equity.
+H_CNYA,CNYA,etf,basket,CNYA,True,lookthrough,CNYA,Multi-Sector / Diversified,China A-Shares ETF,Greater China,All Cap,lookthrough,A-shares allocation.
+H_EWJ,EWJ,etf,basket,EWJ,True,lookthrough,EWJ,Multi-Sector / Diversified,Japan Equity ETF,Japan,Large Cap,lookthrough,Japan allocation.
+H_INDA,INDA,etf,basket,INDA,True,lookthrough,INDA,Multi-Sector / Diversified,India Equity ETF,India,All Cap,lookthrough,India allocation.
+H_EWY,EWY,etf,basket,EWY,True,lookthrough,EWY,Multi-Sector / Diversified,Korea Equity ETF,Korea,Large Cap,lookthrough,Korea allocation.
+H_EWS,EWS,etf,basket,EWS,True,lookthrough,EWS,Multi-Sector / Diversified,Southeast Asia Equity ETF,Southeast Asia,Large Cap,lookthrough,Southeast Asia allocation.
+H_EEM,EEM,etf,basket,EEM,True,lookthrough,EEM,Multi-Sector / Diversified,EM Equity ETF,Global / Multi-region,All Cap,lookthrough,Broad EM exposure.
+H_AGG,AGG,etf,basket,AGG,True,benchmark_proxy,AGG,Fixed Income / Credit,Aggregate Bonds,North America,Non-classifiable,proxy,Bond beta.
+H_TLT,TLT,etf,basket,TLT,True,benchmark_proxy,TLT,Fixed Income / Sovereign,Government Bonds,North America,Non-classifiable,proxy,Rates exposure.
+H_IGIB,IGIB,etf,basket,IGIB,True,benchmark_proxy,IGIB,Fixed Income / Credit,Investment Grade Credit,North America,Non-classifiable,proxy,Credit exposure.
+H_HYG,HYG,etf,basket,HYG,True,benchmark_proxy,HYG,Fixed Income / Credit,High Yield Credit,North America,Non-classifiable,proxy,High-yield exposure.
+H_EMB,EMB,etf,basket,EMB,True,benchmark_proxy,EMB,Fixed Income / Credit,EM Debt,Global / Multi-region,Non-classifiable,proxy,Emerging market debt exposure.
+H_LQD,LQD,etf,basket,LQD,True,benchmark_proxy,LQD,Fixed Income / Credit,Investment Grade Credit,North America,Non-classifiable,proxy,Additional credit exposure.
+H_GLD,GLD,etf,basket,GLD,True,benchmark_proxy,GLD,Commodities / Precious Metals,Gold,Global / Multi-region,Non-classifiable,proxy,Defensive gold allocation.
+H_BIL,BIL,etf,basket,BIL,True,benchmark_proxy,BIL,Fixed Income / Sovereign,Treasury Bills,North America,Non-classifiable,proxy,T-bill sleeve and risk-free proxy anchor.
+H_DBMF,DBMF,etf,basket,DBMF,True,benchmark_proxy,DBMF,Multi-Strategy,Managed Futures,Global / Multi-region,Non-classifiable,proxy,Liquid alternatives sleeve.
+H_QAI,QAI,etf,basket,QAI,True,benchmark_proxy,QAI,Multi-Strategy,Absolute Return,Global / Multi-region,Non-classifiable,proxy,Liquid alternatives sleeve.
+H_ES_SHORT,ES1,future,equity_index,SPY,False,underlying_proxy,SPY,Multi-Sector / Diversified,Equity Index Future,North America,Multi Cap,proxy,Signed notional retained for short overlay.
+H_NQ_SHORT,NQ1,future,equity_index,QQQ,False,underlying_proxy,QQQ,Information Technology,Equity Index Future,North America,Mega Cap,proxy,Short technology beta hedge.
+H_SPY_PUT,SPY_PUT,listed_option,equity_index,SPY,False,underlying_proxy,SPY,Multi-Sector / Diversified,Equity Index Option,North America,Multi Cap,proxy,Delta-adjusted option hedge.
+H_HSI_FUT,HSI1,future,equity_index,2800.HK,False,underlying_proxy,2800.HK,Multi-Sector / Diversified,Equity Index Future,Greater China,Large Cap,proxy,Directional Greater China tactical future.
+H_GMACRO,GMACRO,fund,mandate_proxy,ACWI,False,mandate_proxy,ACWI,Multi-Strategy,Global Macro,Global / Multi-region,Non-classifiable,proxy,Monthly-dealing macro sleeve.
+H_MKTNEUT,MKTNEUT,fund,mandate_proxy,ACWI,False,mandate_proxy,ACWI,Multi-Strategy,Equity Market Neutral,Global / Multi-region,Non-classifiable,proxy,Absolute return sleeve.
+H_DBC,DBC,etf,basket,DBC,True,benchmark_proxy,DBC,Commodities,Broad Commodities,Global / Multi-region,Non-classifiable,proxy,Commodity diversifier.
+H_VNQ,VNQ,etf,basket,VNQ,True,lookthrough,VNQ,Real Estate,REITs,North America,Mid Cap,lookthrough,Listed real estate proxy.

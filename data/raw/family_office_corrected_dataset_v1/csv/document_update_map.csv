@@ -1,0 +1,7 @@
+document_id,extracted_data_written_to,validated_against,dashboard_impact
+PDF_001,capital_calls.csv,private_fund_master.csv; private_fund_positions.csv; cash_accounts.csv,Capital call calendar; liquidity forecast; unfunded commitment view
+PDF_002,capital_calls.csv; validation_results.csv; review_queue.csv,fund_aliases.csv; due date rules; required field rules; cash sufficiency rules,Exception flag and pending review item
+PDF_003,distributions.csv,private_fund_master.csv; component sum rules; cash account records,Expected cash inflow and private market cash flow view
+PDF_004,capital_statements.csv,private_fund_positions.csv; NAV roll-forward rules,Official NAV; paid-in capital; unfunded commitments
+PDF_005,capital_statements.csv; validation_results.csv; review_queue.csv,private_fund_positions.csv; NAV roll-forward and commitment consistency rules,NAV mismatch and commitment mismatch flag
+PDF_006,newsletter_updates.csv,private_fund_master.csv; qualitative review rules,Fund commentary; risk notes; expected capital activity

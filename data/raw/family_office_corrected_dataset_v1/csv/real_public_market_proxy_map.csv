@@ -1,0 +1,37 @@
+holding_id,holding_name,ticker_or_proxy,use_in_final_risk_module,current_dataset_source,final_dataset_source,notes
+H_SPY,SPDR S&P 500 ETF,SPY,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Broad US equity beta.
+H_QQQ,Invesco QQQ Trust,QQQ,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Technology-heavy growth proxy.
+H_ACWI,iShares MSCI ACWI ETF,ACWI,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Global developed and emerging exposure.
+H_BRKB,Berkshire Hathaway Class B,BRK.B,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_MSFT,Microsoft,MSFT,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_GOOGL,Alphabet Class A,GOOGL,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_NVDA,NVIDIA,NVDA,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_2800HK,Tracker Fund of Hong Kong ETF,2800.HK,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Greater China public equity exposure.
+H_HSTECH,Hang Seng TECH ETF-style Exposure,3067.HK,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Greater China technology beta.
+H_BABA,Alibaba ADR,BABA,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_PDD,PDD Holdings ADR,PDD,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_JD,JD.com ADR,JD,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Single-name equity.
+H_CNYA,iShares MSCI China A ETF,CNYA,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,A-shares allocation.
+H_EWJ,iShares MSCI Japan ETF,EWJ,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Japan allocation.
+H_INDA,iShares MSCI India ETF,INDA,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,India allocation.
+H_EWY,iShares MSCI South Korea ETF,EWY,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Korea allocation.
+H_EWS,iShares MSCI Singapore ETF,EWS,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Southeast Asia allocation.
+H_EEM,iShares MSCI Emerging Markets ETF,EEM,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Broad EM exposure.
+H_AGG,iShares Core US Aggregate Bond ETF,AGG,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Bond beta.
+H_TLT,iShares 20+ Year Treasury Bond ETF,TLT,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Rates exposure.
+H_IGIB,iShares 5-10 Year Investment Grade Corporate Bond ETF,IGIB,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Credit exposure.
+H_HYG,iShares High Yield Corporate Bond ETF,HYG,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,High-yield exposure.
+H_EMB,iShares Emerging Markets Bond ETF,EMB,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Emerging market debt exposure.
+H_LQD,iShares Investment Grade Corporate Bond ETF,LQD,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Additional credit exposure.
+H_GLD,SPDR Gold Shares,GLD,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Defensive gold allocation.
+H_BIL,SPDR 1-3 Month T-Bill ETF,BIL,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,T-bill sleeve and risk-free proxy anchor.
+H_DBMF,Managed Futures ETF Proxy,DBMF,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Liquid alternatives sleeve.
+H_QAI,Multi-Strategy Liquid Alternatives ETF Proxy,QAI,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Liquid alternatives sleeve.
+H_ES_SHORT,S&P 500 Overlay Short Future,SPY,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Signed notional retained for short overlay.
+H_NQ_SHORT,Nasdaq Overlay Short Future,QQQ,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Short technology beta hedge.
+H_SPY_PUT,S&P 500 Protective Put Overlay,SPY,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Delta-adjusted option hedge.
+H_HSI_FUT,Hang Seng Index Tactical Long Future,2800.HK,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Directional Greater China tactical future.
+H_GMACRO,Global Macro Hedge Fund Sleeve,ACWI,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Monthly-dealing macro sleeve.
+H_MKTNEUT,Equity Market Neutral Fund Sleeve,ACWI,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Absolute return sleeve.
+H_DBC,Broad Commodities ETF Proxy,DBC,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Commodity diversifier.
+H_VNQ,US Listed REIT ETF Proxy,VNQ,True,synthetic_v1_dataset_generator,synthetic_v1_dataset_generator,Listed real estate proxy.

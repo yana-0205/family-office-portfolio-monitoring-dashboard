@@ -1,0 +1,841 @@
+date,fund_id,fund_name,nav_usd_m,investment_geography,mandate_sector,strategy,source
+2023-01-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,25.7859,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-02-28,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,26.1502,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-03-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,26.5575,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-04-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,26.9864,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-05-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,27.415,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-06-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,27.8236,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-07-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,28.1964,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-08-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,28.5215,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-09-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,28.7903,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-10-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,28.9969,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-11-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.1382,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-12-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.214,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-01-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.2294,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-02-29,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.1959,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-03-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.1326,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-04-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.0652,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-05-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.0228,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-06-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.0345,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-07-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.1237,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-08-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.3051,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-09-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.5811,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-10-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,29.942,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-11-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,30.3669,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2024-12-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,30.8276,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-01-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,31.2932,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-02-28,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,31.7356,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-03-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,32.1338,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-04-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,32.4764,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-05-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,32.7616,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-06-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,32.9951,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-07-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.1875,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-08-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.3504,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-09-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.4956,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-10-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.6338,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-11-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.7762,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2025-12-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,33.935,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2026-01-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,34.1239,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2026-02-28,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,34.3571,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2026-03-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,34.6468,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2026-04-30,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,35.0,North America,Industrials,Buyout,synthetic_v1_dataset_generator
+2023-01-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,22.1022,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-02-28,PF_HARBOR_PEAK_V,Harbor Peak Partners V,22.4144,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-03-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,22.7635,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-04-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,23.1312,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-05-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,23.4985,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-06-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,23.8488,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-07-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.1684,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-08-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.447,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-09-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.6774,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-10-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.8545,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-11-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.9756,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-12-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.0406,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-01-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.0537,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-02-29,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.0251,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-03-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.9708,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-04-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.913,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-05-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.8767,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-06-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.8867,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-07-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,24.9632,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-08-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.1186,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-09-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.3553,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-10-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,25.6646,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-11-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,26.0288,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-12-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,26.4236,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-01-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,26.8227,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-02-28,PF_HARBOR_PEAK_V,Harbor Peak Partners V,27.2019,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-03-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,27.5433,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-04-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,27.8369,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-05-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.0813,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-06-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.2816,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-07-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.4464,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-08-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.5861,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-09-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.7105,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-10-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.829,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-11-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,28.9511,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-12-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,29.0872,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-01-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,29.2491,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-02-28,PF_HARBOR_PEAK_V,Harbor Peak Partners V,29.4489,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-03-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,29.6973,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-04-30,PF_HARBOR_PEAK_V,Harbor Peak Partners V,30.0,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-01-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,16.2083,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-02-28,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,16.4373,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-03-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,16.6933,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-04-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,16.9629,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-05-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,17.2323,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-06-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,17.4891,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-07-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,17.7235,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-08-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,17.9278,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-09-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.0967,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-10-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.2266,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-11-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3154,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-12-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3631,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-01-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3727,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-02-29,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3517,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-03-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3119,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-04-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.2695,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-05-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.2429,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-06-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.2502,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-07-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.3063,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-08-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.4203,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-09-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.5939,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-10-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,18.8207,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-11-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,19.0878,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2024-12-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,19.3773,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-01-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,19.67,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-02-28,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,19.9481,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-03-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.1984,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-04-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.4137,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-05-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.593,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-06-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.7398,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-07-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.8607,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-08-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,20.9631,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-09-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.0544,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-10-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.1413,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-11-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.2308,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2025-12-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.3306,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2026-01-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.4493,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2026-02-28,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.5959,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2026-03-31,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,21.778,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2026-04-30,PF_ATLAS_COINV_I,Atlas Co-Investment Fund I,22.0,North America,Business Services,Co-investment,synthetic_v1_dataset_generator
+2023-01-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,14.7348,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-02-28,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,14.943,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-03-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,15.1757,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-04-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,15.4208,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-05-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,15.6657,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-06-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,15.8992,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-07-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.1122,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-08-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.298,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-09-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.4516,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-10-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.5697,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-11-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6504,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-12-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6937,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-01-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.7025,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-02-29,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6834,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-03-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6472,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-04-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6087,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-05-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.5845,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-06-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.5911,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-07-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.6421,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-08-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.7458,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-09-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,16.9035,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-10-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,17.1097,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-11-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,17.3525,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2024-12-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,17.6157,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-01-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,17.8818,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-02-28,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.1346,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-03-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.3622,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-04-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.5579,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-05-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.7209,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-06-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.8544,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-07-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,18.9643,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-08-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.0574,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-09-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.1403,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-10-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.2193,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-11-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.3007,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2025-12-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.3914,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-01-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.4994,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-02-28,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.6326,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-03-31,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,19.7982,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2026-04-30,PF_APEX_SECONDARIES_II,Apex Secondaries Fund II,20.0,Global / Multi-region,Diversified / Secondaries,Secondaries,synthetic_v1_dataset_generator
+2023-01-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,20.6287,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-02-28,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,20.9201,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-03-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,21.246,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-04-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,21.5891,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-05-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,21.932,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-06-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,22.2589,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-07-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,22.5571,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-08-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,22.8172,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-09-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.0322,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-10-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.1976,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-11-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.3105,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-12-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.3712,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-01-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.3835,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-02-29,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.3567,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-03-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.3061,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-04-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.2522,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-05-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.2183,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-06-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.2276,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-07-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.299,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-08-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.4441,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-09-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.6649,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-10-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,23.9536,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-11-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,24.2935,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2024-12-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,24.662,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-01-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,25.0345,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-02-28,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,25.3885,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-03-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,25.707,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-04-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,25.9811,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-05-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.2093,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-06-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.3961,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-07-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.55,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-08-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.6803,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-09-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.7965,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-10-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,26.9071,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-11-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,27.021,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2025-12-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,27.148,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2026-01-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,27.2991,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2026-02-28,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,27.4857,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2026-03-31,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,27.7174,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2026-04-30,PF_DRAGONBRIDGE,DragonBridge Greater China Fund,28.0,Greater China,Consumer / Industrials,Asia Buyout / Greater China,synthetic_v1_dataset_generator
+2023-01-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,12.7074,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-02-28,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,12.9714,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-03-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,13.2553,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-04-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,13.5392,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-05-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,13.8051,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-06-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.0389,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-07-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.2323,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-08-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.3821,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-09-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.4886,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-10-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.5539,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-11-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.5807,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-12-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.5722,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-01-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.5333,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-02-29,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.4725,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-03-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.4025,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-04-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.3406,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-05-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.3064,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-06-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.3189,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-07-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.3929,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-08-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.5359,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-09-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,14.7462,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-10-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,15.0124,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-11-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,15.3147,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2024-12-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,15.6282,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-01-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,15.9273,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-02-28,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.1908,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-03-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.4058,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-04-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.5698,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-05-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.6893,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-06-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.7768,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-07-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.8467,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-08-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.9117,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-09-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,16.981,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-10-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.0604,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-11-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.1536,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2025-12-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.2645,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2026-01-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.3982,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2026-02-28,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.5615,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2026-03-31,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,17.7609,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2026-04-30,PF_BLUE_HORIZON_III,Blue Horizon Ventures III,18.0,North America,Information Technology,US Technology VC,synthetic_v1_dataset_generator
+2023-01-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,14.1193,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-02-28,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,14.4127,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-03-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,14.7281,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-04-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.0436,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-05-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.339,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-06-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.5988,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-07-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.8137,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-08-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.9801,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-09-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.0984,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-10-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.171,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-11-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.2008,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-12-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.1913,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-01-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.1481,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-02-29,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.0805,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-03-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.0028,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-04-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.9341,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-05-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.896,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-06-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.9099,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-07-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,15.9921,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-08-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.151,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-09-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.3847,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-10-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,16.6804,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-11-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,17.0164,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2024-12-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,17.3647,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-01-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,17.697,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-02-28,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,17.9897,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-03-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.2287,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-04-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.4109,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-05-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.5437,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-06-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.6409,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-07-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.7186,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-08-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.7908,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-09-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.8678,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-10-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,18.956,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-11-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,19.0596,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2025-12-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,19.1827,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2026-01-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,19.3313,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2026-02-28,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,19.5127,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2026-03-31,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,19.7343,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2026-04-30,PF_GLOBAL_GROWTH_II,Redwood Growth Fund II,20.0,Global / Multi-region,Information Technology / Consumer,Global Growth Equity,synthetic_v1_dataset_generator
+2023-01-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.0597,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-02-28,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.2063,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-03-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.364,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-04-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.5218,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-05-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.6695,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-06-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.7994,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-07-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.9068,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-08-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.99,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-09-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0492,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-10-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0855,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-11-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.1004,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-12-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0956,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-01-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0741,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-02-29,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0403,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-03-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0014,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-04-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.967,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-05-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.948,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-06-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.9549,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-07-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,7.996,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-08-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.0755,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-09-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.1923,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-10-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.3402,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-11-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.5082,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2024-12-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.6823,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-01-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.8485,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-02-28,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,8.9949,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-03-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.1144,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-04-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.2055,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-05-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.2718,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-06-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.3205,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-07-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.3593,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-08-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.3954,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-09-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.4339,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-10-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.478,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-11-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.5298,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2025-12-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.5914,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2026-01-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.6657,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2026-02-28,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.7564,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2026-03-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,9.8671,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2026-04-30,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,10.0,Southeast Asia,Information Technology / Consumer,Southeast Asia VC,synthetic_v1_dataset_generator
+2023-01-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,8.4716,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-02-28,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,8.6476,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-03-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,8.8368,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-04-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.0261,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-05-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.2034,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-06-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.3593,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-07-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.4882,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-08-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.5881,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-09-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.659,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-10-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.7026,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-11-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.7205,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-12-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.7148,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-01-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.6889,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-02-29,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.6483,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-03-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.6017,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-04-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.5604,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-05-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.5376,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-06-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.5459,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-07-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.5952,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-08-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.6906,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-09-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,9.8308,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-10-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.0083,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-11-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.2098,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2024-12-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.4188,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-01-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.6182,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-02-28,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.7938,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-03-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,10.9372,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-04-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.0466,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-05-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.1262,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-06-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.1845,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-07-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.2311,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-08-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.2745,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-09-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.3207,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-10-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.3736,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-11-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.4358,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2025-12-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.5096,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2026-01-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.5988,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2026-02-28,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.7076,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2026-03-31,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,11.8406,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2026-04-30,PF_INDIA_DIGITAL,Indigo India Digital Growth Fund,12.0,India,Information Technology,India Digital Growth,synthetic_v1_dataset_generator
+2023-01-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,10.5895,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-02-28,PF_CLIMATE_ALPHA,Climate Alpha Fund,10.8095,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-03-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.046,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-04-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.2827,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-05-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.5042,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-06-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.6991,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-07-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.8603,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-08-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.9851,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-09-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.0738,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-10-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.1282,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-11-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.1506,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-12-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.1435,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-01-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.1111,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-02-29,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.0604,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-03-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.0021,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-04-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.9505,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-05-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.922,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-06-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.9324,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-07-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,11.994,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-08-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.1132,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-09-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.2885,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-10-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.5103,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-11-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,12.7623,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2024-12-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.0235,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-01-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.2727,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-02-28,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.4923,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-03-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.6715,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-04-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.8082,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-05-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.9078,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-06-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,13.9807,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-07-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.0389,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-08-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.0931,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-09-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.1509,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-10-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.217,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-11-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.2947,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2025-12-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.3871,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2026-01-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.4985,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2026-02-28,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.6346,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2026-03-31,PF_CLIMATE_ALPHA,Climate Alpha Fund,14.8007,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2026-04-30,PF_CLIMATE_ALPHA,Climate Alpha Fund,15.0,Global / Multi-region,Climate / Industrials,Climate Technology,synthetic_v1_dataset_generator
+2023-01-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,15.7298,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-02-28,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,15.9105,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-03-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.0961,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-04-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.2755,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-05-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.4395,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-06-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.5823,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-07-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.7021,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-08-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.7999,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-09-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.8783,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-10-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.9403,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-11-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,16.9883,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-12-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.0242,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-01-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.0497,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-02-29,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.0679,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-03-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.084,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-04-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.1055,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-05-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.1416,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-06-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.2016,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-07-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.2924,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-08-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.4176,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-09-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.575,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-10-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.7575,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-11-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,17.9535,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2024-12-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.1495,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-01-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.3327,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-02-28,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.4935,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-03-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.6275,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-04-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.7361,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-05-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.825,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-06-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.9024,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-07-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,18.9768,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-08-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.0546,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-09-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.1396,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-10-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.2331,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-11-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.3351,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2025-12-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.4454,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2026-01-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.5648,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2026-02-28,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.6955,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2026-03-31,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,19.84,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2026-04-30,PF_CRESCENT_DIRECT_LEND,Crescent Direct Lending Fund,20.0,North America,Diversified Credit,Senior Direct Lending,synthetic_v1_dataset_generator
+2023-01-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,13.3704,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-02-28,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,13.5239,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-03-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,13.6817,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-04-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,13.8342,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-05-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,13.9735,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-06-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.095,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-07-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.1968,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-08-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.2799,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-09-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.3465,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-10-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.3992,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-11-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.4401,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-12-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.4706,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-01-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.4922,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-02-29,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.5077,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-03-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.5214,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-04-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.5397,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-05-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.5704,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-06-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.6213,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-07-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.6986,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-08-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.8049,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-09-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,14.9387,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-10-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.0938,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-11-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.2605,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2024-12-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.4271,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-01-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.5828,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-02-28,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.7195,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-03-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.8334,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-04-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,15.9257,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-05-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.0012,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-06-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.0671,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-07-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.1303,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-08-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.1964,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-09-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.2686,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-10-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.3481,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-11-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.4348,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2025-12-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.5286,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2026-01-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.6301,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2026-02-28,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.7411,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2026-03-31,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,16.864,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2026-04-30,PF_SPRING_OPP_CREDIT,Spring Point Opportunistic Credit Fund,17.0,Global / Multi-region,Special Situations Credit,Opportunistic Credit,synthetic_v1_dataset_generator
+2023-01-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.0109,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-02-28,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.1374,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-03-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.2673,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-04-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.3928,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-05-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.5076,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-06-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.6076,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-07-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.6915,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-08-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.7599,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-09-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.8148,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-10-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.8582,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-11-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.8918,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-12-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9169,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-01-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9348,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-02-29,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9475,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-03-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9588,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-04-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9739,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-05-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,11.9992,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-06-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.0411,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-07-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.1047,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-08-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.1923,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-09-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.3025,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-10-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.4302,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-11-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.5674,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2024-12-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.7047,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-01-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.8329,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-02-28,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,12.9454,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-03-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.0393,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-04-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.1153,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-05-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.1775,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-06-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.2317,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-07-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.2837,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-08-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.3382,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-09-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.3977,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-10-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.4632,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-11-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.5346,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2025-12-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.6118,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2026-01-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.6954,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2026-02-28,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.7868,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2026-03-31,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,13.888,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2026-04-30,PF_COVE_SPECIALTY_FIN,Cove Specialty Finance Fund,14.0,North America,Financials,Specialty Finance,synthetic_v1_dataset_generator
+2023-01-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,12.9771,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-02-28,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.1262,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-03-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.2793,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-04-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.4273,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-05-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.5626,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-06-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.6804,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-07-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.7793,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-08-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.8599,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-09-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.9246,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-10-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,13.9757,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-11-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.0154,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-12-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.0449,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-01-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.066,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-02-29,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.081,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-03-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.0943,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-04-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.1121,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-05-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.1419,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-06-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.1913,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-07-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.2663,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-08-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.3695,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-09-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.4994,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-10-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.6499,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-11-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.8116,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2024-12-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,14.9734,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-01-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.1245,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-02-28,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.2571,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-03-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.3677,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-04-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.4573,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-05-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.5306,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-06-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.5945,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-07-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.6558,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-08-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.72,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-09-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.7901,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-10-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.8673,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-11-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,15.9515,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2025-12-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,16.0424,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2026-01-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,16.141,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2026-02-28,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,16.2488,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2026-03-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,16.368,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2026-04-30,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,16.5,Southeast Asia,Diversified Credit,Asia Private Credit,synthetic_v1_dataset_generator
+2023-01-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,15.9903,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-02-28,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,16.2088,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-03-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,16.4312,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-04-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,16.6421,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-05-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,16.8281,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-06-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,16.9802,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-07-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.0943,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-08-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1708,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-09-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.2135,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-10-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.2282,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-11-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.2209,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-12-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1979,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-01-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1658,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-02-29,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1324,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-03-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1065,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-04-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.0984,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-05-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1186,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-06-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.1765,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-07-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.2778,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-08-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.4234,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-09-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.6083,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-10-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,17.8215,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-11-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.0473,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2024-12-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.2682,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-01-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.468,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-02-28,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.6347,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-03-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.7628,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-04-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.8542,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-05-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.9165,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-06-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.9611,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-07-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,18.9999,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-08-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.0436,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-09-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.0994,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-10-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.1719,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-11-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.2626,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2025-12-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.3724,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2026-01-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.5012,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2026-02-28,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.6494,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2026-03-31,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,19.8164,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2026-04-30,PF_HARBOUR_CORE_RE,Harbour Core Real Estate Fund,20.0,Global / Multi-region,Real Estate,Core Real Estate,synthetic_v1_dataset_generator
+2023-01-31,PF_METRO_LOGISTICS,Metro Logistics Fund,9.994,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-02-28,PF_METRO_LOGISTICS,Metro Logistics Fund,10.1305,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-03-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.2695,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-04-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.4013,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-05-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.5176,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-06-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.6126,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-07-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.6839,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-08-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7317,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-09-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7585,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-10-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7676,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-11-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.763,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-12-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7487,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-01-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7287,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-02-29,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7077,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-03-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.6916,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-04-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.6865,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-05-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.6992,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-06-30,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7353,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-07-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.7986,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-08-31,PF_METRO_LOGISTICS,Metro Logistics Fund,10.8896,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-09-30,PF_METRO_LOGISTICS,Metro Logistics Fund,11.0052,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-10-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.1384,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-11-30,PF_METRO_LOGISTICS,Metro Logistics Fund,11.2795,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2024-12-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.4176,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-01-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.5425,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-02-28,PF_METRO_LOGISTICS,Metro Logistics Fund,11.6467,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-03-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.7268,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-04-30,PF_METRO_LOGISTICS,Metro Logistics Fund,11.7839,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-05-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.8228,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-06-30,PF_METRO_LOGISTICS,Metro Logistics Fund,11.8507,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-07-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.875,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-08-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.9022,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-09-30,PF_METRO_LOGISTICS,Metro Logistics Fund,11.9372,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-10-31,PF_METRO_LOGISTICS,Metro Logistics Fund,11.9824,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-11-30,PF_METRO_LOGISTICS,Metro Logistics Fund,12.0391,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2025-12-31,PF_METRO_LOGISTICS,Metro Logistics Fund,12.1077,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2026-01-31,PF_METRO_LOGISTICS,Metro Logistics Fund,12.1883,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2026-02-28,PF_METRO_LOGISTICS,Metro Logistics Fund,12.2809,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2026-03-31,PF_METRO_LOGISTICS,Metro Logistics Fund,12.3853,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2026-04-30,PF_METRO_LOGISTICS,Metro Logistics Fund,12.5,Southeast Asia,Industrial Real Estate,Logistics Real Estate,synthetic_v1_dataset_generator
+2023-01-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,9.5942,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-02-28,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,9.7253,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-03-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,9.8587,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-04-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,9.9853,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-05-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.0969,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-06-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.1881,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-07-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.2566,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-08-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3025,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-09-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3281,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-10-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3369,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-11-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3325,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-12-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3187,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-01-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.2995,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-02-29,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.2794,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-03-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.2639,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-04-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.259,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-05-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.2712,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-06-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3059,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-07-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.3667,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-08-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.4541,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-09-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.565,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-10-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.6929,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-11-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.8284,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2024-12-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,10.9609,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-01-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.0808,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-02-28,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.1808,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-03-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.2577,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-04-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.3125,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-05-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.3499,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-06-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.3766,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-07-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.4,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-08-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.4261,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-09-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.4597,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-10-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.5031,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-11-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.5576,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2025-12-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.6234,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2026-01-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.7007,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2026-02-28,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.7897,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2026-03-31,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,11.8898,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2026-04-30,PF_HOME_MULTIFAMILY,HomeStone Multifamily Fund,12.0,North America,Residential Real Estate,US Multifamily,synthetic_v1_dataset_generator
+2023-01-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.3961,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-02-28,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.4835,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-03-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.5725,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-04-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.6568,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-05-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.7313,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-06-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.7921,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-07-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8377,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-08-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8683,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-09-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8854,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-10-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8913,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-11-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8883,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-12-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8791,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-01-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8663,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-02-29,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.853,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-03-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8426,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-04-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8394,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-05-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8475,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-06-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.8706,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-07-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.9111,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-08-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,6.9694,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-09-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.0433,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-10-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.1286,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-11-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.2189,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2024-12-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.3073,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-01-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.3872,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-02-28,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.4539,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-03-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.5051,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-04-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.5417,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-05-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.5666,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-06-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.5844,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-07-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.6,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-08-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.6174,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-09-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.6398,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-10-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.6687,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-11-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.7051,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2025-12-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.7489,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2026-01-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.8005,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2026-02-28,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.8598,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2026-03-31,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,7.9266,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2026-04-30,PF_APAC_LOGISTICS,APAC Logistics Real Estate Fund,8.0,Japan,Industrial Real Estate,APAC Logistics,synthetic_v1_dataset_generator
+2023-01-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,9.509,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-02-28,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,9.6324,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-03-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,9.7546,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-04-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,9.8674,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-05-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,9.9643,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-06-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.0416,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-07-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.0984,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-08-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1366,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-09-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1597,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-10-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1714,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-11-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1756,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-12-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1755,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-01-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1741,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-02-29,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1744,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-03-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1801,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-04-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.1958,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-05-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.2262,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-06-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.2755,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-07-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.3463,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-08-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.4387,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-09-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.5495,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-10-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.6726,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-11-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.7996,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2024-12-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,10.9212,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-01-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.0291,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-02-28,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.1179,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-03-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.1858,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-04-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.2353,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-05-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.2716,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-06-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.3017,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-07-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.3326,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-08-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.3696,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-09-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.4161,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-10-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.4733,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-11-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.5407,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2025-12-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.6173,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2026-01-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.7023,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2026-02-28,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.7948,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2026-03-31,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,11.8944,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2026-04-30,PF_INFRA_CORE,Evergreen Core Infrastructure Fund,12.0,Global / Multi-region,Infrastructure,Core Infrastructure,synthetic_v1_dataset_generator
+2023-01-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,7.9242,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-02-28,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.027,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-03-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.1288,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-04-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.2229,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-05-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.3036,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-06-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.368,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-07-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4154,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-08-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4472,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-09-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4664,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-10-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4762,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-11-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4797,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-12-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4796,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-01-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4784,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-02-29,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4786,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-03-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4834,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-04-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.4965,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-05-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.5219,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-06-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.5629,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-07-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.6219,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-08-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.6989,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-09-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.7913,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-10-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.8939,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-11-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,8.9997,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2024-12-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.101,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-01-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.1909,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-02-28,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.2649,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-03-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.3215,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-04-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.3627,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-05-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.393,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-06-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.4181,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-07-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.4438,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-08-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.4747,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-09-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.5134,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-10-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.561,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-11-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.6172,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2025-12-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.6811,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2026-01-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.7519,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2026-02-28,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.829,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2026-03-31,PF_RENEWABLES_II,SolarBridge Renewables Fund II,9.912,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2026-04-30,PF_RENEWABLES_II,SolarBridge Renewables Fund II,10.0,Global / Multi-region,Utilities / Infrastructure,Renewables,synthetic_v1_dataset_generator
+2023-01-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.3393,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-02-28,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.4216,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-03-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.5031,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-04-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.5783,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-05-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.6429,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-06-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.6944,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-07-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7323,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-08-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7578,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-09-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7731,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-10-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7809,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-11-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7837,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2023-12-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7837,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-01-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7827,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-02-29,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7829,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-03-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7868,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-04-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.7972,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-05-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.8175,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-06-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.8503,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-07-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.8975,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-08-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,6.9591,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-09-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.033,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-10-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.1151,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-11-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.1997,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2024-12-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.2808,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-01-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.3527,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-02-28,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.4119,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-03-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.4572,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-04-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.4902,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-05-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.5144,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-06-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.5345,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-07-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.555,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-08-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.5797,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-09-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.6107,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-10-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.6488,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-11-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.6938,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2025-12-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.7449,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2026-01-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.8015,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2026-02-28,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.8632,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2026-03-31,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,7.9296,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator
+2026-04-30,PF_DIGITAL_INFRA,Horizon Digital Infrastructure Fund,8.0,Global / Multi-region,Diversified,Digital Infrastructure,synthetic_v1_dataset_generator

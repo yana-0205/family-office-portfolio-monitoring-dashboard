@@ -1,0 +1,63 @@
+{
+  "document_id": "PDF_006",
+  "document_type": "newsletter",
+  "document_filename": "PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
+  "extraction_mode": "baseline",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
+  "fund_name_raw": "Blue Horizon Ventures III",
+  "fund_name_mapped": "Blue Horizon Ventures III",
+  "investor_entity": null,
+  "notice_date": "2026-05-20",
+  "reporting_period": "Q1 2026 / April 2026 update",
+  "currency": "USD",
+  "extracted_fields": {
+    "market_themes": [
+      "AI infrastructure",
+      "enterprise software efficiency",
+      "slower late-stage exit market"
+    ],
+    "new_investments": [
+      "Two new Series B investments"
+    ],
+    "exits": [],
+    "risk_notes": [
+      "Exit timing",
+      "revenue multiple compression",
+      "follow-on financing risk"
+    ],
+    "valuation_commentary": [
+      "\\177 Portfolio marks are broadly stable with modest uplift in top quartile names."
+    ],
+    "expected_capital_activity": [
+      "USD 1.0m to 2.0m in Q3 2026"
+    ],
+    "qualitative_confidence_score": 0.84
+  },
+  "source_references": [
+    {
+      "page": 1,
+      "field_name": "market_themes",
+      "evidence_text": "Blue Horizon Ventures III continued to focus on AI infrastructure, enterprise software efficiency, and workflow"
+    },
+    {
+      "page": 1,
+      "field_name": "new_investments",
+      "evidence_text": "Two new Series B investments"
+    },
+    {
+      "page": 1,
+      "field_name": "risk_notes",
+      "evidence_text": "Exit timing"
+    },
+    {
+      "page": 1,
+      "field_name": "expected_capital_activity",
+      "evidence_text": "USD 1.0m to 2.0m in Q3 2026"
+    }
+  ],
+  "confidence_score": 0.85,
+  "extraction_status": "extracted",
+  "validation_status": "pending",
+  "review_status": "pending",
+  "warnings": []
+}

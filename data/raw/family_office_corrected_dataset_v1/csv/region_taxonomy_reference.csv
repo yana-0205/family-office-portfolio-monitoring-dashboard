@@ -1,0 +1,9 @@
+region_code,region_taxonomy,parent_region,description
+NA,North America,Americas,United States and Canada exposure.
+GC,Greater China,Asia,"China, Hong Kong, and Taiwan-related exposure."
+IN,India,Asia,India exposure.
+SEA,Southeast Asia,Asia,Singapore and ASEAN exposure.
+JP,Japan,Asia,Japan exposure.
+KR,Korea,Asia,South Korea exposure.
+EU,Europe,EMEA,Europe exposure.
+GL,Global / Multi-region,Global,Diversified or global exposure.

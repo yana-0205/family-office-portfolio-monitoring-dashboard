@@ -1,0 +1,5 @@
+entity_id,entity_name,entity_type,jurisdiction,reporting_currency,owner_group,base_location,status
+ENT_ATLAS_INV_USD,Atlas Family Office Investment Entity,Investment Vehicle,Singapore,USD,Atlas Family Office,Singapore,Active
+ENT_ATLAS_TREASURY,Atlas Family Office Treasury,Treasury Vehicle,Singapore,USD,Atlas Family Office,Singapore,Active
+ENT_ATLAS_HOLDCO,Atlas Family Office HoldCo,HoldCo,Singapore,USD,Atlas Family Office,Singapore,Active
+ENT_ATLAS_CHARITY,Atlas Family Office Foundation,Foundation,Singapore,USD,Atlas Family Office,Singapore,Active

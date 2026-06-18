@@ -1,0 +1,50 @@
+document_id,document_type,field_name,expected_value,expected_unit,source_section_or_page,required_flag,validation_rule_id,tolerance
+PDF_001,Capital Call Letter,fund_name,Northstar Buyout Fund IV,text,Page 1,Y,VR001,
+PDF_001,Capital Call Letter,notice_date,2026-05-10,date,Page 1,Y,VR002,
+PDF_001,Capital Call Letter,due_date,2026-05-24,date,Page 1,Y,VR003,
+PDF_001,Capital Call Letter,amount_due,4.2,USD_m,Page 1,Y,VR004,0.01
+PDF_001,Capital Call Letter,investment_call,3.8,USD_m,Page 1,Y,,0.01
+PDF_001,Capital Call Letter,management_fee,0.25,USD_m,Page 1,Y,,0.01
+PDF_001,Capital Call Letter,partnership_expense,0.15,USD_m,Page 1,Y,,0.01
+PDF_001,Capital Call Letter,unfunded_commitment_after,15.8,USD_m,Page 1,Y,VR005,0.01
+PDF_002,Capital Call Letter with Exception,raw_fund_name,SeedSpring SEA VC I,text,Page 1,Y,VR008,
+PDF_002,Capital Call Letter with Exception,mapped_fund_name,SeedSpring Southeast Asia VC Fund I,text,Page 1,Y,VR001,
+PDF_002,Capital Call Letter with Exception,notice_date,2026-05-17,date,Page 1,Y,VR002,
+PDF_002,Capital Call Letter with Exception,due_date,2026-05-22,date,Page 1,Y,VR003,
+PDF_002,Capital Call Letter with Exception,amount_due,2.75,USD_m,Page 1,Y,VR004,0.01
+PDF_002,Capital Call Letter with Exception,unfunded_commitment_after,MISSING,text,Page 1,Y,VR002,
+PDF_003,Distribution Letter,fund_name,Harbor Peak Partners V,text,Page 1,Y,VR001,
+PDF_003,Distribution Letter,payment_date,2026-05-31,date,Page 1,Y,VR002,
+PDF_003,Distribution Letter,gross_distribution,3.1,USD_m,Page 1,Y,VR007,0.01
+PDF_003,Distribution Letter,return_of_capital,2.2,USD_m,Page 1,Y,VR007,0.01
+PDF_003,Distribution Letter,realized_gain,0.7,USD_m,Page 1,Y,VR007,0.01
+PDF_003,Distribution Letter,income,0.2,USD_m,Page 1,Y,VR007,0.01
+PDF_003,Distribution Letter,net_distribution,3.1,USD_m,Page 1,Y,VR007,0.01
+PDF_004,Capital Statement / PCAP,fund_name,Northstar Buyout Fund IV,text,Page 1,Y,VR001,
+PDF_004,Capital Statement / PCAP,period_end,2026-03-31,date,Page 1,Y,VR002,
+PDF_004,Capital Statement / PCAP,beginning_nav,31.4,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,contributions,1.8,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,fees_expenses,-0.25,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,realized_gain_loss,0.85,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,unrealized_gain_loss,1.2,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,ending_nav,35.0,USD_m,Page 1,Y,VR006,0.01
+PDF_004,Capital Statement / PCAP,paid_in_capital,40.0,USD_m,Page 1,Y,VR005,0.01
+PDF_004,Capital Statement / PCAP,unfunded_commitment,20.0,USD_m,Page 1,Y,VR005,0.01
+PDF_005,Capital Statement with Exception,fund_name,LionRock Asia Private Credit Fund,text,Page 1,Y,VR001,
+PDF_005,Capital Statement with Exception,period_end,2026-03-31,date,Page 1,Y,VR002,
+PDF_005,Capital Statement with Exception,beginning_nav,18.0,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,contributions,0.5,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,distributions,-0.2,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,fees_expenses,-0.1,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,realized_gain_loss,0.4,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,unrealized_gain_loss,0.5,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,stated_ending_nav,20.0,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,calculated_ending_nav,19.1,USD_m,Page 1,Y,VR006,0.01
+PDF_005,Capital Statement with Exception,paid_in_plus_unfunded,19.0,USD_m,Page 1,Y,VR005,0.01
+PDF_005,Capital Statement with Exception,commitment,20.0,USD_m,Page 1,Y,VR005,0.01
+PDF_006,Quarterly Investor Newsletter,fund_name,Blue Horizon Ventures III,text,Page 1,Y,VR001,
+PDF_006,Quarterly Investor Newsletter,period,Q1 2026 / April 2026 update,text,Page 1,Y,VR002,
+PDF_006,Quarterly Investor Newsletter,market_themes,AI infrastructure; enterprise software efficiency; slower late-stage exit market,text,Page 1,Y,,
+PDF_006,Quarterly Investor Newsletter,new_investments,Two new Series B investments,text,Page 1,Y,,
+PDF_006,Quarterly Investor Newsletter,risk_notes,Exit timing; revenue multiple compression; follow-on financing risk,text,Page 1,Y,,
+PDF_006,Quarterly Investor Newsletter,expected_capital_activity,USD 1.0m to 2.0m in Q3 2026,text,Page 1,Y,,

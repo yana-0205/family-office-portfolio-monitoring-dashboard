@@ -1,0 +1,5 @@
+as_of_date,fund_id,fund_name,pre_paid_in_usd_m,post_paid_in_usd_m,pre_unfunded_usd_m,post_unfunded_usd_m,pre_nav_usd_m,post_nav_estimate_usd_m,source_document_ids,update_status
+2026-05-31,PF_NORTHSTAR_IV,Northstar Buyout Fund IV,40.0,44.2,20.0,15.8,35.0,35.0,"PDF_001, PDF_004",Approved
+2026-05-31,PF_HARBOR_PEAK_V,Harbor Peak Partners V,35.0,35.0,10.0,10.0,30.0,26.9,PDF_003,Approved
+2026-05-31,PF_SEEDSPRING_I,SeedSpring Southeast Asia VC Fund I,13.0,,12.0,,10.0,,PDF_002,Pending Review
+2026-05-31,PF_LIONROCK_CREDIT,LionRock Asia Private Credit Fund,12.0,,8.0,,16.5,,PDF_005,Pending Review

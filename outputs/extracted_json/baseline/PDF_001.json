@@ -1,0 +1,80 @@
+{
+  "document_id": "PDF_001",
+  "document_type": "capital_call",
+  "document_filename": "PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
+  "extraction_mode": "baseline",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
+  "fund_name_raw": "Northstar Buyout Fund IV",
+  "fund_name_mapped": "Northstar Buyout Fund IV",
+  "investor_entity": "Atlas Investment Partners USD Ltd.",
+  "notice_date": "2026-05-10",
+  "reporting_period": "May 2026 event",
+  "currency": "USD",
+  "extracted_fields": {
+    "due_date": "2026-05-24",
+    "amount_due": 4.2,
+    "total_commitment": 60.0,
+    "paid_in_capital": null,
+    "unfunded_commitment": 15.8,
+    "management_fee": 0.25,
+    "partnership_expense": 0.15,
+    "investment_call": 3.8,
+    "urgent_due_date_flag": false,
+    "missing_required_field_flag": false,
+    "bank_instruction_changed_flag": false,
+    "transaction_components": [
+      {
+        "component_type": "investment_call",
+        "amount": 3.8,
+        "currency": "USD"
+      },
+      {
+        "component_type": "management_fee",
+        "amount": 0.25,
+        "currency": "USD"
+      },
+      {
+        "component_type": "partnership_expense",
+        "amount": 0.15,
+        "currency": "USD"
+      }
+    ]
+  },
+  "source_references": [
+    {
+      "page": 1,
+      "field_name": "due_date",
+      "evidence_text": "2026-05-24"
+    },
+    {
+      "page": 1,
+      "field_name": "amount_due",
+      "evidence_text": "USD 4.20 million"
+    },
+    {
+      "page": 1,
+      "field_name": "investment_call",
+      "evidence_text": "USD 3.80 million"
+    },
+    {
+      "page": 1,
+      "field_name": "management_fee",
+      "evidence_text": "USD 0.25 million"
+    },
+    {
+      "page": 1,
+      "field_name": "partnership_expense",
+      "evidence_text": "USD 0.15 million"
+    },
+    {
+      "page": 1,
+      "field_name": "unfunded_commitment",
+      "evidence_text": "USD 15.80 million"
+    }
+  ],
+  "confidence_score": 0.85,
+  "extraction_status": "extracted",
+  "validation_status": "pending",
+  "review_status": "pending",
+  "warnings": []
+}

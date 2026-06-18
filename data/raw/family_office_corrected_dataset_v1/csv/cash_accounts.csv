@@ -1,0 +1,6 @@
+as_of_date,cash_account_id,account_name,currency,entity_id,balance_usd_m,liquidity_bucket,purpose,is_operating_cash,is_soft_liquidity_eligible
+2026-04-30,CASH_OPS_USD,USD Operating Cash,USD,ENT_ATLAS_INV_USD,12.0,Cash,Operating cash for calls and distributions,True,True
+2026-04-30,CASH_RESERVE_USD,USD Liquidity Reserve,USD,ENT_ATLAS_INV_USD,4.5,Cash,Reserve liquidity,False,True
+2026-04-30,CASH_HKD,HKD Working Capital,HKD,ENT_ATLAS_INV_USD,2.4,Cash,Asia working capital,False,True
+2026-04-30,CASH_JPY,JPY Treasury Buffer,JPY,ENT_ATLAS_INV_USD,1.6,Cash,Regional treasury buffer,False,True
+2026-04-30,CASH_SGD,SGD Near-Term Reserve,SGD,ENT_ATLAS_INV_USD,2.0,Cash,Southeast Asia reserve,False,True

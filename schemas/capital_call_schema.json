@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "capital_call_schema.json",
+  "title": "Capital Call Extraction Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "document_type",
+    "document_filename",
+    "extraction_mode",
+    "source_path",
+    "fund_name_raw",
+    "fund_name_mapped",
+    "investor_entity",
+    "notice_date",
+    "reporting_period",
+    "currency",
+    "extracted_fields",
+    "source_references",
+    "confidence_score",
+    "extraction_status",
+    "validation_status",
+    "review_status",
+    "warnings"
+  ],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "examples": ["PDF_001"]
+    },
+    "document_type": {
+      "const": "capital_call"
+    },
+    "document_filename": {
+      "type": "string"
+    },
+    "extraction_mode": {
+      "type": "string",
+      "enum": ["baseline", "llm"]
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "fund_name_raw": {
+      "type": ["string", "null"]
+    },
+    "fund_name_mapped": {
+      "type": ["string", "null"]
+    },
+    "investor_entity": {
+      "type": ["string", "null"]
+    },
+    "notice_date": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "reporting_period": {
+      "type": ["string", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "extracted_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "due_date",
+        "amount_due",
+        "total_commitment",
+        "paid_in_capital",
+        "unfunded_commitment",
+        "management_fee",
+        "partnership_expense",
+        "investment_call",
+        "urgent_due_date_flag",
+        "missing_required_field_flag",
+        "bank_instruction_changed_flag",
+        "transaction_components"
+      ],
+      "properties": {
+        "due_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "amount_due": {
+          "type": ["number", "null"]
+        },
+        "total_commitment": {
+          "type": ["number", "null"]
+        },
+        "paid_in_capital": {
+          "type": ["number", "null"]
+        },
+        "unfunded_commitment": {
+          "type": ["number", "null"]
+        },
+        "management_fee": {
+          "type": ["number", "null"]
+        },
+        "partnership_expense": {
+          "type": ["number", "null"]
+        },
+        "investment_call": {
+          "type": ["number", "null"]
+        },
+        "urgent_due_date_flag": {
+          "type": "boolean"
+        },
+        "missing_required_field_flag": {
+          "type": "boolean"
+        },
+        "bank_instruction_changed_flag": {
+          "type": "boolean"
+        },
+        "transaction_components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["component_type", "amount", "currency"],
+            "properties": {
+              "component_type": {
+                "type": "string"
+              },
+              "amount": {
+                "type": ["number", "null"]
+              },
+              "currency": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page", "field_name", "evidence_text"],
+        "properties": {
+          "page": {
+            "type": ["integer", "string"]
+          },
+          "field_name": {
+            "type": "string"
+          },
+          "evidence_text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "extraction_status": {
+      "type": "string",
+      "enum": ["not_started", "extracted", "partial", "failed"]
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["pending", "passed", "failed", "warning"]
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["pending", "approved", "needs_review", "rejected"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

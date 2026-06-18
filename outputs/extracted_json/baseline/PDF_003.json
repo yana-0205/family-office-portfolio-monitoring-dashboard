@@ -1,0 +1,73 @@
+{
+  "document_id": "PDF_003",
+  "document_type": "distribution",
+  "document_filename": "PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
+  "extraction_mode": "baseline",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
+  "fund_name_raw": "Harbor Peak Partners V",
+  "fund_name_mapped": "Harbor Peak Partners V",
+  "investor_entity": "Atlas Investment Partners USD Ltd.",
+  "notice_date": "2026-05-21",
+  "reporting_period": "May 2026 event",
+  "currency": "USD",
+  "extracted_fields": {
+    "payment_date": "2026-05-31",
+    "gross_distribution": 3.1,
+    "net_distribution": 3.1,
+    "return_of_capital": 2.2,
+    "realized_gain": 0.7,
+    "income": 0.2,
+    "recallable_distribution": null,
+    "withholding": 0.0,
+    "component_sum_check": 3.1,
+    "transaction_components": [
+      {
+        "component_type": "return_of_capital",
+        "amount": 2.2,
+        "currency": "USD"
+      },
+      {
+        "component_type": "realized_gain",
+        "amount": 0.7,
+        "currency": "USD"
+      },
+      {
+        "component_type": "income",
+        "amount": 0.2,
+        "currency": "USD"
+      }
+    ]
+  },
+  "source_references": [
+    {
+      "page": 1,
+      "field_name": "payment_date",
+      "evidence_text": "2026-05-31"
+    },
+    {
+      "page": 1,
+      "field_name": "gross_distribution",
+      "evidence_text": "USD 3.10 million"
+    },
+    {
+      "page": 1,
+      "field_name": "return_of_capital",
+      "evidence_text": "USD 2.20 million"
+    },
+    {
+      "page": 1,
+      "field_name": "realized_gain",
+      "evidence_text": "USD 0.70 million"
+    },
+    {
+      "page": 1,
+      "field_name": "income",
+      "evidence_text": "USD 0.20 million"
+    }
+  ],
+  "confidence_score": 0.85,
+  "extraction_status": "extracted",
+  "validation_status": "pending",
+  "review_status": "pending",
+  "warnings": []
+}

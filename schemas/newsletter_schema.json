@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "newsletter_schema.json",
+  "title": "Newsletter Extraction Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "document_type",
+    "document_filename",
+    "extraction_mode",
+    "source_path",
+    "fund_name_raw",
+    "fund_name_mapped",
+    "investor_entity",
+    "notice_date",
+    "reporting_period",
+    "currency",
+    "extracted_fields",
+    "source_references",
+    "confidence_score",
+    "extraction_status",
+    "validation_status",
+    "review_status",
+    "warnings"
+  ],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "examples": ["PDF_001"]
+    },
+    "document_type": {
+      "const": "newsletter"
+    },
+    "document_filename": {
+      "type": "string"
+    },
+    "extraction_mode": {
+      "type": "string",
+      "enum": ["baseline", "llm"]
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "fund_name_raw": {
+      "type": ["string", "null"]
+    },
+    "fund_name_mapped": {
+      "type": ["string", "null"]
+    },
+    "investor_entity": {
+      "type": ["string", "null"]
+    },
+    "notice_date": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "reporting_period": {
+      "type": ["string", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "extracted_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market_themes",
+        "new_investments",
+        "exits",
+        "risk_notes",
+        "valuation_commentary",
+        "expected_capital_activity",
+        "qualitative_confidence_score"
+      ],
+      "properties": {
+        "market_themes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "new_investments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risk_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "valuation_commentary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_capital_activity": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "qualitative_confidence_score": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page", "field_name", "evidence_text"],
+        "properties": {
+          "page": {
+            "type": ["integer", "string"]
+          },
+          "field_name": {
+            "type": "string"
+          },
+          "evidence_text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "extraction_status": {
+      "type": "string",
+      "enum": ["not_started", "extracted", "partial", "failed"]
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["pending", "passed", "failed", "warning"]
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["pending", "approved", "needs_review", "rejected"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

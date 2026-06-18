@@ -1,0 +1,57 @@
+{
+  "document_id": "PDF_004",
+  "document_type": "capital_statement",
+  "document_filename": "PDF_004_Northstar_Buyout_Fund_IV_Q1_2026_PCAP.pdf",
+  "extraction_mode": "baseline",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_004_Northstar_Buyout_Fund_IV_Q1_2026_PCAP.pdf",
+  "fund_name_raw": "Northstar Buyout Fund IV",
+  "fund_name_mapped": "Northstar Buyout Fund IV",
+  "investor_entity": "Atlas Investment Partners USD Ltd.",
+  "notice_date": "2026-01-01",
+  "reporting_period": "Q1 2026 period ended 2026-03-31",
+  "currency": "USD",
+  "extracted_fields": {
+    "period_start_date": "2026-01-01",
+    "period_end_date": "2026-03-31",
+    "beginning_nav": 31.4,
+    "contributions": 1.8,
+    "distributions": 0.0,
+    "management_fees": -0.25,
+    "partnership_expenses": 0.0,
+    "realized_gain_loss": 0.85,
+    "unrealized_gain_loss": 1.2,
+    "ending_nav": 35.0,
+    "total_commitment": 60.0,
+    "paid_in_capital": 40.0,
+    "unfunded_commitment": 20.0,
+    "nav_roll_forward_variance": 0.0,
+    "commitment_mismatch_flag": false
+  },
+  "source_references": [
+    {
+      "page": 1,
+      "field_name": "period_end_date",
+      "evidence_text": "Northstar Buyout Fund IV | Period: 2026-01-01 to 2026-03-31 | Investor: Atlas Investment Partners USD Ltd."
+    },
+    {
+      "page": 1,
+      "field_name": "beginning_nav",
+      "evidence_text": "31.40"
+    },
+    {
+      "page": 1,
+      "field_name": "ending_nav",
+      "evidence_text": "35.00"
+    },
+    {
+      "page": 1,
+      "field_name": "total_commitment",
+      "evidence_text": "USD 60.00 million"
+    }
+  ],
+  "confidence_score": 0.85,
+  "extraction_status": "extracted",
+  "validation_status": "pending",
+  "review_status": "pending",
+  "warnings": []
+}

@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "capital_statement_schema.json",
+  "title": "Capital Statement Extraction Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "document_type",
+    "document_filename",
+    "extraction_mode",
+    "source_path",
+    "fund_name_raw",
+    "fund_name_mapped",
+    "investor_entity",
+    "notice_date",
+    "reporting_period",
+    "currency",
+    "extracted_fields",
+    "source_references",
+    "confidence_score",
+    "extraction_status",
+    "validation_status",
+    "review_status",
+    "warnings"
+  ],
+  "properties": {
+    "document_id": {
+      "type": "string",
+      "examples": ["PDF_001"]
+    },
+    "document_type": {
+      "const": "capital_statement"
+    },
+    "document_filename": {
+      "type": "string"
+    },
+    "extraction_mode": {
+      "type": "string",
+      "enum": ["baseline", "llm"]
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "fund_name_raw": {
+      "type": ["string", "null"]
+    },
+    "fund_name_mapped": {
+      "type": ["string", "null"]
+    },
+    "investor_entity": {
+      "type": ["string", "null"]
+    },
+    "notice_date": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "reporting_period": {
+      "type": ["string", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "extracted_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "period_start_date",
+        "period_end_date",
+        "beginning_nav",
+        "contributions",
+        "distributions",
+        "management_fees",
+        "partnership_expenses",
+        "realized_gain_loss",
+        "unrealized_gain_loss",
+        "ending_nav",
+        "total_commitment",
+        "paid_in_capital",
+        "unfunded_commitment",
+        "nav_roll_forward_variance",
+        "commitment_mismatch_flag"
+      ],
+      "properties": {
+        "period_start_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "period_end_date": {
+          "type": ["string", "null"],
+          "format": "date"
+        },
+        "beginning_nav": {
+          "type": ["number", "null"]
+        },
+        "contributions": {
+          "type": ["number", "null"]
+        },
+        "distributions": {
+          "type": ["number", "null"]
+        },
+        "management_fees": {
+          "type": ["number", "null"]
+        },
+        "partnership_expenses": {
+          "type": ["number", "null"]
+        },
+        "realized_gain_loss": {
+          "type": ["number", "null"]
+        },
+        "unrealized_gain_loss": {
+          "type": ["number", "null"]
+        },
+        "ending_nav": {
+          "type": ["number", "null"]
+        },
+        "total_commitment": {
+          "type": ["number", "null"]
+        },
+        "paid_in_capital": {
+          "type": ["number", "null"]
+        },
+        "unfunded_commitment": {
+          "type": ["number", "null"]
+        },
+        "nav_roll_forward_variance": {
+          "type": ["number", "null"]
+        },
+        "commitment_mismatch_flag": {
+          "type": "boolean"
+        }
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page", "field_name", "evidence_text"],
+        "properties": {
+          "page": {
+            "type": ["integer", "string"]
+          },
+          "field_name": {
+            "type": "string"
+          },
+          "evidence_text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "confidence_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "extraction_status": {
+      "type": "string",
+      "enum": ["not_started", "extracted", "partial", "failed"]
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["pending", "passed", "failed", "warning"]
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["pending", "approved", "needs_review", "rejected"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
