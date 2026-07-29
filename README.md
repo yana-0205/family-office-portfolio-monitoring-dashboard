@@ -1,28 +1,24 @@
-# Project Portfolio Dashboard
+# AI-Powered Family Office Portfolio Monitoring Dashboard
 
-This repository is an AI-enabled family office portfolio dashboard proof of concept built on synthetic data. The default demo uses a deterministic, API-free extraction pipeline from raw mock documents through validation, approved portfolio updates, and a Streamlit dashboard. A separate API-backed LLM extraction mode is available for optional comparison and future extension.
+This repository contains a completed, presentation-ready family office portfolio monitoring dashboard built on synthetic data. It combines document intake, structured extraction, validation and human review, approved-only portfolio updates, public-market proxy risk analytics, and a nine-page Streamlit application.
+
+The standard workflow is deterministic and API-free. An optional API-backed LLM extraction mode is included for controlled comparison against ground truth; it is not required to run the pipeline or dashboard.
 
 All family office data in this repository is synthetic. Mock PDF documents are included to support the baseline extraction and validation workflow, and Streamlit-staged uploads are written to `data/interim/document_ingestion/` before any offline extraction or review occurs.
 
-## Project Purpose
+## Implemented Scope
 
-The long-term goal is to support a workflow that turns mock private-market documents into reviewed portfolio updates and eventually into a dashboard with risk monitoring.
+- synthetic multi-asset family office dataset and six mock private-market PDFs
+- raw-data loading and 26-check data QA suite
+- dashboard-based PDF intake and staged inbox
+- deterministic baseline, staged-intake, and optional LLM extraction modes
+- JSON Schema validation, business-rule validation, manual review decisions, and review queue
+- approved-only updates to positions, cash, calls, distributions, and fund commentary
+- local real-price public proxy dataset, refresh workflow, performance, correlation, drawdown, and stress analytics
+- nine-page Streamlit dashboard covering portfolio, exposure, liquidity, risk, intake, and workflow controls
+- demo reset tooling, readiness checks, automated tests, and committed presentation artifacts
 
-Current scope:
-
-- synthetic V1 dataset generation and replacement
-- repository restructuring
-- configuration and path management
-- robust raw data loading
-- initial data QA report generation
-- baseline PDF extraction pipeline
-- validation engine for extracted records
-- approved-only portfolio update layer
-- Streamlit dashboard reading processed outputs
-
-Out of scope for this phase:
-
-- production portfolio update workflow beyond approved baseline records
+This is a decision-support demonstration, not a production portfolio accounting system. Authentication, multi-user controls, transaction booking, and institutional production infrastructure are outside its intended scope.
 
 ## Workflow
 
@@ -60,70 +56,15 @@ Public demo app:
 
 For demo purposes, static committed data is acceptable. The priority is that the pipeline logic is clear, the workflow states are traceable, and the dashboard pages render without errors.
 
-## Final Delivery Checklist
+## Delivery Status
 
-This repository is being completed against a fixed demo-delivery standard rather than open-ended feature expansion.
+The project is complete against its demo-delivery gate:
 
-### A. Must Deliver
-
-1. End-to-end pipeline commands run successfully:
-   - `python3 -m src.data_checks`
-   - `python3 -m src.extraction.run_extraction --mode baseline`
-   - `python3 -m src.validation.run_validation --mode baseline`
-   - `python3 -m src.portfolio_updates.apply_updates --mode baseline`
-   - `python3 -m src.risk.run_risk`
-2. Demo status can be verified with:
-   - `python3 -m src.demo_check`
-3. Automated tests pass:
-   - `pytest`
-4. The Streamlit dashboard starts and the eight delivery pages render without errors:
-   - `Overview`
-   - `Asset Class`
-   - `Region & Currency`
-   - `Public Markets`
-   - `Private Markets`
-   - `Liquidity & Commitments`
-   - `Risk Profile`
-   - `Workflow & Controls`
-5. The core business storyline is visible end to end:
-   - `mock PDFs -> extraction -> validation / review -> approved-only updates -> processed portfolio state -> dashboard -> public proxy risk`
-6. V1 portfolio monitoring coverage is present:
-   - long / short exposure
-   - sector
-   - market cap
-   - region taxonomy
-   - performance statistics
-   - liquidity and commitments
-   - public-proxy portfolio risk overlay
-7. Documentation is handoff-ready:
-   - synthetic-data labeling is explicit
-   - public-proxy labeling is explicit
-   - run commands and output locations are documented
-
-### B. Optional Polish
-
-1. Page naming and explanatory text consistency
-2. Better empty-state copy
-3. Clearer tooltip and help-text coverage
-4. Light presentation polish for charts, tables, and default ordering
-
-### C. Explicitly Out Of Scope
-
-- production-grade data platform work
-- live runtime dependency on online market data fetches
-- auth / multi-user product features
-- institutional-grade analytics depth beyond demo needs
-- unlimited visual or feature polish
-
-## Current Delivery Status
-
-At the current repository state, the project already meets the command-level delivery gate:
-
-- `python3 -m src.data_checks`: passes
-- `python3 -m src.demo_check`: passes and writes `outputs/reports/demo_readiness_report.md`
-- `pytest`: passes
-
-The remaining work should therefore focus on presentation consistency and controlled demo polish rather than new platform scope.
+- the end-to-end baseline pipeline runs successfully
+- `python3 -m src.demo_check` verifies the locked demo state
+- the automated test suite passes
+- all nine Streamlit pages render
+- the public demo is deployed
 
 ## Repository Structure
 
@@ -136,7 +77,8 @@ project_portfolio_dashboard/
 │   ├── interim/
 │   ├── processed/
 │   └── raw/
-│       └── family_office_corrected_dataset_v1/
+│       ├── family_office_corrected_dataset_v1/
+│       └── market_prices/
 ├── notebooks/
 ├── outputs/
 │   ├── extracted_json/
@@ -153,8 +95,10 @@ project_portfolio_dashboard/
 │   ├── data_loader.py
 │   ├── dashboard/
 │   ├── extraction/
+│   ├── ingestion/
 │   ├── portfolio_updates/
 │   ├── risk/
+│   ├── testing/
 │   └── validation/
 └── tests/
 ```
@@ -235,7 +179,7 @@ If you want a single demo-readiness confirmation after the pipeline finishes:
 python3 -m src.demo_check
 ```
 
-This writes [outputs/reports/demo_readiness_report.md](/Users/yana/Documents/GitHub/project_portfolio_dashboard/outputs/reports/demo_readiness_report.md) and confirms the locked demo counts, processed outputs, and public-risk source state.
+This writes [`outputs/reports/demo_readiness_report.md`](outputs/reports/demo_readiness_report.md) and confirms the locked demo counts, processed outputs, and public-risk source state.
 
 ### Document Intake Demo Loop
 
@@ -277,7 +221,7 @@ python3 -m src.portfolio_updates.apply_updates --mode llm
 
 The default model is `gpt-5.6-sol`. Set `OPENAI_EXTRACTION_MODEL` or pass `--model` to override it. LLM outputs are written under `outputs/extracted_json/llm/` and remain subject to the existing schema validation, review rules, and approved-only update controls. The pipeline raises an explicit error when credentials are missing; it never presents baseline output as LLM output. Do not use this mode during the standard presentation unless an API comparison is explicitly requested.
 
-### Generate The Synthetic V1 Dataset
+### Generate The Synthetic Dataset
 
 ```bash
 python3 -m src.generate_dataset
@@ -300,7 +244,7 @@ The regenerated dataset adds:
 python3 -m src.data_checks
 ```
 
-This generates [outputs/reports/data_qa_report.md](/Users/yana/Documents/GitHub/project_portfolio_dashboard/outputs/reports/data_qa_report.md).
+This generates [`outputs/reports/data_qa_report.md`](outputs/reports/data_qa_report.md).
 
 ### Baseline Extraction
 
@@ -422,7 +366,7 @@ Notes:
 
 - This repository does not require API keys to render the current dashboard.
 - Real public market prices are already stored locally under `data/raw/market_prices/yfinance_monthly_prices.csv`, so the deployed app does not need to fetch market data at runtime.
-- The dashboard reads committed raw, processed, and output files. It does not rerun extraction, validation, updates, or risk scripts inside Streamlit.
+- The dashboard reads committed raw, processed, and output files. Portfolio pages remain read-only; the `Document Intake` page can explicitly run the staged intake/update helper and refresh market-linked data.
 - The current deployed demo app is [family-office-portfolio-monitoring-dashboard-nxy9cfnrmdwspj3fn.streamlit.app](https://family-office-portfolio-monitoring-dashboard-nxy9cfnrmdwspj3fn.streamlit.app).
 
 ## Dashboard Pages
@@ -508,11 +452,11 @@ Current test coverage includes:
 - Expected mock May 2026 PDF documents: `6`
 - All family office data is synthetic
 
-## V1 Dataset Layer
+## Dataset Layer
 
-The raw synthetic dataset now includes both the original workflow support tables and the richer V1 portfolio analytics tables.
+The raw synthetic dataset includes both workflow support tables and portfolio analytics tables.
 
-Core V1 raw tables:
+Core raw tables:
 
 - `portfolio_monthly_summary.csv`
 - `portfolio_holdings.csv`
@@ -531,10 +475,10 @@ Design intent:
 
 - `portfolio_monthly_summary.csv` remains the canonical source for `Total AUM`
 - public/liquid assets now carry long / short, signed notional, and delta-adjusted exposure fields
-- private assets remain fund-level in V1 and use mandate/proxy classification where appropriate
+- private assets remain fund-level and use mandate/proxy classification where appropriate
 - synthetic and proxy-based performance inputs are explicit rather than implied
 - private funds now carry mixed reporting cadence assumptions (`Monthly` and `Quarterly`) so statement-lag monitoring has realistic cross-sectional variation
 
-## Working Rule
+## Documentation Rule
 
 Project documentation should move with the code. As new pipeline stages, commands, outputs, or pages are added, `README.md` should be updated in the same change so the documented workflow stays accurate.
