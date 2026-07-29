@@ -1,0 +1,59 @@
+{
+  "document_id": "PDF_005",
+  "document_type": "capital_statement",
+  "document_filename": "PDF_005_LionRock_Asia_Private_Credit_Q1_2026_PCAP_Exception.pdf",
+  "extraction_mode": "intake",
+  "source_path": "/private/var/folders/_1/c6gzq0jj1rgc2ltb5_w56gqh0000gn/T/pytest-of-yana/pytest-39/test_run_extraction_supports_c0/PDF_005_LionRock_Asia_Private_Credit_Q1_2026_PCAP_Exception.pdf",
+  "fund_name_raw": "LionRock Asia Private Credit Fund",
+  "fund_name_mapped": "LionRock Asia Private Credit Fund",
+  "investor_entity": "Atlas Investment Partners USD",
+  "notice_date": "2026-01-01",
+  "reporting_period": "Q1 2026 period ended 2026-03-31",
+  "currency": "USD",
+  "extracted_fields": {
+    "period_start_date": "2026-01-01",
+    "period_end_date": "2026-03-31",
+    "beginning_nav": 18.0,
+    "contributions": 0.5,
+    "distributions": -0.2,
+    "management_fees": -0.1,
+    "partnership_expenses": 0.0,
+    "realized_gain_loss": 0.4,
+    "unrealized_gain_loss": 0.5,
+    "ending_nav": 20.0,
+    "total_commitment": 20.0,
+    "paid_in_capital": 12.0,
+    "unfunded_commitment": 7.0,
+    "nav_roll_forward_variance": 0.9,
+    "commitment_mismatch_flag": true
+  },
+  "source_references": [
+    {
+      "page": 1,
+      "field_name": "period_end_date",
+      "evidence_text": "LionRock Asia Private Credit Fund | Period: 2026-01-01 to 2026-03-31 | Investor: Atlas Investment Partners USD"
+    },
+    {
+      "page": 1,
+      "field_name": "beginning_nav",
+      "evidence_text": "18.00"
+    },
+    {
+      "page": 1,
+      "field_name": "ending_nav",
+      "evidence_text": "20.00"
+    },
+    {
+      "page": 1,
+      "field_name": "total_commitment",
+      "evidence_text": "USD 20.00 million"
+    }
+  ],
+  "confidence_score": 0.85,
+  "extraction_status": "extracted",
+  "validation_status": "pending",
+  "review_status": "pending",
+  "warnings": [
+    "Schema validation: 'intake' is not one of ['baseline', 'llm']"
+  ]
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -69,6 +70,62 @@ def _normalize_yahoo_ticker(ticker: str) -> str:
     return ticker
 
 
+def _download_bulk_prices(
+    yf: Any,
+    tickers: list[str],
+    *,
+    start_date: str,
+    end_date: str,
+    interval: str,
+    download_timestamp: str,
+) -> pd.DataFrame:
+    frames: list[pd.DataFrame] = []
+    for chunk_start in range(0, len(tickers), 6):
+        ticker_chunk = tickers[chunk_start : chunk_start + 6]
+        provider_to_requested = {_normalize_yahoo_ticker(ticker): ticker for ticker in ticker_chunk}
+        try:
+            bulk_history = yf.download(
+                list(provider_to_requested),
+                start=start_date,
+                end=end_date,
+                interval=interval,
+                auto_adjust=True,
+                actions=False,
+                progress=False,
+                threads=True,
+            )
+        except Exception as exc:
+            warnings.warn(
+                f"Bulk yfinance download failed for {', '.join(ticker_chunk)}: {exc}",
+                stacklevel=2,
+            )
+            continue
+
+        close_history = pd.DataFrame()
+        if not bulk_history.empty and isinstance(bulk_history.columns, pd.MultiIndex):
+            if "Close" in bulk_history.columns.get_level_values(0):
+                close_history = bulk_history.xs("Close", axis=1, level=0)
+        elif not bulk_history.empty and "Close" in bulk_history.columns:
+            close_history = bulk_history[["Close"]].rename(columns={"Close": list(provider_to_requested)[0]})
+        if close_history.empty:
+            continue
+        if isinstance(close_history, pd.Series):
+            close_history = close_history.to_frame(name=list(provider_to_requested)[0])
+        close_history = close_history.rename(columns=provider_to_requested)
+        bulk_prices = (
+            close_history.rename_axis("date")
+            .reset_index()
+            .melt(id_vars="date", var_name="ticker", value_name="close")
+            .dropna(subset=["date", "ticker", "close"])
+        )
+        bulk_prices["provider"] = "yfinance"
+        bulk_prices["downloaded_at"] = download_timestamp
+        frames.append(bulk_prices[["date", "ticker", "close", "provider", "downloaded_at"]])
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(
+        columns=["date", "ticker", "close", "provider", "downloaded_at"]
+    )
+
+
 def _normalize_long_price_columns(df: pd.DataFrame) -> pd.DataFrame:
     rename_map = {}
     for column in df.columns:
@@ -108,6 +165,11 @@ def _normalize_price_file(df: pd.DataFrame, source_name: str) -> pd.DataFrame:
     normalized["close"] = pd.to_numeric(normalized["close"], errors="coerce")
     normalized["ticker"] = normalized["ticker"].astype(str).str.strip()
     normalized = normalized.dropna(subset=["date", "ticker", "close"])
+    normalized["month_end"] = normalized["date"].dt.to_period("M").dt.to_timestamp("M")
+    normalized = normalized.sort_values(["ticker", "date"]).groupby(
+        ["ticker", "month_end"], as_index=False
+    ).tail(1)
+    normalized["date"] = normalized["month_end"]
     return normalized[["date", "ticker", "close"]]
 
 
@@ -120,12 +182,13 @@ def _build_metadata(price_df: pd.DataFrame, data_source: str, source_files: list
             "start_date": None,
             "end_date": None,
         }
+    latest_complete_date = price_df.groupby("ticker")["date"].max().min()
     return {
         "data_source": data_source,
         "source_files": source_files,
         "tickers": sorted(price_df["ticker"].dropna().astype(str).unique().tolist()),
         "start_date": price_df["date"].min().strftime("%Y-%m-%d"),
-        "end_date": price_df["date"].max().strftime("%Y-%m-%d"),
+        "end_date": latest_complete_date.strftime("%Y-%m-%d"),
     }
 
 
@@ -227,8 +290,33 @@ def fetch_market_prices_from_yfinance(
     failed_tickers: list[str] = []
     download_timestamp = pd.Timestamp.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    target_month = None
+    if end_date:
+        parsed_end_date = pd.to_datetime(end_date, errors="coerce")
+        if not pd.isna(parsed_end_date):
+            target_month = (pd.Timestamp(parsed_end_date) - pd.Timedelta(days=1)).to_period("M")
+
+    prefetched_target_tickers: set[str] = set()
+    if target_month is not None and interval == "1d":
+        bulk_prices = _download_bulk_prices(
+            yf,
+            ticker_list,
+            start_date=start_date,
+            end_date=end_date,
+            interval=interval,
+            download_timestamp=download_timestamp,
+        )
+        if not bulk_prices.empty:
+            frames.append(bulk_prices)
+            bulk_dates = pd.to_datetime(bulk_prices["date"], errors="coerce", utc=True).dt.tz_convert(None)
+            prefetched_target_tickers = set(
+                bulk_prices.loc[bulk_dates.dt.to_period("M") == target_month, "ticker"].astype(str)
+            )
+
     for ticker in ticker_list:
         requested_ticker = ticker
+        if requested_ticker in prefetched_target_tickers:
+            continue
         provider_ticker = _normalize_yahoo_ticker(ticker)
         history = pd.DataFrame()
         for attempt in range(max_retries):
@@ -258,11 +346,67 @@ def fetch_market_prices_from_yfinance(
         frames.append(normalized[["date", "ticker", "close", "provider", "downloaded_at"]])
 
     prices = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=["date", "ticker", "close", "provider", "downloaded_at"])
+    if target_month is not None:
+        parsed_price_dates = pd.to_datetime(
+            prices.get("date", pd.Series(dtype="object")), errors="coerce", utc=True
+        ).dt.tz_convert(None)
+        target_tickers = set(prices.loc[parsed_price_dates.dt.to_period("M") == target_month, "ticker"].astype(str))
+        fallback_tickers = sorted(set(ticker_list) - target_tickers)
+        if fallback_tickers:
+            for chunk_start in range(0, len(fallback_tickers), 6):
+                ticker_chunk = fallback_tickers[chunk_start : chunk_start + 6]
+                try:
+                    provider_to_requested = {_normalize_yahoo_ticker(ticker): ticker for ticker in ticker_chunk}
+                    bulk_history = yf.download(
+                        list(provider_to_requested),
+                        start=start_date,
+                        end=end_date,
+                        interval=interval,
+                        auto_adjust=True,
+                        actions=False,
+                        progress=False,
+                        threads=True,
+                    )
+                    close_history = pd.DataFrame()
+                    if not bulk_history.empty and isinstance(bulk_history.columns, pd.MultiIndex):
+                        if "Close" in bulk_history.columns.get_level_values(0):
+                            close_history = bulk_history.xs("Close", axis=1, level=0)
+                    elif not bulk_history.empty and "Close" in bulk_history.columns:
+                        close_history = bulk_history[["Close"]].rename(columns={"Close": list(provider_to_requested)[0]})
+                    if not close_history.empty:
+                        if isinstance(close_history, pd.Series):
+                            close_history = close_history.to_frame(name=list(provider_to_requested)[0])
+                        close_history = close_history.rename(columns=provider_to_requested)
+                        bulk_prices = (
+                            close_history.rename_axis("date")
+                            .reset_index()
+                            .melt(id_vars="date", var_name="ticker", value_name="close")
+                            .dropna(subset=["date", "ticker", "close"])
+                        )
+                        bulk_prices["provider"] = "yfinance"
+                        bulk_prices["downloaded_at"] = download_timestamp
+                        prices = pd.concat(
+                            [prices, bulk_prices[["date", "ticker", "close", "provider", "downloaded_at"]]],
+                            ignore_index=True,
+                        )
+                except Exception as exc:
+                    warnings.warn(
+                        f"Bulk yfinance fallback failed for {', '.join(ticker_chunk)}: {exc}",
+                        stacklevel=2,
+                    )
+
     if not prices.empty:
         prices["date"] = pd.to_datetime(prices["date"], errors="coerce")
         prices["close"] = pd.to_numeric(prices["close"], errors="coerce")
         prices = prices.dropna(subset=["date", "ticker", "close"]).drop_duplicates(subset=["date", "ticker"]).sort_values(["ticker", "date"])
         prices["date"] = prices["date"].dt.strftime("%Y-%m-%d")
+
+    if target_month is not None and not prices.empty:
+        final_dates = pd.to_datetime(prices["date"], errors="coerce", utc=True).dt.tz_convert(None)
+        final_target_tickers = set(prices.loc[final_dates.dt.to_period("M") == target_month, "ticker"].astype(str))
+        failed_tickers = sorted(set(ticker_list) - final_target_tickers)
+    else:
+        failed_tickers = sorted(set(failed_tickers))
 
     output_path = MARKET_PRICES_DIR / output_filename
     normalized_prices = (
@@ -276,25 +420,40 @@ def fetch_market_prices_from_yfinance(
     metadata["failed_tickers"] = failed_tickers
     metadata["requested_tickers"] = ticker_list
 
-    retained_existing_output = False
+    existing_normalized = pd.DataFrame(columns=["date", "ticker", "close"])
     if output_path.exists():
         existing_df = pd.read_csv(output_path)
         existing_normalized = _normalize_price_file(existing_df, output_path.name)
-        existing_coverage = _coverage_metadata(existing_normalized, ticker_list).get("coverage_ratio", 0.0)
-        if existing_coverage > metadata.get("coverage_ratio", 0.0):
-            retained_existing_output = True
-            normalized_prices = existing_normalized
-            metadata = _build_metadata(existing_normalized, "real", [output_path.name])
-            metadata.update(_coverage_metadata(existing_normalized, ticker_list))
-            metadata["provider"] = "yfinance"
-            metadata["failed_tickers"] = failed_tickers
-            metadata["requested_tickers"] = ticker_list
-    if not retained_existing_output:
-        prices.to_csv(output_path, index=False)
-    metadata["retained_existing_output"] = retained_existing_output
+
+    merge_frames = [frame for frame in [existing_normalized, normalized_prices] if not frame.empty]
+    merged_prices = (
+        pd.concat(merge_frames, ignore_index=True)
+        if merge_frames
+        else pd.DataFrame(columns=["date", "ticker", "close"])
+    )
+    if not merged_prices.empty:
+        merged_prices = (
+            merged_prices.sort_values(["ticker", "date"])
+            .drop_duplicates(subset=["date", "ticker"], keep="last")
+            .sort_values(["ticker", "date"])
+            .reset_index(drop=True)
+        )
+        output_df = merged_prices.copy()
+        output_df["date"] = output_df["date"].dt.strftime("%Y-%m-%d")
+    else:
+        output_df = pd.DataFrame(columns=["date", "ticker", "close"])
+    output_df.to_csv(output_path, index=False)
+
+    metadata = _build_metadata(merged_prices, "real", [output_path.name])
+    metadata.update(_coverage_metadata(merged_prices, ticker_list))
+    metadata["provider"] = "yfinance"
+    metadata["failed_tickers"] = failed_tickers
+    metadata["requested_tickers"] = ticker_list
+    metadata["fresh_tickers"] = sorted(normalized_prices["ticker"].unique().tolist()) if not normalized_prices.empty else []
+    metadata["retained_existing_output"] = normalized_prices.empty
 
     return {
-        "prices": prices if not retained_existing_output else pd.read_csv(output_path),
+        "prices": merged_prices,
         "metadata": metadata,
         "output_path": output_path,
     }

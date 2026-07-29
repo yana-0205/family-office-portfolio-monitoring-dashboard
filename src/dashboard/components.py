@@ -79,13 +79,29 @@ def section_header(title, subtitle=None):
         st.caption(subtitle)
 
 
-def empty_state(message: str):
-    st.info(message)
+def empty_state(message: str, hint: str | None = None):
+    normalized_message = message.strip()
+    if normalized_message and normalized_message[-1] not in ".!?":
+        normalized_message = f"{normalized_message}."
+    final_message = normalized_message
+    if hint:
+        final_message = f"{normalized_message}\n\n{hint.strip()}"
+    st.info(final_message)
 
 
 def dataframe_with_empty_state(df: pd.DataFrame, empty_message: str):
     if df.empty:
-        empty_state(empty_message)
+        source_warning = df.attrs.get("warning")
+        if source_warning and source_warning != empty_message:
+            empty_state(
+                empty_message,
+                f"Source detail: {source_warning}",
+            )
+        else:
+            empty_state(
+                empty_message,
+                "This section is optional in the current demo state. If needed, rerun the relevant upstream step to repopulate it.",
+            )
     else:
         st.dataframe(df, use_container_width=True)
 
@@ -148,7 +164,8 @@ def pipeline_status_summary(document_status_df: pd.DataFrame):
         f"Processed {len(document_status_df)} documents: "
         f"{counts.get('approved', 0)} approved, "
         f"{counts.get('needs_review', 0)} needing review, "
-        f"{counts.get('rejected', 0)} rejected."
+        f"{counts.get('rejected', 0)} rejected. "
+        "Only approved records flow into the processed portfolio overlay."
     )
 
 
@@ -1060,11 +1077,51 @@ def build_private_nav_timeseries(private_monthly_df: pd.DataFrame) -> pd.DataFra
 
 
 def calculate_liquidity_coverage(cash_df: pd.DataFrame, capital_calls_df: pd.DataFrame) -> float | None:
-    total_cash = safe_sum(cash_df, ["balance_usd_m"])
+    operating_mask = cash_df.get("is_operating_cash", pd.Series(False, index=cash_df.index)).fillna(False)
+    total_cash = safe_sum(cash_df[operating_mask], ["balance_usd_m"])
+    if total_cash <= 0:
+        total_cash = safe_sum(cash_df, ["balance_usd_m"])
     upcoming_calls = safe_sum(capital_calls_df, ["amount_due_usd_m"])
     if upcoming_calls <= 0:
         return None
     return total_cash / upcoming_calls
+
+
+def _cash_as_of_date(cash_df: pd.DataFrame) -> pd.Timestamp:
+    as_of_series = pd.to_datetime(cash_df.get("as_of_date"), errors="coerce")
+    if as_of_series is not None:
+        clean = as_of_series.dropna()
+        if not clean.empty:
+            return clean.max()
+    return pd.Timestamp.today().normalize()
+
+
+def filter_projected_distribution_cashflows(
+    cashflows_df: pd.DataFrame,
+    as_of_date: pd.Timestamp | None = None,
+) -> pd.DataFrame:
+    if cashflows_df.empty:
+        return pd.DataFrame()
+    working_df = cashflows_df.copy()
+    if "cashflow_type" in working_df.columns:
+        working_df = working_df[
+            working_df["cashflow_type"].astype(str).str.casefold().eq("distribution")
+        ].copy()
+    if working_df.empty:
+        return pd.DataFrame()
+    if "liquidity_treatment" in working_df.columns:
+        working_df = working_df[
+            ~working_df["liquidity_treatment"].astype(str).str.casefold().eq("booked_in_cash")
+        ].copy()
+    if working_df.empty or "cashflow_date" not in working_df.columns:
+        return pd.DataFrame()
+    working_df["cashflow_date"] = pd.to_datetime(working_df["cashflow_date"], errors="coerce")
+    working_df = working_df.dropna(subset=["cashflow_date"])
+    if working_df.empty:
+        return pd.DataFrame()
+    if as_of_date is not None:
+        working_df = working_df[working_df["cashflow_date"] > as_of_date].copy()
+    return working_df.sort_values("cashflow_date").reset_index(drop=True)
 
 
 def calculate_liquidity_metrics(
@@ -1096,9 +1153,11 @@ def calculate_liquidity_metrics(
         currency_cash["currency"] = currency_cash["currency"].astype(str).str.upper()
         usd_cash = safe_sum(currency_cash[currency_cash["currency"] == "USD"], ["balance_usd_m"])
         sgd_cash = safe_sum(currency_cash[currency_cash["currency"] == "SGD"], ["balance_usd_m"])
+    as_of_date = _cash_as_of_date(cash_df)
     upcoming_calls = safe_sum(capital_calls_df, ["amount_due_usd_m"])
+    projected_distributions_df = filter_projected_distribution_cashflows(cashflows_df, as_of_date=as_of_date)
     expected_distributions = safe_sum(
-        cashflows_df,
+        projected_distributions_df,
         ["expected_cash_inflow_usd_m", "net_distribution_usd_m", "gross_distribution_usd_m"],
     )
     net_projected_liquidity = total_cash + expected_distributions - upcoming_calls
@@ -1109,6 +1168,7 @@ def calculate_liquidity_metrics(
         "soft_eligible_liquidity": soft_eligible_liquidity,
         "usd_cash": usd_cash,
         "sgd_cash": sgd_cash,
+        "as_of_date": as_of_date,
         "upcoming_capital_calls": upcoming_calls,
         "expected_distributions": expected_distributions,
         "net_projected_liquidity": net_projected_liquidity,
@@ -1136,8 +1196,7 @@ def calculate_liquidity_horizon_table(
             ]
         )
 
-    as_of_series = pd.to_datetime(cash_df.get("as_of_date"), errors="coerce")
-    as_of_date = as_of_series.dropna().max() if as_of_series is not None and not as_of_series.dropna().empty else pd.Timestamp.today().normalize()
+    as_of_date = _cash_as_of_date(cash_df)
     operating_cash = safe_sum(
         cash_df[cash_df.get("is_operating_cash", pd.Series(False, index=cash_df.index)).fillna(False)],
         ["balance_usd_m"],
@@ -1148,10 +1207,7 @@ def calculate_liquidity_horizon_table(
         calls_df["due_date"] = pd.to_datetime(calls_df["due_date"], errors="coerce")
         calls_df = calls_df.dropna(subset=["due_date"])
 
-    flows_df = cashflows_df.copy()
-    if not flows_df.empty and "cashflow_date" in flows_df.columns:
-        flows_df["cashflow_date"] = pd.to_datetime(flows_df["cashflow_date"], errors="coerce")
-        flows_df = flows_df.dropna(subset=["cashflow_date"])
+    flows_df = filter_projected_distribution_cashflows(cashflows_df, as_of_date=as_of_date)
 
     horizons = [("30D", 30), ("90D", 90), ("12M", 365)]
     rows: list[dict[str, object]] = []
@@ -1189,20 +1245,21 @@ def workflow_status_card(document_status_df: pd.DataFrame):
         st.info("Workflow status is unavailable.")
         return
     counts = document_status_df["validation_review_status"].value_counts().to_dict()
-    extracted_count = (
-        int((document_status_df["extraction_status"] == "extracted").sum())
-        if "extraction_status" in document_status_df.columns
+    applied_count = (
+        int(document_status_df["update_applied_flag"].fillna(False).sum())
+        if "update_applied_flag" in document_status_df.columns
         else 0
     )
+    blocked_count = counts.get("needs_review", 0) + counts.get("rejected", 0)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("Processed", len(document_status_df))
     with col2:
-        st.metric("Extracted", extracted_count)
-    with col3:
         st.metric("Approved", counts.get("approved", 0))
+    with col3:
+        st.metric("Blocked", blocked_count)
     with col4:
-        st.metric("Needs Review", counts.get("needs_review", 0) + counts.get("rejected", 0))
+        st.metric("Applied", applied_count)
 
 
 def markdown_report_preview(path: str | Path | None, title: str):

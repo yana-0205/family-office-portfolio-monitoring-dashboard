@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from src.config import OUTPUTS_DIR
 from src.dashboard.charts import (
     asset_allocation_chart,
     asset_class_category_evolution_chart,
@@ -93,6 +94,7 @@ from src.dashboard.components import (
     markdown_report_preview,
     metric_card,
     metric_with_delta,
+    filter_projected_distribution_cashflows,
     pipeline_status_summary,
     safe_sum,
     section_header,
@@ -106,11 +108,15 @@ from src.dashboard.data_access import (
     load_capital_call_calendar,
     load_cash_accounts,
     load_currency_exposure_if_available,
+    load_external_market_through_date,
     load_extraction_accuracy_summary,
     load_document_processing_status,
     load_extracted_json_records,
     load_fund_commentary,
     load_geography_exposure_if_available,
+    load_ingestion_inbox_status,
+    load_official_baseline_month_end,
+    load_latest_overlay_month_end,
     load_correlation_matrix,
     load_overview_datasets,
     load_portfolio_holdings,
@@ -130,20 +136,840 @@ from src.dashboard.data_access import (
     load_update_summary_report,
     load_validation_results,
 )
+from src.ingestion import stage_uploaded_pdf, sync_ingestion_status
+from src.portfolio_updates.apply_updates import run as run_apply_updates
+from src.risk.refresh_public_market_data import refresh_public_market_data_for_month
+from src.testing.prepare_upload_test_state import run as prepare_upload_test_state
+from src.testing.run_intake_pipeline import run as run_intake_pipeline
+from src.validation.review_decisions import (
+    build_effective_review_queue,
+    upsert_review_decision,
+)
 
 
 _PLOTLY_CHART_COUNTER = count()
+_SEVERITY_RANK = {"critical": 0, "high": 1, "medium": 2, "low": 3, "info": 4}
+_VALIDATION_STATUS_RANK = {"failed": 0, "warning": 1, "passed": 2}
+_DOCUMENT_REVIEW_ORDER = {"rejected": 0, "needs_review": 1, "approved": 2}
+_SOURCE_HELP = {
+    "portfolio_overlay": "Uses the processed portfolio state: official baseline plus approved PDF overlay where available.",
+    "official_baseline": "Uses the official baseline portfolio month from the raw monthly summary, not the staged inbox state.",
+    "external_market": "Uses external public-market prices stored under data/raw/market_prices/ and the derived risk outputs.",
+    "public_proxy": "Uses the public-proxy overlay only. This is not a full total-portfolio realized performance or risk series.",
+}
+
+
+def _normalize_review_status(value: object) -> str:
+    if value is None or pd.isna(value):
+        return "unknown"
+    normalized = str(value).strip().casefold()
+    return normalized if normalized in _DOCUMENT_REVIEW_ORDER else normalized
+
+
+def _normalize_severity(value: object) -> str:
+    if value is None or pd.isna(value):
+        return "info"
+    normalized = str(value).strip().casefold()
+    return normalized if normalized in _SEVERITY_RANK else "info"
+
+
+def _row_highlight_style(status: object) -> str:
+    normalized = _normalize_review_status(status)
+    if normalized == "rejected":
+        return "background-color: rgba(239, 68, 68, 0.16);"
+    if normalized == "needs_review":
+        return "background-color: rgba(245, 158, 11, 0.16);"
+    if normalized == "approved":
+        return "background-color: rgba(34, 197, 94, 0.08);"
+    return ""
+
+
+def _style_review_rows(df: pd.DataFrame, *, status_column: str) -> pd.io.formats.style.Styler:
+    def _style_row(row: pd.Series) -> list[str]:
+        style = _row_highlight_style(row.get(status_column))
+        return [style] * len(row)
+
+    return df.style.apply(_style_row, axis=1)
+
+
+def _status_palette(status: object) -> tuple[str, str, str]:
+    normalized = _normalize_review_status(status)
+    palette = {
+        "rejected": ("rgba(239, 68, 68, 0.16)", "#dc2626", "#991b1b"),
+        "needs_review": ("rgba(245, 158, 11, 0.16)", "#f59e0b", "#92400e"),
+        "approved": ("rgba(34, 197, 94, 0.08)", "#22c55e", "#166534"),
+    }
+    return palette.get(normalized, ("rgba(148, 163, 184, 0.08)", "#94a3b8", "#475569"))
+
+
+def _status_badge(label: str, status: object) -> None:
+    normalized = _normalize_review_status(status)
+    palette = {
+        "rejected": ("#991b1b", "rgba(254, 226, 226, 0.92)", "rgba(239, 68, 68, 0.26)"),
+        "needs_review": ("#92400e", "rgba(254, 243, 199, 0.92)", "rgba(245, 158, 11, 0.28)"),
+        "approved": ("#166534", "rgba(220, 252, 231, 0.92)", "rgba(34, 197, 94, 0.24)"),
+    }
+    text_color, background, border = palette.get(normalized, ("#475569", "rgba(241, 245, 249, 0.92)", "rgba(148, 163, 184, 0.22)"))
+    display_text = str(status).replace("_", " ").title()
+    st.markdown(
+        (
+            f"<div style='margin:0.15rem 0 0.45rem 0;'>"
+            f"<div style='font-size:0.78rem;color:#64748b;margin-bottom:0.3rem;font-weight:600;'>{label}</div>"
+            f"<span style='display:inline-block;padding:0.36rem 0.72rem;border-radius:999px;"
+            f"border:1px solid {border};background:{background};color:{text_color};"
+            f"font-size:0.88rem;font-weight:700;'>{display_text}</span></div>"
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def _inject_dashboard_theme() -> None:
+    st.markdown(
+        """
+        <style>
+        :root {
+            --fo-accent: #2563eb;
+            --fo-accent-soft: rgba(37, 99, 235, 0.12);
+            --fo-ink: #0f172a;
+            --fo-muted: #64748b;
+            --fo-panel: #ffffff;
+            --fo-border: rgba(148, 163, 184, 0.18);
+            --fo-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+        }
+
+        .stApp {
+            background:
+                radial-gradient(circle at top right, rgba(37, 99, 235, 0.06), transparent 26%),
+                linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        section[data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+            border-right: 1px solid rgba(148, 163, 184, 0.16);
+            min-width: 21rem !important;
+            max-width: 21rem !important;
+        }
+
+        section[data-testid="stSidebar"] > div {
+            padding-top: 1.2rem;
+            padding-left: 1.05rem;
+            padding-right: 1.05rem;
+        }
+
+        .fo-sidebar-shell {
+            padding: 0.55rem 0 1.2rem 0;
+        }
+
+        .fo-sidebar-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #1d4ed8;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            border-radius: 999px;
+            padding: 0.2rem 0.55rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .fo-sidebar-title {
+            color: var(--fo-ink);
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 0.45rem 0;
+        }
+
+        .fo-sidebar-copy {
+            color: var(--fo-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.1rem;
+        }
+
+        .fo-sidebar-divider {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.38), rgba(37, 99, 235, 0.02));
+            margin: 0.25rem 0 1rem 0;
+        }
+
+        .fo-sidebar-section {
+            color: #94a3b8;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        section[data-testid="stSidebar"] div.stButton {
+            margin-bottom: 0.55rem;
+        }
+
+        section[data-testid="stSidebar"] div.stButton > button {
+            width: 100%;
+            justify-content: flex-start;
+            min-height: 3.1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            background: rgba(255, 255, 255, 0.82);
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.82rem 0.95rem;
+            transition: all 120ms ease;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+        }
+
+        section[data-testid="stSidebar"] div.stButton > button:hover {
+            background: rgba(239, 246, 255, 0.96);
+            border-color: rgba(37, 99, 235, 0.22);
+        }
+
+        section[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
+            background: linear-gradient(180deg, rgba(239, 246, 255, 1), rgba(219, 234, 254, 0.96));
+            border-color: rgba(37, 99, 235, 0.34);
+            box-shadow:
+                inset 0 0 0 1px rgba(191, 219, 254, 0.4),
+                0 10px 24px rgba(37, 99, 235, 0.08);
+            color: #1d4ed8;
+        }
+
+        section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+            color: var(--fo-ink);
+        }
+
+        .fo-sidebar-footer {
+            margin-top: 1.3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.14);
+            color: var(--fo-muted);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        div[data-testid="stMetric"] {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 20px;
+            padding: 0.95rem 1rem;
+            box-shadow: var(--fo-shadow);
+        }
+
+        div[data-testid="stMetricLabel"] {
+            color: var(--fo-muted);
+        }
+
+        div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
+            gap: 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.32);
+        }
+
+        div[data-testid="stTabs"] button[data-baseweb="tab"] {
+            min-width: max-content;
+            min-height: 3rem;
+            margin: 0;
+            padding: 0.7rem 1rem 0.8rem;
+            border: 0;
+            border-bottom: 4px solid transparent;
+            border-radius: 0 !important;
+            background: transparent;
+            color: #64748b;
+            font-weight: 600;
+            box-shadow: none;
+        }
+
+        div[data-testid="stTabs"] button[data-baseweb="tab"]:hover {
+            background: rgba(226, 232, 240, 0.48);
+            color: #1e293b;
+        }
+
+        div[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] {
+            border-bottom-color: var(--fo-accent);
+            border-radius: 0 !important;
+            background: rgba(239, 246, 255, 0.72);
+            color: var(--fo-accent);
+        }
+
+        div[data-testid="stTabs"] div[data-baseweb="tab-highlight"] {
+            display: none;
+        }
+
+        div[data-testid="stInfo"],
+        div[data-testid="stAlert"] {
+            border-radius: 14px;
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .fo-chart-card {
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 24px;
+            padding: 1rem 1rem 0.65rem 1rem;
+            margin: 0.35rem 0 1.1rem 0;
+            box-shadow: var(--fo-shadow);
+            overflow: hidden;
+        }
+
+        .fo-chart-card div[data-testid="stPlotlyChart"] {
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .fo-chart-card .js-plotly-plot,
+        .fo-chart-card .plot-container,
+        .fo-chart-card .svg-container {
+            border-radius: 18px !important;
+        }
+
+        .block-container {
+            padding-top: 1.4rem;
+            padding-bottom: 2rem;
+        }
+
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def _render_document_ingestion_panel(
+    *,
+    form_key: str,
+    section_title: str,
+    section_subtitle: str,
+    show_processed_baseline: bool,
+    document_status_df: pd.DataFrame,
+) -> pd.DataFrame:
+    ingestion_inbox_df = load_ingestion_inbox_status()
+
+    section_header(section_title, section_subtitle)
+    with st.form(form_key, clear_on_submit=True):
+        uploaded_files = st.file_uploader(
+            "Stage PDF documents for review",
+            type=["pdf"],
+            accept_multiple_files=True,
+            help="Uploaded PDFs are written to data/interim/document_ingestion/uploaded_pdfs and queued for offline extraction.",
+        )
+        submitted = st.form_submit_button("Stage Selected PDFs")
+
+    if submitted:
+        if not uploaded_files:
+            st.warning("Add at least one PDF before staging. The intake area stays unchanged until a file is selected.")
+        else:
+            staged_records: list[dict[str, object]] = []
+            duplicate_records: list[dict[str, object]] = []
+            for uploaded_file in uploaded_files:
+                result = stage_uploaded_pdf(uploaded_file.name, uploaded_file.getvalue())
+                if result["action"] == "staged":
+                    staged_records.append(result)
+                else:
+                    duplicate_records.append(result)
+
+            if staged_records:
+                st.success(f"Staged {len(staged_records)} PDF document(s) into the interim ingestion inbox.")
+            if duplicate_records:
+                st.info(f"Skipped {len(duplicate_records)} duplicate PDF document(s) already present in the ingestion inbox.")
+            ingestion_inbox_df = load_ingestion_inbox_status()
+
+    if not ingestion_inbox_df.empty and not document_status_df.empty and "document_id" in document_status_df.columns:
+        status_columns = [
+            "document_id",
+            "validation_review_status",
+            "system_validation_review_status",
+            "manual_review_status",
+            "review_status_source",
+            "reviewer_note",
+        ]
+        available_status_columns = [column for column in status_columns if column in document_status_df.columns]
+        if len(available_status_columns) > 1:
+            ingestion_inbox_df = ingestion_inbox_df.merge(
+                document_status_df[available_status_columns].drop_duplicates(subset=["document_id"]),
+                on="document_id",
+                how="left",
+            )
+            current_status_series = (
+                ingestion_inbox_df["validation_review_status"]
+                if "validation_review_status" in ingestion_inbox_df.columns
+                else pd.Series(pd.NA, index=ingestion_inbox_df.index)
+            )
+            inbox_status_series = (
+                ingestion_inbox_df["review_status"]
+                if "review_status" in ingestion_inbox_df.columns
+                else pd.Series(pd.NA, index=ingestion_inbox_df.index)
+            )
+            ingestion_inbox_df["display_review_status"] = current_status_series.where(
+                current_status_series.notna(), inbox_status_series
+            )
+            manual_approval_mask = (
+                ingestion_inbox_df.get("review_status_source", pd.Series("", index=ingestion_inbox_df.index))
+                .astype(str)
+                .eq("manual_override")
+                & ingestion_inbox_df["display_review_status"].map(_normalize_review_status).eq("approved")
+            )
+            ingestion_inbox_df["approval_note"] = ingestion_inbox_df.get(
+                "review_note", pd.Series("", index=ingestion_inbox_df.index)
+            ).fillna("")
+            ingestion_inbox_df.loc[manual_approval_mask, "approval_note"] = "Manually approved"
+        else:
+            ingestion_inbox_df["display_review_status"] = pd.NA
+    else:
+        ingestion_inbox_df["display_review_status"] = pd.NA
+
+    inbox_summary_cols = st.columns(3)
+    with inbox_summary_cols[0]:
+        metric_card("Staged Inbox Documents", f"{len(ingestion_inbox_df):,}")
+    with inbox_summary_cols[1]:
+        metric_card("Inbox Portfolio Impact", "None")
+    with inbox_summary_cols[2]:
+        metric_card("Next Step", "Offline extraction")
+
+    inbox_columns = [
+        "document_id",
+        "original_filename",
+        "staged_at_utc",
+        "ingestion_status",
+        "pipeline_readiness",
+        "display_review_status",
+        "approval_note",
+        "portfolio_state_impact",
+        "stored_path",
+    ]
+    available_inbox_columns = [column for column in inbox_columns if column in ingestion_inbox_df.columns]
+    display_inbox_df = ingestion_inbox_df[available_inbox_columns] if not ingestion_inbox_df.empty else ingestion_inbox_df
+    if not display_inbox_df.empty:
+        if "display_review_status" in display_inbox_df.columns:
+            display_inbox_df = display_inbox_df.rename(columns={"display_review_status": "review_status"})
+            display_inbox_df["_status_sort"] = display_inbox_df["review_status"].map(_normalize_review_status).map(_DOCUMENT_REVIEW_ORDER).fillna(3)
+            display_inbox_df = display_inbox_df.sort_values(["_status_sort", "document_id"]).drop(columns=["_status_sort"])
+            st.dataframe(
+                _style_review_rows(display_inbox_df, status_column="review_status"),
+                use_container_width=True,
+                hide_index=True,
+            )
+        else:
+            st.dataframe(display_inbox_df, use_container_width=True, hide_index=True)
+    else:
+        dataframe_with_empty_state(display_inbox_df, "No staged uploads are currently present.")
+
+    return ingestion_inbox_df
+
+
+def _render_processed_baseline_documents(document_status_df: pd.DataFrame) -> None:
+    section_header(
+        "Processed Baseline Document Set",
+        "These documents have already moved through the controlled extraction and validation workflow.",
+    )
+    columns = [
+        "document_id",
+        "document_type",
+        "fund_name",
+        "extraction_mode",
+        "extraction_status",
+        "source_path",
+        "validation_review_status",
+        "update_applied_flag",
+    ]
+    available = [column for column in columns if column in document_status_df.columns]
+    display_document_status_df = (
+        document_status_df.sort_values("document_id")
+        if not document_status_df.empty and "document_id" in document_status_df.columns
+        else document_status_df
+    )
+    dataframe_with_empty_state(
+        display_document_status_df[available] if not display_document_status_df.empty else display_document_status_df,
+        "Document processing status is unavailable.",
+    )
+
+
+def _render_demo_checklist() -> None:
+    with st.expander("Demo Checklist", expanded=False):
+        st.markdown(
+            "\n".join(
+                [
+                    "1. `Reset To Demo Start State` if you want to begin from the locked baseline month.",
+                    "2. Upload the target PDFs into the staged inbox.",
+                    "3. Click `Process Staged PDFs And Update Dashboard` and confirm the approved overlay month appears.",
+                    "4. Click `Refresh Public Markets And Risk Data` so market-linked pages align to that overlay month.",
+                    "5. Review `Overview`, `Private Markets`, `Public Markets`, and `Risk Profile`.",
+                    "6. Reset again only if you want to replay the same sequence for the next demo run.",
+                ]
+            )
+        )
+        st.caption(
+            "This checklist is only a reusable presentation aid. The page layout itself stays application-first."
+        )
+
+
+def _render_demo_reset_panel() -> None:
+    with st.expander("Demo Tools", expanded=False):
+        section_header(
+            "Reset Demo State",
+            "Return the app to the baseline-only starting point, including the external public-market timeline.",
+        )
+        st.caption(
+            "Use this only when you want to replay the demo from scratch. It clears staged uploads, removes the current approved overlay state, rewinds public-market data to the official baseline month, and backs up the current state under outputs/test_backups/."
+        )
+        if st.button("Reset To Demo Start State", type="secondary", use_container_width=True):
+            results = prepare_upload_test_state()
+            st.cache_data.clear()
+            st.session_state["manual_review_cycle"] = st.session_state.get("manual_review_cycle", 0) + 1
+            st.session_state.pop("manual_review_message", None)
+            st.session_state.pop("intake_pipeline_message", None)
+            st.session_state.pop("market_refresh_message", None)
+            st.session_state["demo_reset_message"] = (
+                "Demo reset complete. "
+                f"Backup written to {results['backup_root']}. "
+                "Manual approvals were cleared, PDF review states will return to their system decisions when reprocessed, "
+                "and public-market and risk data were realigned to the baseline month."
+            )
+            st.rerun()
+
+        reset_message = st.session_state.get("demo_reset_message")
+        if reset_message:
+            st.success(reset_message)
+
+
+def _render_intake_processing_panel() -> None:
+    section_header(
+        "Update Portfolio State",
+        "Process the staged PDFs so approved documents move into the dashboard state.",
+    )
+    st.caption(
+        "This reads the staged inbox, runs extraction and validation, and applies only the approved updates to the processed portfolio inputs."
+    )
+    staged_inbox_df = load_ingestion_inbox_status()
+    if staged_inbox_df.empty:
+        st.info("Nothing is staged yet. Upload PDFs above first, then return here to update the portfolio state.")
+        return
+    if st.button("Process Staged PDFs And Update Dashboard", type="primary", use_container_width=True):
+        results = run_intake_pipeline()
+        updated_status_df = load_document_processing_status()
+        sync_ingestion_status(updated_status_df)
+        st.session_state["intake_pipeline_message"] = (
+            "Intake pipeline complete. "
+            f"Processed {results['extraction']['pdf_count']} PDF(s), "
+            f"validated {results['validation']['records_validated']} record(s), "
+            f"applied {results['updates']['approved_applied']} approved update(s), "
+            f"blocked {results['updates']['blocked_count']} document(s)."
+        )
+        st.rerun()
+
+    intake_message = st.session_state.get("intake_pipeline_message")
+    if intake_message:
+        st.success(intake_message)
+
+
+def _load_manual_review_candidates() -> pd.DataFrame:
+    review_queue_path = OUTPUTS_DIR / "validation" / "review_queue_actual.csv"
+    raw_review_queue_df = pd.read_csv(review_queue_path) if review_queue_path.exists() else pd.DataFrame()
+    validation_results_df = load_validation_results()
+    effective_review_queue_df = build_effective_review_queue(raw_review_queue_df, validation_results_df, unresolved_only=False)
+    document_status_df = load_document_processing_status()
+    if document_status_df.empty:
+        return effective_review_queue_df
+
+    base_columns = [
+        "document_id",
+        "document_type",
+        "fund_name",
+        "extraction_mode",
+        "source_path",
+        "validation_review_status",
+        "system_validation_review_status",
+        "manual_review_status",
+        "reviewer_note",
+        "reviewed_at_utc",
+        "review_status_source",
+        "blocked_reason",
+    ]
+    available_base_columns = [column for column in base_columns if column in document_status_df.columns]
+    all_docs_df = document_status_df[available_base_columns].drop_duplicates(subset=["document_id", "extraction_mode"]).copy()
+    if all_docs_df.empty:
+        return effective_review_queue_df
+
+    if "review_status" not in all_docs_df.columns:
+        all_docs_df["review_status"] = all_docs_df.get("validation_review_status", "unknown")
+    if "system_review_status" not in all_docs_df.columns:
+        all_docs_df["system_review_status"] = all_docs_df.get("system_validation_review_status", all_docs_df["review_status"])
+    all_docs_df["issue_summary"] = all_docs_df.get("blocked_reason", pd.Series("", index=all_docs_df.index)).fillna("")
+    all_docs_df["issue_count"] = all_docs_df["issue_summary"].astype(str).map(lambda value: 0 if not value else len([part for part in value.split(";") if part.strip()]))
+    all_docs_df["highest_severity"] = all_docs_df["review_status"].map(
+        lambda status: "critical" if _normalize_review_status(status) == "rejected" else ("medium" if _normalize_review_status(status) == "needs_review" else "info")
+    )
+    all_docs_df["recommended_action"] = all_docs_df["review_status"].map(
+        lambda status: (
+            "Reject and correct extraction before downstream use."
+            if _normalize_review_status(status) == "rejected"
+            else (
+                "Analyst review required before downstream use."
+                if _normalize_review_status(status) == "needs_review"
+                else "Already approved for downstream use."
+            )
+        )
+    )
+
+    if not effective_review_queue_df.empty:
+        queue_columns = [column for column in effective_review_queue_df.columns if column in all_docs_df.columns]
+        all_docs_df = all_docs_df.merge(
+            effective_review_queue_df[["document_id", "extraction_mode"] + [column for column in queue_columns if column not in {"document_id", "extraction_mode"}]],
+            on=["document_id", "extraction_mode"],
+            how="left",
+            suffixes=("", "_queue"),
+        )
+        for column in ["review_status", "system_review_status", "manual_review_status", "review_status_source", "reviewer_note", "reviewed_at_utc", "issue_summary", "issue_count", "highest_severity", "recommended_action"]:
+            queue_column = f"{column}_queue"
+            if queue_column in all_docs_df.columns:
+                all_docs_df[column] = all_docs_df[queue_column].where(all_docs_df[queue_column].notna(), all_docs_df[column])
+                all_docs_df = all_docs_df.drop(columns=[queue_column])
+
+    all_docs_df["system_review_status"] = all_docs_df["system_review_status"].map(_normalize_review_status)
+    all_docs_df["review_status"] = all_docs_df["review_status"].map(_normalize_review_status)
+    all_docs_df["highest_severity"] = all_docs_df["highest_severity"].map(_normalize_severity)
+    all_docs_df["_system_sort"] = all_docs_df["system_review_status"].map(_DOCUMENT_REVIEW_ORDER).fillna(3)
+    all_docs_df["_severity_sort"] = all_docs_df["highest_severity"].map(_SEVERITY_RANK).fillna(99)
+    all_docs_df = all_docs_df.sort_values(["_system_sort", "_severity_sort", "document_id"]).drop(columns=["_system_sort", "_severity_sort"])
+    return all_docs_df.reset_index(drop=True)
+
+
+def _render_manual_review_panel() -> None:
+    section_header(
+        "Resolve Flagged Documents",
+        "Only unresolved reject and warning PDFs are shown here. Approved documents are removed from this checklist.",
+    )
+    review_candidates_df = _load_manual_review_candidates()
+    if not review_candidates_df.empty:
+        review_candidates_df = review_candidates_df[
+            review_candidates_df["review_status"].map(_normalize_review_status) != "approved"
+        ].reset_index(drop=True)
+    if review_candidates_df.empty:
+        st.success("No flagged documents require manual review.")
+        return
+
+    review_editor_df = review_candidates_df.copy()
+    review_editor_df["approve"] = False
+    review_editor_df["issues"] = review_editor_df.get("issue_summary", pd.Series("", index=review_editor_df.index)).fillna("")
+    review_editor_df = review_editor_df.rename(
+        columns={
+            "document_id": "Document ID",
+            "document_type": "Type",
+            "fund_name": "Fund",
+            "system_review_status": "System Status",
+            "review_status": "Current Status",
+            "highest_severity": "Severity",
+            "issue_count": "Issue Count",
+            "issues": "Issues",
+            "approve": "Approve",
+        }
+    )
+    display_columns = [
+        "Approve",
+        "Document ID",
+        "Type",
+        "Fund",
+        "System Status",
+        "Current Status",
+        "Severity",
+        "Issue Count",
+        "Issues",
+    ]
+    available_display_columns = [column for column in display_columns if column in review_editor_df.columns]
+    edited_review_df = st.data_editor(
+        review_editor_df[available_display_columns],
+        use_container_width=True,
+        hide_index=True,
+        disabled=[column for column in available_display_columns if column != "Approve"],
+        column_config={
+            "Approve": st.column_config.CheckboxColumn("Approve", help="Select documents to approve into the dashboard state."),
+            "Issues": st.column_config.TextColumn("Issues", width="large"),
+            "Fund": st.column_config.TextColumn("Fund", width="medium"),
+        },
+        key=f"manual_review_checklist_editor_{st.session_state.get('manual_review_cycle', 0)}",
+    )
+
+    submitted = st.button("Approve Selected Documents And Rebuild Dashboard", type="primary", use_container_width=True)
+    if not submitted:
+        return
+
+    selected_document_ids = set(edited_review_df.loc[edited_review_df["Approve"], "Document ID"].astype(str))
+    if not selected_document_ids:
+        st.session_state["manual_review_message"] = "No documents were selected for approval."
+        st.rerun()
+
+    approved_count = 0
+    for row in review_candidates_df.itertuples():
+        if str(row.document_id) not in selected_document_ids:
+            continue
+        upsert_review_decision(
+            document_id=str(row.document_id),
+            extraction_mode=str(row.extraction_mode),
+            manual_review_status="approved",
+            reviewer_note="Approved from Document Intake checklist.",
+        )
+        approved_count += 1
+
+    results = run_apply_updates(mode="intake")
+    updated_status_df = load_document_processing_status()
+    sync_ingestion_status(updated_status_df)
+    st.cache_data.clear()
+    st.session_state["manual_review_message"] = (
+        f"Approved {approved_count} selected document(s). "
+        f"Dashboard state rebuilt with {results['approved_applied']} approved document(s) and {results['blocked_count']} blocked document(s)."
+    )
+    st.rerun()
+
+
+def _render_market_data_refresh_panel() -> None:
+    section_header(
+        "Refresh Market-Linked Pages",
+        "Update Public Markets and Risk Profile so their external market timeline matches the current approved PDF month.",
+    )
+    latest_overlay_month_end = load_latest_overlay_month_end()
+    if latest_overlay_month_end is None:
+        st.info("Market-linked pages will refresh after the app has an approved PDF month. Process the staged uploads first.")
+        return
+
+    st.caption(
+        "This re-downloads the external market price file under data/raw/market_prices/ and reruns the risk module so the market-linked pages stay aligned with the currently approved PDF month."
+    )
+    st.caption(f"Current target month end from approved PDFs: {latest_overlay_month_end.strftime('%Y-%m-%d')}")
+
+    if st.button("Refresh Public Markets And Risk Data", type="primary", use_container_width=True):
+        try:
+            results = refresh_public_market_data_for_month(latest_overlay_month_end)
+        except Exception as exc:
+            st.session_state["market_data_refresh_error"] = str(exc)
+            st.rerun()
+
+        fetch_metadata = results["fetch"]["metadata"]
+        risk_results = results["risk"]
+        st.cache_data.clear()
+        st.session_state["market_data_refresh_message"] = (
+            "External market data refresh complete. "
+            f"Verified through {results['verified_through']}, "
+            f"target-month coverage {results['target_month_coverage']:.0%}, "
+            f"price coverage {fetch_metadata.get('coverage_ratio', 0.0):.0%}, "
+            f"failed tickers {len(fetch_metadata.get('failed_tickers', []))}, "
+            f"risk date range {risk_results['date_range'][0]} to {risk_results['date_range'][1]}."
+        )
+        st.session_state.pop("market_data_refresh_error", None)
+        st.rerun()
+
+    refresh_message = st.session_state.get("market_data_refresh_message")
+    if refresh_message:
+        st.success(refresh_message)
+
+    refresh_error = st.session_state.get("market_data_refresh_error")
+    if refresh_error:
+        st.error(
+            "Public-market refresh could not complete. "
+            "Typical causes are unavailable network access or a missing market-data dependency in the current environment. "
+            f"Detail: {refresh_error}"
+        )
+
+
+def _render_sidebar_navigation(page_labels: list[str]) -> str:
+    session_key = "selected_page"
+    if session_key not in st.session_state or st.session_state[session_key] not in page_labels:
+        st.session_state[session_key] = page_labels[0]
+
+    st.sidebar.markdown(
+        """
+        <div class="fo-sidebar-shell">
+            <div class="fo-sidebar-badge">Synthetic Demo</div>
+            <div class="fo-sidebar-title">Family Office Portfolio Monitoring</div>
+            <div class="fo-sidebar-copy">
+                Portfolio-first monitoring with document workflow controls kept separate from the main investment view.
+            </div>
+            <div class="fo-sidebar-divider"></div>
+            <div class="fo-sidebar-section">Navigation</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    for page_label in page_labels:
+        if st.sidebar.button(
+            page_label,
+            key=f"sidebar_nav_{page_label}",
+            type="primary" if st.session_state[session_key] == page_label else "secondary",
+            use_container_width=True,
+        ):
+            if st.session_state[session_key] != page_label:
+                st.session_state[session_key] = page_label
+                st.rerun()
+
+    official_baseline = _format_optional_date(load_official_baseline_month_end())
+    overlay_month = _format_optional_date(load_latest_overlay_month_end())
+    external_market = _format_optional_date(load_external_market_through_date())
+    st.sidebar.markdown(
+        f"""
+        <div class="fo-sidebar-footer">
+            Official baseline: <strong>{official_baseline}</strong><br/>
+            Approved overlay month: <strong>{overlay_month}</strong><br/>
+            External market through: <strong>{external_market}</strong>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    return st.session_state[session_key]
 
 
 def _render_chart(chart_or_message):
     if isinstance(chart_or_message, str):
         empty_state(chart_or_message)
     else:
+        chart_or_message.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(color="#1f2937"),
+            title_font=dict(color="#1f2937"),
+            legend_title_font=dict(color="#475467"),
+            legend_font=dict(color="#475467"),
+            margin=dict(l=36, r=28, t=72, b=42),
+        )
+        st.markdown('<div class="fo-chart-card">', unsafe_allow_html=True)
         st.plotly_chart(
             chart_or_message,
             width="stretch",
             key=f"plotly_chart_{next(_PLOTLY_CHART_COUNTER)}",
         )
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
+def _render_page_header(title: str, subtitle: str) -> None:
+    st.title(title)
+    st.caption(subtitle)
+
+
+def _render_demo_state_status_bar(*, show_market_date: bool = True) -> None:
+    official_baseline = load_official_baseline_month_end()
+    overlay_month = load_latest_overlay_month_end()
+    external_market_through = load_external_market_through_date() if show_market_date else None
+
+    status_cols = st.columns(3 if show_market_date else 2)
+    with status_cols[0]:
+        metric_card(
+            "Official Baseline Month",
+            _format_optional_date(official_baseline),
+            _SOURCE_HELP["official_baseline"],
+        )
+    with status_cols[1]:
+        metric_card(
+            "Approved Overlay Month",
+            _format_optional_date(overlay_month),
+            _SOURCE_HELP["portfolio_overlay"],
+        )
+    if show_market_date:
+        with status_cols[2]:
+            metric_card(
+                "External Market Data Through",
+                _format_optional_date(external_market_through),
+                _SOURCE_HELP["external_market"],
+            )
 
 
 def _prepare_monthly_table(df: pd.DataFrame, date_column: str = "date") -> pd.DataFrame:
@@ -152,6 +978,43 @@ def _prepare_monthly_table(df: pd.DataFrame, date_column: str = "date") -> pd.Da
     working_df = df.copy()
     working_df[date_column] = pd.to_datetime(working_df[date_column], errors="coerce")
     return working_df.dropna(subset=[date_column]).sort_values(date_column)
+
+
+def _sort_with_rank(
+    df: pd.DataFrame,
+    ranked_columns: dict[str, dict[str, int]],
+    trailing_columns: list[str] | None = None,
+) -> pd.DataFrame:
+    if df.empty:
+        return df
+
+    working_df = df.copy()
+    sort_columns: list[str] = []
+    ascending: list[bool] = []
+    for column, rank_map in ranked_columns.items():
+        if column not in working_df.columns:
+            continue
+        rank_column = f"__rank_{column}"
+        working_df[rank_column] = (
+            working_df[column]
+            .astype(str)
+            .str.lower()
+            .map(rank_map)
+            .fillna(len(rank_map))
+        )
+        sort_columns.append(rank_column)
+        ascending.append(True)
+
+    for column in trailing_columns or []:
+        if column in working_df.columns:
+            sort_columns.append(column)
+            ascending.append(True)
+
+    if not sort_columns:
+        return working_df
+
+    working_df = working_df.sort_values(sort_columns, ascending=ascending)
+    return working_df[[column for column in working_df.columns if not column.startswith("__rank_")]]
 
 
 def _prepare_public_holdings(holdings_df: pd.DataFrame) -> pd.DataFrame:
@@ -972,17 +1835,33 @@ def render_overview_page():
     positions_df = overview_data["private_positions"]
     cash_df = overview_data["cash_accounts"]
     document_status_df = overview_data["document_status"]
+    ingestion_inbox_df = load_ingestion_inbox_status()
     allocation_df = overview_data["allocation"]
     risk_free_df = overview_data["risk_free"]
 
-    st.title("Family Office Portfolio Overview")
-    st.caption("Synthetic multi-asset portfolio monitoring with AI-assisted private-market document updates.")
+    _render_page_header(
+        "Family Office Portfolio Overview",
+        "Synthetic multi-asset portfolio monitoring with AI-assisted private-market document updates.",
+    )
     synthetic_data_notice()
+    _render_demo_state_status_bar()
+    st.info(
+        "This page mixes the official baseline portfolio state with approved PDF overlay updates. Public-market timing remains constrained by the external market refresh boundary."
+    )
 
     summary_tab = st.tabs(["Summary"])[0]
     with summary_tab:
         metrics = calculate_portfolio_summary_metrics(monthly_summary_df, positions_df, cash_df, document_status_df)
         performance_table = calculate_performance_statistics_table(monthly_summary_df, risk_free_df=risk_free_df)
+        baseline_month_end = load_official_baseline_month_end()
+        baseline_date = _format_optional_date(baseline_month_end)
+        baseline_total_aum = None
+        if baseline_month_end is not None and not monthly_summary_df.empty and {"date", "total_aum_usd_m"}.issubset(monthly_summary_df.columns):
+            baseline_rows = monthly_summary_df.copy()
+            baseline_rows["date"] = pd.to_datetime(baseline_rows["date"], errors="coerce")
+            baseline_rows = baseline_rows[baseline_rows["date"] == baseline_month_end]
+            if not baseline_rows.empty:
+                baseline_total_aum = pd.to_numeric(baseline_rows.iloc[-1]["total_aum_usd_m"], errors="coerce")
         public_private_df = pd.DataFrame(
             [
                 {"label": "Public Markets", "value": metrics["public_market_value"]},
@@ -996,6 +1875,7 @@ def render_overview_page():
             if not document_status_df.empty and "validation_review_status" in document_status_df.columns
             else {}
         )
+        staged_uploads = len(ingestion_inbox_df)
         applied_updates = int(document_status_df["update_applied_flag"].fillna(False).sum()) if not document_status_df.empty and "update_applied_flag" in document_status_df.columns else 0
         workflow_summary = (
             f"{len(document_status_df)} processed | "
@@ -1004,23 +1884,63 @@ def render_overview_page():
             f"{workflow_counts.get('rejected', 0)} rejected | "
             f"{applied_updates} applied"
         )
+        boundary_df = pd.DataFrame(
+            [
+                {
+                    "State Layer": "Official Baseline",
+                    "As Of": baseline_date,
+                    "Scope": "Full monthly portfolio state",
+                    "Indicator": format_usd_millions(baseline_total_aum),
+                },
+                {
+                    "State Layer": "Approved Overlay",
+                    "As Of": _format_optional_date(load_latest_overlay_month_end()),
+                    "Scope": "Approved private-market workflow updates",
+                    "Indicator": f"{applied_updates} applied | {workflow_counts.get('needs_review', 0)} needs review",
+                },
+                {
+                    "State Layer": "Staged Upload Inbox",
+                    "As Of": "Current app session",
+                    "Scope": "Uploaded PDFs awaiting extraction and review",
+                    "Indicator": f"{staged_uploads} staged | 0 portfolio impact before approval",
+                },
+            ]
+        )
+
+        section_header(
+            "Portfolio State Boundary",
+            "Use this section to distinguish the locked official baseline, the approved overlay month, and the staged inbox state.",
+        )
+        boundary_cols = st.columns(2)
+        with boundary_cols[0]:
+            metric_card("Official Baseline Date", baseline_date, _SOURCE_HELP["official_baseline"])
+            metric_card("Baseline Total AUM", format_usd_millions(baseline_total_aum), _SOURCE_HELP["official_baseline"])
+        with boundary_cols[1]:
+            metric_card("Approved Overlay Updates", f"{applied_updates:,}")
+            metric_card("Staged Uploads", f"{staged_uploads:,}")
+        tertiary_cols = st.columns(2)
+        with tertiary_cols[0]:
+            metric_card("Pending / Rejected Docs", f"{workflow_counts.get('needs_review', 0) + workflow_counts.get('rejected', 0):,}")
+        with tertiary_cols[1]:
+            metric_card("Review Gate", "Approved only")
+        dataframe_with_empty_state(boundary_df, "Portfolio state boundary summary is unavailable.")
 
         metric_cols = st.columns(4)
         with metric_cols[0]:
-            metric_card("Total AUM", format_usd_millions(metrics["total_aum"]), "Sourced from full portfolio monthly summary.")
-            metric_with_delta("Latest Monthly Return", format_percentage(metrics["latest_return"]))
+            metric_card("Total AUM", format_usd_millions(metrics["total_aum"]), _SOURCE_HELP["portfolio_overlay"])
+            metric_with_delta("Latest Monthly Return", format_percentage(metrics["latest_return"]), help_text=_SOURCE_HELP["portfolio_overlay"])
         with metric_cols[1]:
-            metric_with_delta("Annualized Return", since_inception_stats.get("Annualized Return", "N/A"))
-            metric_card("Cash & Liquidity", format_usd_millions(metrics["cash_liquidity"]))
+            metric_with_delta("Annualized Return", since_inception_stats.get("Annualized Return", "N/A"), help_text=_SOURCE_HELP["portfolio_overlay"])
+            metric_card("Cash & Liquidity", format_usd_millions(metrics["cash_liquidity"]), _SOURCE_HELP["portfolio_overlay"])
         with metric_cols[2]:
-            metric_with_delta("Annualized Volatility", since_inception_stats.get("Annualized Volatility", "N/A"))
-            metric_card("Unfunded Commitments", format_usd_millions(metrics["unfunded_commitments"]))
+            metric_with_delta("Annualized Volatility", since_inception_stats.get("Annualized Volatility", "N/A"), help_text=_SOURCE_HELP["portfolio_overlay"])
+            metric_card("Unfunded Commitments", format_usd_millions(metrics["unfunded_commitments"]), _SOURCE_HELP["portfolio_overlay"])
         with metric_cols[3]:
-            metric_with_delta("Max Drawdown", since_inception_stats.get("Largest Drawdown", "N/A"))
-            metric_card("Liquidity Coverage", format_percentage(metrics["liquidity_coverage"]))
+            metric_with_delta("Max Drawdown", since_inception_stats.get("Largest Drawdown", "N/A"), help_text=_SOURCE_HELP["portfolio_overlay"])
+            metric_card("Liquidity Coverage", format_percentage(metrics["liquidity_coverage"]), _SOURCE_HELP["portfolio_overlay"])
         secondary_cols = st.columns(2)
         with secondary_cols[0]:
-            metric_card("Sharpe Ratio", since_inception_stats.get("Sharpe Ratio", "N/A"), "Uses the synthetic Treasury bill proxy in risk_free_proxy_monthly.csv when available.")
+            metric_card("Sharpe Ratio", since_inception_stats.get("Sharpe Ratio", "N/A"), "Uses the processed portfolio monthly summary plus the Treasury-bill proxy when available.")
         with secondary_cols[1]:
             metric_card("Workflow Snapshot", workflow_summary)
 
@@ -1064,8 +1984,11 @@ def render_asset_class_page():
         else exposure_panel_df["category_label"].drop_duplicates().sort_values().tolist()
     )
 
-    st.title("Asset Class Allocation & Performance")
-    st.caption("This page monitors asset-class exposure, how long and short risk is distributed across the portfolio, and how those exposures move through time.")
+    _render_page_header(
+        "Asset Class Allocation & Performance",
+        "This page monitors asset-class exposure, showing how long and short risk is distributed across the portfolio and how it changes through time. "
+        "Views are exposure-based and use the synthetic holdings history plus approved workflow updates.",
+    )
     trend_tab, month_tab, category_tab, table_tab = st.tabs(["Trend", "By Month", "By Category", "Data Table"])
 
     with trend_tab:
@@ -1090,15 +2013,15 @@ def render_asset_class_page():
             )
         secondary_metric_cols = st.columns(3)
         with secondary_metric_cols[0]:
-            metric_card("Tracked Asset Class Value", format_usd_millions(asset_metrics["total_value"]))
+            metric_card("Total Value Tracked", format_usd_millions(asset_metrics["total_value"]), "Latest holdings market value aggregated across asset classes.")
         with secondary_metric_cols[1]:
             metric_card(
-                "Largest Asset Class by Value",
-                format_usd_millions(asset_metrics["largest_asset_class_value"]),
-                help_text=asset_metrics["largest_asset_class"] or None,
+                "Largest Asset Class",
+                asset_metrics["largest_asset_class"] or "N/A",
+                help_text=format_usd_millions(asset_metrics["largest_asset_class_value"]),
             )
         with secondary_metric_cols[2]:
-            metric_card("Liquid Assets by Value", format_usd_millions(asset_metrics["liquid_value"]))
+            metric_card("Liquid Assets by Value", format_usd_millions(asset_metrics["liquid_value"]), "Current market value classified as liquid rather than closed-end private capital.")
         if not exposure_history_df.empty:
             section_header(
                 "Asset Class · Exposure",
@@ -1345,8 +2268,11 @@ def render_region_currency_page():
     total_currency_value = safe_sum(currency_df, ["final_value_usd_m"])
     non_usd_share = None if total_currency_value == 0 else 1.0 - (usd_value / total_currency_value)
 
-    st.title("Region & Currency Exposure")
-    st.caption("This page tracks geographic concentration as an exposure problem first, with reporting-currency exposure kept as a supporting current-state view.")
+    _render_page_header(
+        "Region & Currency Exposure",
+        "This page tracks geographic concentration as an exposure problem first, with reporting-currency exposure kept as a supporting current-state view. "
+        "Region views are built from exposure history; currency views come from the current synthetic holdings snapshot.",
+    )
     st.info("Region taxonomy follows the project dataset: North America, Greater China, Southeast Asia, India, Japan, Korea, and Global / Multi-region.")
     trend_tab, month_tab, category_tab, table_tab = st.tabs(["Trend", "By Month", "By Category", "Data Table"])
 
@@ -1354,9 +2280,9 @@ def render_region_currency_page():
         st.caption("Region exposure view across the portfolio. All / Long / Short switching is based on signed exposure history, not market value.")
         metric_cols = st.columns(4)
         with metric_cols[0]:
-            metric_card("Gross Exposure", format_percentage(latest_region_metrics["gross_exposure"]))
+            metric_card("Gross Exposure", format_percentage(latest_region_metrics["gross_exposure"]), "Absolute long plus absolute short regional exposure as a percent of NAV.")
         with metric_cols[1]:
-            metric_card("Net Exposure", format_percentage(latest_region_metrics["net_exposure"]))
+            metric_card("Net Exposure", format_percentage(latest_region_metrics["net_exposure"]), "Signed regional exposure after offsetting long and short positioning.")
         with metric_cols[2]:
             metric_card(
                 "Largest Long",
@@ -1375,9 +2301,9 @@ def render_region_currency_page():
         with secondary_metric_cols[1]:
             metric_card("Top Reporting Currency", top_currency or "N/A", help_text=format_usd_millions(top_currency_value) if top_currency_value is not None else None)
         with secondary_metric_cols[2]:
-            metric_card("Region Categories", f"{len(region_options):,}")
+            metric_card("Region Categories", f"{len(region_options):,}", "Count of region buckets represented in the current exposure panel.")
         with secondary_metric_cols[3]:
-            metric_card("Non-USD Share", format_percentage(non_usd_share))
+            metric_card("Non-USD Share", format_percentage(non_usd_share), "Current holdings-based share of value reported outside USD.")
         if not exposure_history_df.empty and "region_taxonomy_pti" in exposure_history_df.columns:
             section_header(
                 "Region · Exposure",
@@ -1647,8 +2573,12 @@ def render_public_markets_page():
         proxy_map_df,
     )
 
-    st.title("Public Markets Monitoring")
-    st.caption("This page monitors liquid holdings, public proxy performance, concentration, and observable market risk across the listed portion of the portfolio.")
+    _render_page_header(
+        "Public Markets Monitoring",
+        "This page monitors the public and liquid sleeve of the portfolio through a public-proxy overlay. "
+        "Holdings are synthetic, and all performance / risk outputs here are proxy-based rather than full-portfolio realized returns.",
+    )
+    _render_demo_state_status_bar()
     overview_tab, performance_tab, sector_tab, holdings_tab = st.tabs(
         ["Overview", "Performance", "Sector & Market Cap", "Holdings"]
     )
@@ -1663,20 +2593,21 @@ def render_public_markets_page():
             st.info("Using synthetic public market proxy price history because the local real market price file is unavailable or below the minimum coverage threshold.")
         else:
             st.info(
-                "Using local real public market prices from `data/raw/market_prices/`. "
+                "Using local real public market prices from `data/raw/market_prices/` for the public-proxy overlay. "
                 f"Coverage: {format_percentage(public_summary['coverage_ratio'])}. "
                 f"Last price date: {_format_optional_date(public_summary['last_price_date'])}."
             )
-        st.caption("Overview focuses on current public-market value, signed exposure, concentration, and whether the local real-data file is complete enough for production use.")
+        st.info("Scope: current public / liquid sleeve only. Private assets are excluded here except where a separate proxy mapping is used downstream in Risk Profile.")
+        st.caption("Overview focuses on current public-sleeve value, signed exposure, concentration, and whether the local proxy price file is sufficiently complete.")
         metric_cols = st.columns(4)
         with metric_cols[0]:
-            metric_card("Public Market Value", format_usd_millions(public_summary["total_public_value"]))
+            metric_card("Public Market Value", format_usd_millions(public_summary["total_public_value"]), _SOURCE_HELP["portfolio_overlay"])
         with metric_cols[1]:
-            metric_card("Public Weight", format_percentage(public_summary["public_weight"]))
+            metric_card("Public Weight", format_percentage(public_summary["public_weight"]), "Uses current public holdings divided by the processed portfolio total AUM.")
         with metric_cols[2]:
-            metric_card("Gross Exposure", format_percentage(public_summary["gross_exposure"]))
+            metric_card("Gross Exposure", format_percentage(public_summary["gross_exposure"]), _SOURCE_HELP["public_proxy"])
         with metric_cols[3]:
-            metric_card("Net Exposure", format_percentage(public_summary["net_exposure"]))
+            metric_card("Net Exposure", format_percentage(public_summary["net_exposure"]), _SOURCE_HELP["public_proxy"])
 
         exposure_cols = st.columns(4)
         with exposure_cols[0]:
@@ -1698,13 +2629,13 @@ def render_public_markets_page():
 
         data_cols = st.columns(4)
         with data_cols[0]:
-            metric_card("Public Holdings", f"{len(public_holdings_df):,}")
+            metric_card("Public Holdings", f"{len(public_holdings_df):,}", _SOURCE_HELP["portfolio_overlay"])
         with data_cols[1]:
-            metric_card("Proxy Tickers", f"{int(public_summary['proxy_tickers'] or 0):,}")
+            metric_card("Proxy Tickers", f"{int(public_summary['proxy_tickers'] or 0):,}", _SOURCE_HELP["external_market"])
         with data_cols[2]:
-            metric_card("Real Data Coverage", format_percentage(public_summary["coverage_ratio"]))
+            metric_card("Real Data Coverage", format_percentage(public_summary["coverage_ratio"]), _SOURCE_HELP["external_market"])
         with data_cols[3]:
-            metric_card("Last Price Date", _format_optional_date(public_summary["last_price_date"]))
+            metric_card("Last Price Date", _format_optional_date(public_summary["last_price_date"]), _SOURCE_HELP["external_market"])
 
         section_header("Public Market Value Trend")
         _render_chart(public_market_value_trend_chart(public_value_df))
@@ -1721,7 +2652,7 @@ def render_public_markets_page():
             )
 
     with performance_tab:
-        st.caption("Performance is shown as a current-weight public proxy basket. It is proxy-based, not a full audited public-book return series.")
+        st.caption("Performance is shown as a current-weight public proxy basket. It is proxy-based sleeve monitoring, not a full audited public-book return series.")
         latest_proxy_return = (
             float(public_basket_df.sort_values("date").iloc[-1]["monthly_return"])
             if not public_basket_df.empty and "monthly_return" in public_basket_df.columns
@@ -1729,24 +2660,24 @@ def render_public_markets_page():
         )
         perf_metric_cols = st.columns(4)
         with perf_metric_cols[0]:
-            metric_card("Latest Monthly Return", format_percentage(latest_proxy_return))
+            metric_card("Latest Monthly Return", format_percentage(latest_proxy_return), _SOURCE_HELP["public_proxy"])
         with perf_metric_cols[1]:
-            metric_card("Annualized Return", _metric_from_table(public_performance_table, "Annualized Return", "Since Inception"))
+            metric_card("Annualized Return", _metric_from_table(public_performance_table, "Annualized Return", "Since Inception"), _SOURCE_HELP["public_proxy"])
         with perf_metric_cols[2]:
-            metric_card("Annualized Volatility", _metric_from_table(public_performance_table, "Annualized Volatility", "Since Inception"))
+            metric_card("Annualized Volatility", _metric_from_table(public_performance_table, "Annualized Volatility", "Since Inception"), _SOURCE_HELP["public_proxy"])
         with perf_metric_cols[3]:
-            metric_card("Sharpe Ratio", _metric_from_table(public_performance_table, "Sharpe Ratio", "Since Inception"))
+            metric_card("Sharpe Ratio", _metric_from_table(public_performance_table, "Sharpe Ratio", "Since Inception"), "Proxy-basket Sharpe based on monthly returns and the Treasury-bill proxy where available.")
         drawdown_cols = st.columns(2)
         with drawdown_cols[0]:
             metric_card("Largest Drawdown", _metric_from_table(public_performance_table, "Largest Drawdown", "Since Inception"))
         with drawdown_cols[1]:
             metric_card("3Y Annualized Return", _metric_from_table(public_performance_table, "Annualized Return", "3 Years"))
 
-        section_header("Public Proxy Basket", "Current signed exposures are mapped to approved proxy tickers and rolled into a local monthly proxy basket.")
+        section_header("Public Proxy Basket", "Current public-sleeve signed exposures are mapped to approved proxy tickers and rolled into a local monthly proxy basket.")
         _render_chart(public_proxy_basket_chart(public_basket_df))
         section_header("Public Proxy Basket Drawdown")
         _render_chart(public_proxy_drawdown_timeseries_chart(public_basket_df))
-        section_header("Performance Statistics", "Statistics use monthly proxy returns. Sharpe uses the Treasury-bill proxy series where available.")
+        section_header("Performance Statistics", "Statistics use monthly public-proxy returns. Sharpe uses the Treasury-bill proxy series where available.")
         dataframe_with_empty_state(public_performance_table, "Public proxy performance statistics are unavailable.")
         section_header("Proxy Performance Breadth")
         _render_chart(public_proxy_performance_chart(public_prices_df))
@@ -1887,8 +2818,11 @@ def render_private_markets_page():
     sector_summary_df = build_private_dimension_summary(positions_df, "mandate_sector", "Mandate Sector")
     statement_lag_df = build_private_statement_lag_table(positions_df)
 
-    st.title("Private Markets Monitoring")
-    st.caption("This page monitors private NAV, commitments, paid-in capital, unfunded exposure, and approved document-driven cashflow updates to the private portfolio layer.")
+    _render_page_header(
+        "Private Markets Monitoring",
+        "This page monitors private NAV, commitments, paid-in capital, unfunded exposure, and approved document-driven cashflow updates to the private portfolio layer. "
+        "Figures reflect the synthetic baseline plus approved post-ingestion state.",
+    )
     nav_tab, commitments_tab, cashflows_tab, table_tab = st.tabs(["NAV Trend", "Commitments", "Cashflows", "Fund Table"])
 
     with nav_tab:
@@ -1899,7 +2833,7 @@ def render_private_markets_page():
             metric_card("Total Commitments", format_usd_millions(metrics["total_commitments"]))
         with metric_cols[1]:
             metric_card("Paid-in Capital", format_usd_millions(metrics["paid_in_capital"]))
-            metric_card("Unfunded Commitments", format_usd_millions(metrics["unfunded_commitments"]))
+            metric_card("Unfunded Commitments", format_usd_millions(metrics["unfunded_commitments"]), "Remaining callable capital across private funds.")
         with metric_cols[2]:
             metric_card("Fund Count", f"{int(metrics['fund_count']):,}")
             metric_card("Strategy Count", f"{int(metrics['strategy_count']):,}")
@@ -1910,7 +2844,7 @@ def render_private_markets_page():
         with secondary_cols[0]:
             metric_card("12M NAV Growth", format_percentage(metrics["trailing_12m_nav_growth"]))
         with secondary_cols[1]:
-            metric_card("NAV / Paid-in", format_multiple(metrics["nav_to_paid_in_ratio"]))
+            metric_card("NAV / Paid-in", format_multiple(metrics["nav_to_paid_in_ratio"]), "Current NAV divided by cumulative paid-in capital.")
         with secondary_cols[2]:
             metric_card("Latest Statement Date", _format_optional_date(metrics["latest_statement_date"]))
         with secondary_cols[3]:
@@ -2084,26 +3018,60 @@ def render_liquidity_commitments_page():
     liquidity_horizon_df = calculate_liquidity_horizon_table(cash_df, capital_call_df, cashflows_df)
     commitment_summary = calculate_commitment_summary(positions_df)
 
-    st.title("Liquidity & Commitments")
-    st.caption("This page monitors cash, short-term liquidity, approved capital calls, expected distributions, and funding coverage for private market obligations.")
+    _render_page_header(
+        "Liquidity & Commitments",
+        "This page separates current baseline cash from projected private-market flows. "
+        "Operating cash remains the booked baseline state, while approved calls and distributions are shown as projected overlay items until a future official close.",
+    )
     overview_tab, calls_tab, distributions_tab, accounts_tab = st.tabs(
         ["Overview", "Capital Calls", "Distributions", "Cash Accounts"]
     )
 
     with overview_tab:
-        st.caption("Liquidity monitoring tracks operating cash, soft-eligible liquidity, approved calls, expected distributions, and horizon-based coverage against private-market funding needs.")
+        st.caption(
+            "Liquidity monitoring tracks booked cash, soft-eligible liquidity, approved projected calls, approved projected distributions, "
+            "and horizon-based coverage against private-market funding needs."
+        )
+        liquidity_boundary_df = pd.DataFrame(
+            [
+                {
+                    "State Layer": "Booked Baseline Cash",
+                    "Value": liquidity_metrics["cash_liquidity"],
+                    "Definition": "Cash balances already present in the official 2026-04-30 baseline state.",
+                },
+                {
+                    "State Layer": "Projected Overlay Flows",
+                    "Value": liquidity_metrics["expected_distributions"] - liquidity_metrics["upcoming_capital_calls"],
+                    "Definition": "Approved future distributions less approved projected capital calls.",
+                },
+            ]
+        )
+        section_header(
+            "Booked vs Projected Boundary",
+            "Booked cash stays in the baseline state. Approved calls and distributions remain projected overlay items until a future official close.",
+        )
+        boundary_cols = st.columns(2)
+        with boundary_cols[0]:
+            metric_card("Booked Baseline Cash", format_usd_millions(liquidity_metrics["cash_liquidity"]))
+            metric_card("Operating Cash", format_usd_millions(liquidity_metrics["operating_cash"]), "Booked cash flagged as immediately usable for hard call coverage.")
+        with boundary_cols[1]:
+            metric_card("Projected Capital Calls", format_usd_millions(liquidity_metrics["upcoming_capital_calls"]))
+            metric_card("Projected Distributions", format_usd_millions(liquidity_metrics["expected_distributions"]))
+        liquidity_boundary_display_df = format_display_dataframe(liquidity_boundary_df, money_columns=["Value"])
+        dataframe_with_empty_state(liquidity_boundary_display_df, "Liquidity boundary summary is unavailable.")
+
         metric_cols = st.columns(4)
         with metric_cols[0]:
             metric_card("Cash & Liquidity", format_usd_millions(liquidity_metrics["cash_liquidity"]))
-            metric_card("Operating Cash", format_usd_millions(liquidity_metrics["operating_cash"]))
+            metric_card("Operating Cash", format_usd_millions(liquidity_metrics["operating_cash"]), "Cash flagged as immediately usable for hard capital-call coverage.")
         with metric_cols[1]:
-            metric_card("Soft-Eligible Liquidity", format_usd_millions(liquidity_metrics["soft_eligible_liquidity"]))
-            metric_card("Upcoming Capital Calls", format_usd_millions(liquidity_metrics["upcoming_capital_calls"]))
+            metric_card("Soft-Eligible Liquidity", format_usd_millions(liquidity_metrics["soft_eligible_liquidity"]), "Cash and near-cash balances that can support soft coverage analysis.")
+            metric_card("Projected Capital Calls", format_usd_millions(liquidity_metrics["upcoming_capital_calls"]), "Approved upcoming private-market calls tracked as projected overlay items.")
         with metric_cols[2]:
-            metric_card("Expected Distributions", format_usd_millions(liquidity_metrics["expected_distributions"]))
-            metric_card("Net Projected Liquidity", format_usd_millions(liquidity_metrics["net_projected_liquidity"]))
+            metric_card("Projected Distributions", format_usd_millions(liquidity_metrics["expected_distributions"]), "Approved future distributions not yet booked into baseline cash.")
+            metric_card("Projected Net Liquidity", format_usd_millions(liquidity_metrics["net_projected_liquidity"]), "Current baseline cash plus projected distributions minus projected calls.")
         with metric_cols[3]:
-            metric_card("Cash / Upcoming Calls Coverage", format_percentage(liquidity_metrics["cash_to_upcoming_calls_coverage"]))
+            metric_card("Cash / Projected Calls Coverage", format_percentage(liquidity_metrics["cash_to_upcoming_calls_coverage"]), "Operating cash divided by currently approved projected capital calls.")
             metric_card("Unfunded Commitments", format_usd_millions(commitment_summary["unfunded_commitments"]))
         secondary_cols = st.columns(4)
         horizon_lookup = liquidity_horizon_df.set_index("Horizon").to_dict("index") if not liquidity_horizon_df.empty and "Horizon" in liquidity_horizon_df.columns else {}
@@ -2115,11 +3083,13 @@ def render_liquidity_commitments_page():
             metric_card(
                 "30D Hard Coverage",
                 format_percentage(horizon_lookup.get("30D", {}).get("Hard Coverage")),
+                "Operating cash divided by approved projected 30-day capital calls.",
             )
         with secondary_cols[3]:
             metric_card(
                 "90D Soft Coverage",
                 format_percentage(horizon_lookup.get("90D", {}).get("Soft Coverage")),
+                "Operating cash plus approved projected distributions divided by approved projected 90-day calls.",
             )
         section_header("Cash by Account")
         _render_chart(cash_by_account_chart(cash_df))
@@ -2129,9 +3099,9 @@ def render_liquidity_commitments_page():
         _render_chart(cash_purpose_chart(cash_df))
         section_header("Liquidity Coverage")
         _render_chart(liquidity_coverage_chart(cash_df, capital_call_df))
-        section_header("Coverage by Horizon Chart", "Hard coverage uses operating cash only. Soft coverage includes approved projected distributions.")
+        section_header("Coverage by Horizon Chart", "Hard coverage uses booked operating cash only. Soft coverage adds approved projected distributions.")
         _render_chart(liquidity_horizon_coverage_chart(liquidity_horizon_df))
-        section_header("Coverage by Horizon", "Hard coverage uses operating cash only. Soft coverage adds projected approved distributions.")
+        section_header("Coverage by Horizon", "Hard coverage uses booked operating cash only. Soft coverage adds projected approved distributions.")
         if not liquidity_horizon_df.empty:
             display_df = format_display_dataframe(
                 liquidity_horizon_df,
@@ -2143,9 +3113,9 @@ def render_liquidity_commitments_page():
             empty_state("Liquidity horizon coverage is unavailable.")
 
     with calls_tab:
-        st.caption("Approved capital calls flow into the calendar below. Pending or rejected calls remain visible only in Workflow & Controls.")
+        st.caption("Approved capital calls below are projected overlay obligations. They do not reduce booked baseline cash until a future official close is defined.")
         if capital_call_df.empty:
-            st.info("No approved capital calls are currently in the processed portfolio state. Coverage metrics therefore reflect current cash against an empty approved call calendar.")
+            st.info("No approved capital calls are currently in the projected call calendar. Coverage metrics therefore reflect current cash against an empty approved call calendar.")
         section_header("Capital Call Calendar")
         _render_chart(capital_call_calendar_chart(capital_call_df))
         section_header("Unfunded Commitments by Fund")
@@ -2161,18 +3131,22 @@ def render_liquidity_commitments_page():
         dataframe_with_empty_state(call_display_df, "No approved capital calls are currently in the calendar.")
 
     with distributions_tab:
-        st.caption("Distributions shown here are approved private-market inflows that can support soft liquidity coverage.")
-        section_header("Expected Distributions Timeline")
-        _render_chart(distribution_timeline_chart(cashflows_df))
-        section_header("Private Market Cashflows")
-        _render_chart(private_market_cashflow_chart(cashflows_df))
+        projected_distribution_df = filter_projected_distribution_cashflows(
+            cashflows_df,
+            liquidity_metrics.get("as_of_date"),
+        )
+        st.caption("Distributions shown here are approved projected private-market inflows only. They support soft coverage analysis but do not alter booked baseline cash.")
+        section_header("Projected Distributions Timeline")
+        _render_chart(distribution_timeline_chart(projected_distribution_df))
+        section_header("Projected Distribution Cashflows")
+        _render_chart(private_market_cashflow_chart(projected_distribution_df))
         section_header("Distributions and Cashflows Table")
         cashflow_display_df = format_display_dataframe(
-            cashflows_df,
+            projected_distribution_df,
             money_columns=["gross_distribution_usd_m", "net_distribution_usd_m", "expected_cash_inflow_usd_m"],
             date_columns=["cashflow_date"],
         )
-        dataframe_with_empty_state(cashflow_display_df, "No approved private market cashflows are available.")
+        dataframe_with_empty_state(cashflow_display_df, "No approved projected distributions are available.")
 
     with accounts_tab:
         st.caption("Cash accounts are shown with operating-cash and soft-liquidity flags because those attributes drive the hard-versus-soft coverage logic.")
@@ -2208,8 +3182,12 @@ def render_risk_profile_page():
     stress_summary_df, stress_detail_df = build_stress_impact_tables(overlay_df, stress_df, monthly_summary_df)
     top_corr_pairs_df = build_top_correlation_pairs(correlation_df)
 
-    st.title("Risk Profile")
-    st.caption("This page summarizes public-proxy risk, drawdown, stress testing, and correlation using the current public/liquid holdings overlay. It is not investment advice.")
+    _render_page_header(
+        "Risk Profile",
+        "This page summarizes a public-proxy risk overlay using the current public and liquid holdings sleeve. "
+        "It is not a full total-portfolio risk engine, and private assets only enter where a defensible proxy mapping exists.",
+    )
+    _render_demo_state_status_bar()
 
     if risk_metrics_df.empty:
         st.warning("Public market risk outputs are unavailable. Run `python3 -m src.risk.run_risk` before opening this page.")
@@ -2223,31 +3201,32 @@ def render_risk_profile_page():
             f"Using local real public proxy price history from {_format_optional_date(public_summary.get('real_price_start_date'))} "
             f"to {_format_optional_date(public_summary.get('real_price_end_date'))}. Private assets remain proxy-overlay only where defensible mappings exist."
         )
+    st.info("Scope: this page is a public-proxy risk overlay, not a full cross-asset family office risk engine.")
 
     overview_tab, volatility_tab, drawdown_tab, stress_tab, correlation_tab = st.tabs(
         ["Overview", "Volatility", "Drawdown", "Stress Test", "Correlation"]
     )
 
     with overview_tab:
-        st.caption("This is a public-proxy risk overlay. Exposure is mapped from current holdings to liquid proxies, then aggregated across asset class, sector, region, liquidity bucket, and proxy.")
+        st.caption("This is a public-proxy overlay only. Exposure is mapped from current holdings to liquid proxies, then aggregated across asset class, sector, region, liquidity bucket, and proxy.")
         metric_cols = st.columns(4)
         with metric_cols[0]:
-            metric_card("Proxy Basket Ann. Vol", _metric_from_table(performance_table, "Annualized Volatility", "Since Inception"))
+            metric_card("Proxy Basket Ann. Vol", _metric_from_table(performance_table, "Annualized Volatility", "Since Inception"), _SOURCE_HELP["public_proxy"])
         with metric_cols[1]:
-            metric_card("Proxy Basket Max Drawdown", _metric_from_table(performance_table, "Largest Drawdown", "Since Inception"))
+            metric_card("Proxy Basket Max Drawdown", _metric_from_table(performance_table, "Largest Drawdown", "Since Inception"), _SOURCE_HELP["public_proxy"])
         with metric_cols[2]:
-            metric_card("Proxy Basket Sharpe", _metric_from_table(performance_table, "Sharpe Ratio", "Since Inception"))
+            metric_card("Proxy Basket Sharpe", _metric_from_table(performance_table, "Sharpe Ratio", "Since Inception"), _SOURCE_HELP["public_proxy"])
         with metric_cols[3]:
-            metric_card("Real Data Coverage", format_percentage(public_summary.get("coverage_ratio")))
+            metric_card("Real Data Coverage", format_percentage(public_summary.get("coverage_ratio")), _SOURCE_HELP["external_market"])
         secondary_metric_cols = st.columns(4)
         with secondary_metric_cols[0]:
-            metric_card("Proxy Tickers", f"{int(risk_metrics_df['ticker'].nunique()) if 'ticker' in risk_metrics_df.columns else 0:,}")
+            metric_card("Proxy Tickers", f"{int(risk_metrics_df['ticker'].nunique()) if 'ticker' in risk_metrics_df.columns else 0:,}", _SOURCE_HELP["external_market"])
         with secondary_metric_cols[1]:
-            metric_card("Mapped Holdings", f"{int(overlay_df['holding_id'].nunique()) if not overlay_df.empty and 'holding_id' in overlay_df.columns else 0:,}")
+            metric_card("Mapped Holdings", f"{int(overlay_df['holding_id'].nunique()) if not overlay_df.empty and 'holding_id' in overlay_df.columns else 0:,}", _SOURCE_HELP["portfolio_overlay"])
         with secondary_metric_cols[2]:
-            metric_card("Stress Scenarios", f"{int(stress_summary_df['scenario'].nunique()) if not stress_summary_df.empty and 'scenario' in stress_summary_df.columns else 0:,}")
+            metric_card("Stress Scenarios", f"{int(stress_summary_df['scenario'].nunique()) if not stress_summary_df.empty and 'scenario' in stress_summary_df.columns else 0:,}", "Number of predefined proxy shock scenarios available in the stress module.")
         with secondary_metric_cols[3]:
-            metric_card("Last Real Price Date", _format_optional_date(public_summary.get("last_price_date")))
+            metric_card("Last Real Price Date", _format_optional_date(public_summary.get("last_price_date")), _SOURCE_HELP["external_market"])
 
         section_header(
             "Proxy Overlay Performance Statistics",
@@ -2415,14 +3394,18 @@ def render_risk_profile_page():
 
 def render_workflow_controls_page():
     document_status_df = load_document_processing_status()
+    ingestion_inbox_df = load_ingestion_inbox_status()
     extracted_records = load_extracted_json_records("baseline")
     review_queue_df = load_review_queue()
     validation_results_df = load_validation_results()
     extraction_accuracy_df = load_extraction_accuracy_summary("baseline")
     update_summary_markdown = load_update_summary_report()
 
-    st.title("Workflow & Controls")
-    st.caption("Document extraction and validation outputs are used as controlled inputs to the portfolio data layer. Pending or rejected documents do not update portfolio state.")
+    _render_page_header(
+        "Workflow & Controls",
+        "This page is the support and control layer for the portfolio dashboard. "
+        "Document extraction and validation outputs are used as controlled inputs to the portfolio data layer, and pending or rejected documents do not update portfolio state.",
+    )
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
         [
             "Pipeline Summary",
@@ -2437,12 +3420,35 @@ def render_workflow_controls_page():
     with tab1:
         section_header("Pipeline Summary")
         st.write("PDF -> extraction -> validation -> approved updates -> dashboard")
+        st.info(
+            "State boundary: staged uploads remain in the interim inbox, the official portfolio baseline remains unchanged, "
+            "and only approved workflow outputs flow into the processed overlay."
+        )
+        gate_cols = st.columns(3)
+        with gate_cols[0]:
+            metric_card("Official Baseline", "Locked")
+        with gate_cols[1]:
+            metric_card("Staged Uploads", f"{len(ingestion_inbox_df):,}")
+        with gate_cols[2]:
+            metric_card("Portfolio Update Gate", "Approved only")
         pipeline_status_summary(document_status_df)
         workflow_status_card(document_status_df)
         _render_chart(document_status_chart(document_status_df))
 
     with tab2:
-        section_header("Document Ingestion")
+        section_header(
+            "Document Ingestion",
+            "Staged uploads are managed from the separate Document Intake page. This tab shows the processed baseline document set that has already moved through the controlled workflow.",
+        )
+        if not ingestion_inbox_df.empty:
+            st.info(
+                f"{len(ingestion_inbox_df)} staged upload(s) are currently waiting in the interim inbox. "
+                "Go to Document Intake to add or inspect staged PDFs before extraction."
+            )
+        section_header(
+            "Processed Baseline Document Set",
+            "These are the documents already run through the controlled extraction and validation workflow.",
+        )
         columns = [
             "document_id",
             "document_type",
@@ -2450,12 +3456,20 @@ def render_workflow_controls_page():
             "extraction_mode",
             "extraction_status",
             "source_path",
+            "validation_review_status",
+            "update_applied_flag",
         ]
         available = [column for column in columns if column in document_status_df.columns]
+        display_document_status_df = (
+            document_status_df.sort_values("document_id")
+            if not document_status_df.empty and "document_id" in document_status_df.columns
+            else document_status_df
+        )
         dataframe_with_empty_state(
-            document_status_df[available] if not document_status_df.empty else document_status_df,
+            display_document_status_df[available] if not display_document_status_df.empty else display_document_status_df,
             "Document processing status is unavailable.",
         )
+
 
     with tab3:
         section_header("Extraction Results")
@@ -2467,6 +3481,11 @@ def render_workflow_controls_page():
         section_header("Validation Results")
         filtered_validation_df = status_filter_widget(validation_results_df, "status")
         filtered_validation_df = status_filter_widget(filtered_validation_df, "severity")
+        filtered_validation_df = _sort_with_rank(
+            filtered_validation_df,
+            {"status": _VALIDATION_STATUS_RANK, "severity": _SEVERITY_RANK},
+            ["document_id", "rule_name"],
+        )
         columns = [
             "rule_name",
             "status",
@@ -2484,21 +3503,39 @@ def render_workflow_controls_page():
 
     with tab5:
         section_header("Review Queue", "Blocked documents do not update portfolio state.")
-        dataframe_with_empty_state(review_queue_df, "No review queue entries are available.")
+        st.warning("Human review is the control gate. Documents in review or rejected status remain blocked from portfolio updates.")
+        display_review_queue_df = _sort_with_rank(
+            review_queue_df,
+            {"highest_severity": _SEVERITY_RANK},
+            ["document_id"],
+        )
+        if not display_review_queue_df.empty and "issue_count" in display_review_queue_df.columns:
+            display_review_queue_df = display_review_queue_df.sort_values(
+                by=["highest_severity", "issue_count", "document_id"],
+                ascending=[True, False, True],
+            )
+        dataframe_with_empty_state(display_review_queue_df, "No review queue entries are available.")
         if not review_queue_df.empty:
             _render_chart(review_status_chart(review_queue_df))
 
     with tab6:
-        section_header("Approved Updates")
+        section_header("Approved Updates", "Only approved documents become portfolio overlay updates.")
         applied_df = document_status_df
         if not applied_df.empty and "update_applied_flag" in applied_df.columns:
             applied_df = applied_df[applied_df["update_applied_flag"] == True]  # noqa: E712
+        if not applied_df.empty and "document_id" in applied_df.columns:
+            applied_df = applied_df.sort_values("document_id")
         dataframe_with_empty_state(applied_df, "No approved updates are currently available.")
 
-        section_header("Blocked Documents")
+        section_header("Blocked Documents", "These records stay out of the portfolio state until they are resolved and approved.")
         blocked_df = document_status_df
         if not blocked_df.empty and "update_applied_flag" in blocked_df.columns:
             blocked_df = blocked_df[blocked_df["update_applied_flag"] == False]  # noqa: E712
+        blocked_df = _sort_with_rank(
+            blocked_df,
+            {"validation_review_status": {"rejected": 0, "needs_review": 1, "approved": 2}},
+            ["document_id"],
+        )
         dataframe_with_empty_state(blocked_df, "No blocked documents are present.")
 
         if update_summary_markdown:
@@ -2508,6 +3545,37 @@ def render_workflow_controls_page():
             markdown_report_preview(None, "Update Summary Report")
 
 
+def render_document_intake_page():
+    document_status_df = load_document_processing_status()
+    _render_page_header(
+        "Document Intake",
+        "Operational staging area for new PDF uploads. Files land in interim storage first and remain outside portfolio state until offline extraction, validation, and approval are completed.",
+    )
+    synthetic_data_notice()
+    _render_demo_state_status_bar()
+    st.info(
+        "This page is the interaction layer for document intake. Uploads are staged into the interim inbox first, then move into portfolio state only after processing and approval."
+    )
+    _render_demo_checklist()
+    inbox_df = _render_document_ingestion_panel(
+        form_key="document_intake_upload_form",
+        section_title="Stage New PDF Documents",
+        section_subtitle="Use this page for interactive PDF intake. Uploaded files are stored in data/interim/document_ingestion/uploaded_pdfs and await offline extraction and review.",
+        show_processed_baseline=False,
+        document_status_df=document_status_df,
+    )
+    if inbox_df.empty:
+        st.caption("Upload files above to populate the staged inbox, then continue here to update the portfolio state and market-linked pages.")
+    _render_intake_processing_panel()
+    manual_review_message = st.session_state.get("manual_review_message")
+    if manual_review_message:
+        st.success(manual_review_message)
+    _render_manual_review_panel()
+    _render_market_data_refresh_panel()
+    _render_processed_baseline_documents(document_status_df)
+    _render_demo_reset_panel()
+
+
 def main():
     st.set_page_config(
         page_title="Family Office Portfolio Dashboard",
@@ -2515,6 +3583,7 @@ def main():
         layout="wide",
         initial_sidebar_state="expanded",
     )
+    _inject_dashboard_theme()
 
     pages = {
         "Overview": render_overview_page,
@@ -2524,11 +3593,11 @@ def main():
         "Private Markets": render_private_markets_page,
         "Liquidity & Commitments": render_liquidity_commitments_page,
         "Risk Profile": render_risk_profile_page,
+        "Document Intake": render_document_intake_page,
         "Workflow & Controls": render_workflow_controls_page,
     }
 
-    st.sidebar.title("Navigation")
-    selected_page = st.sidebar.radio("Go to", list(pages.keys()))
+    selected_page = _render_sidebar_navigation(list(pages.keys()))
     pages[selected_page]()
 
 

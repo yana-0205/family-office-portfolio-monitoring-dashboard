@@ -1,0 +1,2 @@
+mode,document_id,field_name,expected_value,actual_value,matched,warning
+llm,PDF_001,amount_due,2.5,2.5,True,

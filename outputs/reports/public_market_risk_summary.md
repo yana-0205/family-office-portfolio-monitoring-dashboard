@@ -3,7 +3,7 @@
 - Data source used: `real`
 - Source files: `yfinance_monthly_prices.csv`
 - Tickers processed: `2800.HK, 3067.HK, ACWI, AGG, BABA, BIL, BRK.B, CNYA, DBC, DBMF, EEM, EMB, EWJ, EWS, EWY, GLD, GOOGL, HYG, IGIB, INDA, JD, LQD, MSFT, NVDA, PDD, QAI, QQQ, SPY, TLT, VNQ`
-- Date range: `2016-06-30 -> 2026-06-12`
+- Date range: `2016-06-30 -> 2026-04-30`
 
 ## Outputs
 

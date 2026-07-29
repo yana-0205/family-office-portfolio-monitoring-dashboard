@@ -6,8 +6,8 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-from src.config import OUTPUTS_DIR, REPORTS_DIR
-from src.extraction.baseline_extractor import extract_document
+from src.config import INGESTION_FILES_DIR, OUTPUTS_DIR, REPORTS_DIR
+from src.extraction.baseline_extractor import extract_document as extract_document_baseline
 from src.extraction.document_classifier import classify_all_documents
 from src.extraction.extraction_accuracy import compare_extraction_to_ground_truth, write_accuracy_outputs
 from src.extraction.pdf_reader import read_all_pdfs
@@ -68,16 +68,42 @@ def _write_run_summary(
     return summary_path
 
 
-def run(mode: str = "baseline") -> dict:
-    if mode != "baseline":
+def _resolve_source_dir(mode: str, source_dir: Path | None = None) -> Path | None:
+    if source_dir is not None:
+        return Path(source_dir)
+    if mode == "intake":
+        return INGESTION_FILES_DIR
+    return None
+
+
+def run(
+    mode: str = "baseline",
+    source_dir: Path | None = None,
+    *,
+    llm_client=None,
+    llm_model: str | None = None,
+) -> dict:
+    if mode not in {"baseline", "intake", "llm"}:
         raise NotImplementedError(f"Extraction mode '{mode}' is not implemented in this phase.")
 
-    pdf_records = read_all_pdfs()
+    resolved_source_dir = _resolve_source_dir(mode, source_dir=source_dir)
+    pdf_records = read_all_pdfs(source_dir=resolved_source_dir)
     classified = classify_all_documents(pdf_records)
 
     extracted_records = []
     for item in classified:
-        record = extract_document(item, item["classification"])
+        if mode == "llm":
+            from src.extraction.llm_extractor import extract_document as extract_document_llm
+
+            record = extract_document_llm(
+                item,
+                item["classification"],
+                client=llm_client,
+                model=llm_model,
+            )
+        else:
+            record = extract_document_baseline(item, item["classification"])
+        record["extraction_mode"] = mode
         schema_errors = _validate_record_against_schema(record)
         if schema_errors:
             record["warnings"].extend([f"Schema validation: {message}" for message in schema_errors])
@@ -101,9 +127,11 @@ def run(mode: str = "baseline") -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run document extraction pipeline.")
-    parser.add_argument("--mode", default="baseline", choices=["baseline", "llm"])
+    parser.add_argument("--mode", default="baseline", choices=["baseline", "intake", "llm"])
+    parser.add_argument("--source-dir", type=Path, default=None)
+    parser.add_argument("--model", default=None, help="Override OPENAI_EXTRACTION_MODEL for --mode llm.")
     args = parser.parse_args()
-    results = run(mode=args.mode)
+    results = run(mode=args.mode, source_dir=args.source_dir, llm_model=args.model)
     print(
         f"mode={results['mode']} pdfs={results['pdf_count']} json={len(results['written_paths'])} "
         f"summary={results['summary_path'].name} accuracy_rows={results['comparison_rows']}"
