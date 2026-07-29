@@ -81,6 +81,14 @@ def test_fetch_market_prices_from_yfinance_writes_csv(monkeypatch, tmp_path: Pat
         def Ticker(ticker: str) -> FakeTicker:
             return FakeTicker(ticker)
 
+        @staticmethod
+        def download(tickers, **kwargs) -> pd.DataFrame:
+            return pd.DataFrame(
+                [[510.0]],
+                index=pd.to_datetime(["2026-05-29"]),
+                columns=pd.MultiIndex.from_tuples([("Close", "QQQ")]),
+            )
+
     monkeypatch.setitem(__import__("sys").modules, "yfinance", FakeYFinance())
     monkeypatch.setattr(market_data_loader, "MARKET_PRICES_DIR", tmp_path)
 
@@ -99,3 +107,54 @@ def test_fetch_market_prices_from_yfinance_writes_csv(monkeypatch, tmp_path: Pat
     assert result["output_path"].exists()
     written = pd.read_csv(result["output_path"])
     assert set(written["ticker"]) == {"SPY", "QQQ"}
+
+
+def test_fetch_market_prices_merges_fresh_rows_with_existing_tickers(monkeypatch, tmp_path: Path) -> None:
+    class FakeTicker:
+        def __init__(self, ticker: str) -> None:
+            self.ticker = ticker
+
+        def history(self, **kwargs) -> pd.DataFrame:
+            if self.ticker == "QQQ":
+                return pd.DataFrame()
+            return pd.DataFrame({"Date": pd.to_datetime(["2026-05-01"]), "Close": [610.0]})
+
+    class FakeYFinance:
+        @staticmethod
+        def Ticker(ticker: str) -> FakeTicker:
+            return FakeTicker(ticker)
+
+        @staticmethod
+        def download(tickers, **kwargs) -> pd.DataFrame:
+            return pd.DataFrame(
+                [[510.0]],
+                index=pd.to_datetime(["2026-05-29"]),
+                columns=pd.MultiIndex.from_tuples([("Close", "QQQ")]),
+            )
+
+    output_path = tmp_path / "prices.csv"
+    pd.DataFrame(
+        {
+            "date": ["2026-04-30", "2026-04-30"],
+            "ticker": ["SPY", "QQQ"],
+            "close": [600.0, 500.0],
+        }
+    ).to_csv(output_path, index=False)
+    monkeypatch.setitem(__import__("sys").modules, "yfinance", FakeYFinance())
+    monkeypatch.setattr(market_data_loader, "MARKET_PRICES_DIR", tmp_path)
+
+    result = fetch_market_prices_from_yfinance(
+        tickers=["SPY", "QQQ"],
+        start_date="2026-04-01",
+        end_date="2026-06-01",
+        interval="1mo",
+        output_filename="prices.csv",
+        max_retries=1,
+    )
+
+    written = pd.read_csv(output_path)
+    assert set(written["ticker"]) == {"SPY", "QQQ"}
+    assert "2026-05-31" in written.loc[written["ticker"] == "SPY", "date"].tolist()
+    assert result["metadata"]["end_date"] == "2026-05-31"
+    assert result["metadata"]["coverage_ratio"] == 1.0
+    assert result["metadata"]["failed_tickers"] == []

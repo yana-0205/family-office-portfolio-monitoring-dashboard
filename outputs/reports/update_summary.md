@@ -1,6 +1,6 @@
 # Update Summary
 
-- Timestamp: `2026-06-18T07:30:18.616725+00:00`
+- Timestamp: `2026-07-17T06:57:28.314029+00:00`
 - Extraction mode: `baseline`
 - Number of extracted records: `6`
 - Number approved: `3`
@@ -30,10 +30,10 @@
 
 ## Assumptions
 
-- Only records with document-level validation status `approved` were applied.
-- Distribution cash inflows within May 2026 were projected into USD operating cash.
+- Only records with effective document-level validation status `approved` were applied.
+- The official portfolio baseline remains `2026-04-30`; approved May 2026 calls and distributions are tracked as projected overlay items rather than booked cash movements.
 - Newsletter updates create commentary output only and do not alter numeric portfolio state.
 
 ## Recommended Next Step
 
-- Build a downstream review-to-approval workflow so `needs_review` documents can be corrected and re-applied safely.
+- Review any remaining blocked documents and promote only validated records into the portfolio overlay.

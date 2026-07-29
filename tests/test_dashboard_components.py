@@ -2,6 +2,7 @@ import importlib
 from pathlib import Path
 
 import pandas as pd
+import streamlit as st
 
 from src.dashboard.components import (
     build_public_proxy_basket_history,
@@ -13,6 +14,7 @@ from src.dashboard.components import (
     build_top_correlation_pairs,
     calculate_asset_class_metrics,
     calculate_commitment_summary,
+    filter_projected_distribution_cashflows,
     calculate_liquidity_horizon_table,
     calculate_liquidity_metrics,
     calculate_performance_statistics_table,
@@ -22,6 +24,8 @@ from src.dashboard.components import (
     calculate_return_statistics_table,
     calculate_private_market_metrics,
     calculate_return_metrics,
+    dataframe_with_empty_state,
+    empty_state,
     format_percentage,
     format_usd_millions,
     latest_value_from_timeseries,
@@ -52,6 +56,18 @@ def test_app_can_be_imported_without_running_pipeline_code() -> None:
     assert hasattr(module, "main")
 
 
+def test_sort_with_rank_orders_severity_before_document_id() -> None:
+    module = importlib.import_module("app")
+    df = pd.DataFrame(
+        {
+            "highest_severity": ["medium", "critical", "low"],
+            "document_id": ["PDF_003", "PDF_002", "PDF_001"],
+        }
+    )
+    sorted_df = module._sort_with_rank(df, {"highest_severity": {"critical": 0, "medium": 1, "low": 2}}, ["document_id"])
+    assert sorted_df["document_id"].tolist() == ["PDF_002", "PDF_003", "PDF_001"]
+
+
 def test_new_workflow_helpers_exist() -> None:
     module = importlib.import_module("src.dashboard.components")
     assert hasattr(module, "section_header")
@@ -61,6 +77,34 @@ def test_new_workflow_helpers_exist() -> None:
     assert hasattr(module, "markdown_report_preview")
     assert hasattr(module, "status_filter_widget")
     assert hasattr(module, "show_json_preview")
+
+
+def test_empty_state_adds_consistent_punctuation_and_hint(monkeypatch) -> None:
+    captured: list[str] = []
+
+    def fake_info(message: str) -> None:
+        captured.append(message)
+
+    monkeypatch.setattr(st, "info", fake_info)
+    empty_state("Section unavailable", "Rerun upstream outputs if needed.")
+    assert captured
+    assert captured[0].startswith("Section unavailable.")
+    assert "Rerun upstream outputs if needed." in captured[0]
+
+
+def test_dataframe_with_empty_state_uses_source_warning_when_present(monkeypatch) -> None:
+    captured: list[str] = []
+
+    def fake_info(message: str) -> None:
+        captured.append(message)
+
+    monkeypatch.setattr(st, "info", fake_info)
+    empty_df = pd.DataFrame()
+    empty_df.attrs["warning"] = "Processed table not found: some/path.csv"
+    dataframe_with_empty_state(empty_df, "Private market data is unavailable.")
+    assert captured
+    assert "Private market data is unavailable." in captured[0]
+    assert "Source detail: Processed table not found: some/path.csv" in captured[0]
 
 
 def test_calculate_return_metrics_works() -> None:
@@ -194,11 +238,19 @@ def test_private_market_summary_and_dimension_helpers_work() -> None:
 def test_calculate_liquidity_metrics_handles_empty_capital_calls() -> None:
     cash_df = pd.DataFrame(
         {
+            "as_of_date": ["2026-04-30", "2026-04-30", "2026-04-30"],
             "currency": ["USD", "USD", "SGD"],
             "balance_usd_m": [11.0, 8.0, 3.5],
         }
     )
-    cashflows_df = pd.DataFrame({"expected_cash_inflow_usd_m": [3.1]})
+    cashflows_df = pd.DataFrame(
+        {
+            "cashflow_type": ["distribution", "distribution", "capital_call"],
+            "cashflow_date": ["2026-05-31", "2026-03-31", "2026-05-20"],
+            "expected_cash_inflow_usd_m": [3.1, 1.5, -2.0],
+            "liquidity_treatment": ["projected_distribution", "historical_reference", "historical_reference"],
+        }
+    )
     metrics = calculate_liquidity_metrics(cash_df, pd.DataFrame(), cashflows_df)
     assert metrics["cash_liquidity"] == 22.5
     assert metrics["operating_cash"] == 0.0
@@ -209,6 +261,19 @@ def test_calculate_liquidity_metrics_handles_empty_capital_calls() -> None:
     assert metrics["expected_distributions"] == 3.1
     assert metrics["net_projected_liquidity"] == 25.6
     assert metrics["cash_to_upcoming_calls_coverage"] is None
+
+
+def test_filter_projected_distribution_cashflows_excludes_historical_and_booked_rows() -> None:
+    cashflows_df = pd.DataFrame(
+        {
+            "cashflow_type": ["distribution", "distribution", "capital_call", "distribution"],
+            "cashflow_date": ["2026-05-31", "2026-03-31", "2026-06-15", "2026-07-31"],
+            "expected_cash_inflow_usd_m": [3.1, 1.0, -2.0, 4.2],
+            "liquidity_treatment": ["projected_distribution", "historical_reference", "historical_reference", "booked_in_cash"],
+        }
+    )
+    filtered_df = filter_projected_distribution_cashflows(cashflows_df, pd.Timestamp("2026-04-30"))
+    assert filtered_df["cashflow_date"].dt.strftime("%Y-%m-%d").tolist() == ["2026-05-31"]
 
 
 def test_calculate_liquidity_horizon_table_returns_expected_horizons() -> None:
@@ -227,8 +292,10 @@ def test_calculate_liquidity_horizon_table_returns_expected_horizons() -> None:
     )
     cashflows_df = pd.DataFrame(
         {
-            "cashflow_date": ["2026-05-31", "2026-06-30", "2026-12-31"],
-            "expected_cash_inflow_usd_m": [1.0, 2.0, 3.0],
+            "cashflow_type": ["distribution", "distribution", "distribution", "capital_call"],
+            "cashflow_date": ["2026-05-31", "2026-06-30", "2026-12-31", "2026-05-20"],
+            "expected_cash_inflow_usd_m": [1.0, 2.0, 3.0, -1.5],
+            "liquidity_treatment": ["projected_distribution", "projected_distribution", "projected_distribution", "historical_reference"],
         }
     )
     table = calculate_liquidity_horizon_table(cash_df, capital_calls_df, cashflows_df)

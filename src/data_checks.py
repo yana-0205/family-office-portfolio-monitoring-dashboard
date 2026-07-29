@@ -314,7 +314,7 @@ def run_all_checks(write_report: bool = True) -> dict[str, Any]:
         "",
         "## Recommended Next Step",
         "",
-        "- Build schema definitions in `schemas/` and prepare the extraction module interface without modifying raw data.",
+        "- Re-run the baseline extraction, validation, approved-update, and risk steps, then launch the Streamlit dashboard against this locked synthetic demo dataset.",
         "",
     ]
     if write_report:

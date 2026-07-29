@@ -17,7 +17,7 @@ DOCUMENT_ID_PATTERN = re.compile(r"(PDF_\d{3})", re.IGNORECASE)
 PDF_STRING_PATTERN = re.compile(rb"\((.*?)(?<!\\)\)\s*Tj", re.S)
 
 
-def _extract_document_id(filename: str) -> str:
+def extract_document_id(filename: str) -> str:
     match = DOCUMENT_ID_PATTERN.search(filename)
     if match:
         return match.group(1).upper()
@@ -75,7 +75,7 @@ def read_pdf_text(pdf_path: Path) -> dict:
             if not text:
                 raise ValueError(f"No embedded text extracted from PDF: {path}")
             return {
-                "document_id": _extract_document_id(path.name),
+                "document_id": extract_document_id(path.name),
                 "filename": path.name,
                 "path": str(path),
                 "page_count": len(pages),
@@ -93,7 +93,7 @@ def read_pdf_text(pdf_path: Path) -> dict:
 
     pages = [{"page": index, "text": text} for index, text in enumerate(page_texts, start=1)]
     return {
-        "document_id": _extract_document_id(path.name),
+        "document_id": extract_document_id(path.name),
         "filename": path.name,
         "path": str(path),
         "page_count": len(pages),
@@ -102,14 +102,19 @@ def read_pdf_text(pdf_path: Path) -> dict:
     }
 
 
-def read_all_pdfs() -> list[dict]:
-    if not DOCUMENTS_DIR.exists():
-        raise FileNotFoundError(f"Documents directory not found: {DOCUMENTS_DIR}")
+def list_pdf_paths(source_dir: Path | None = None) -> list[Path]:
+    documents_dir = Path(source_dir) if source_dir is not None else DOCUMENTS_DIR
+    if not documents_dir.exists():
+        raise FileNotFoundError(f"Documents directory not found: {documents_dir}")
 
-    pdf_paths = sorted(DOCUMENTS_DIR.glob("*.pdf"))
+    pdf_paths = sorted(documents_dir.glob("*.pdf"))
     if not pdf_paths:
-        raise FileNotFoundError(f"No PDF files found in documents directory: {DOCUMENTS_DIR}")
+        raise FileNotFoundError(f"No PDF files found in documents directory: {documents_dir}")
+    return pdf_paths
 
+
+def read_all_pdfs(source_dir: Path | None = None) -> list[dict]:
+    pdf_paths = list_pdf_paths(source_dir=source_dir)
     records = []
     for path in pdf_paths:
         records.append(read_pdf_text(path))

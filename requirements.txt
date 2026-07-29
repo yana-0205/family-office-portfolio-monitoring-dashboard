@@ -7,3 +7,4 @@ plotly==6.8.0
 python-dotenv==1.2.1
 jsonschema==4.25.1
 yfinance==1.2.0
+openai>=2.0.0,<3.0.0

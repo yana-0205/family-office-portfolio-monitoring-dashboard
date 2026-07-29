@@ -76,7 +76,7 @@ def run(mode: str = "baseline") -> dict[str, str | int]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run validation engine for extracted records.")
-    parser.add_argument("--mode", default="baseline", choices=["baseline"])
+    parser.add_argument("--mode", default="baseline", choices=["baseline", "intake", "llm"])
     args = parser.parse_args()
     results = run(mode=args.mode)
     print(

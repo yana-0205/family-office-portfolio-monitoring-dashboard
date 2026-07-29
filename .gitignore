@@ -1,4 +1,7 @@
 .venv/
+.env
+.env.*
+!.env.example
 __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
@@ -6,6 +9,10 @@ __pycache__/
 outputs/extracted_json/*.json
 outputs/validation/*.csv
 outputs/risk/*.csv
+outputs/codex_sqlite_backups/
+outputs/test_backups/
+outputs/~$*
+outputs/*.inspect.ndjson
 data/interim/
 data/processed/
 !data/processed/

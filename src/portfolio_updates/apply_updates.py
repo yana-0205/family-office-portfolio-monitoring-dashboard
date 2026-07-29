@@ -10,6 +10,7 @@ import pandas as pd
 
 from src.config import OUTPUTS_DIR, PROCESSED_DATA_DIR, REPORTS_DIR
 from src.data_loader import read_csv_table, safe_find_table
+from src.validation.review_decisions import apply_review_decisions_to_validation_results
 
 
 def load_validation_status(mode: str = "baseline") -> dict[str, str]:
@@ -17,7 +18,7 @@ def load_validation_status(mode: str = "baseline") -> dict[str, str]:
     validation_path = OUTPUTS_DIR / "validation" / "validation_results_actual.csv"
     if not validation_path.exists():
         raise FileNotFoundError(f"Validation results not found: {validation_path}")
-    results_df = pd.read_csv(validation_path)
+    results_df = apply_review_decisions_to_validation_results(pd.read_csv(validation_path))
     return results_df.groupby("document_id")["review_status"].first().to_dict()
 
 
@@ -66,6 +67,11 @@ def load_baseline_distributions() -> pd.DataFrame:
 
 def load_baseline_newsletters() -> pd.DataFrame:
     table = _load_csv_if_available(["newsletter_updates", "newsletter updates"])
+    return table.copy() if table is not None else pd.DataFrame()
+
+
+def load_expected_position_updates() -> pd.DataFrame:
+    table = _load_csv_if_available(["expected_position_updates", "expected position updates"])
     return table.copy() if table is not None else pd.DataFrame()
 
 
@@ -127,17 +133,6 @@ def apply_capital_call_update(
         positions_df.at[position_index, "update_applied_flag"] = True
         positions_df.at[position_index, "update_reason"] = "Applied approved capital call to baseline position."
 
-    operating_cash_mask = cash_df["account_name"].astype(str).str.contains("Operating Cash", case=False, na=False)
-    usd_mask = cash_df["currency"].astype(str).str.upper() == "USD"
-    if extracted.get("amount_due") is not None and (operating_cash_mask & usd_mask).any():
-        idx = cash_df.index[operating_cash_mask & usd_mask][0]
-        cash_df.at[idx, "balance_usd_m"] -= extracted["amount_due"]
-        cash_df.at[idx, "source_document_id"] = record["document_id"]
-        cash_df.at[idx, "update_type"] = "capital_call"
-        cash_df.at[idx, "extraction_mode"] = record["extraction_mode"]
-        cash_df.at[idx, "update_applied_flag"] = True
-        cash_df.at[idx, "update_reason"] = "Projected reduction from approved capital call."
-
     calendar_row = pd.DataFrame(
         [
             {
@@ -150,7 +145,7 @@ def apply_capital_call_update(
                 "update_type": "capital_call",
                 "extraction_mode": record["extraction_mode"],
                 "update_applied_flag": True,
-                "update_reason": "Approved capital call added to calendar.",
+                "update_reason": "Approved capital call added to projected call calendar; no booked cash change applied to the baseline state.",
             }
         ]
     )
@@ -162,18 +157,6 @@ def apply_distribution_update(record: dict, cash_df: pd.DataFrame) -> tuple[pd.D
     extracted = record["extracted_fields"]
     net_amount = extracted.get("net_distribution") or extracted.get("gross_distribution")
     payment_date = extracted.get("payment_date")
-
-    if payment_date and str(payment_date).startswith("2026-05") and net_amount is not None:
-        operating_cash_mask = cash_df["account_name"].astype(str).str.contains("Operating Cash", case=False, na=False)
-        usd_mask = cash_df["currency"].astype(str).str.upper() == "USD"
-        if (operating_cash_mask & usd_mask).any():
-            idx = cash_df.index[operating_cash_mask & usd_mask][0]
-            cash_df.at[idx, "balance_usd_m"] += net_amount
-            cash_df.at[idx, "source_document_id"] = record["document_id"]
-            cash_df.at[idx, "update_type"] = "distribution"
-            cash_df.at[idx, "extraction_mode"] = record["extraction_mode"]
-            cash_df.at[idx, "update_applied_flag"] = True
-            cash_df.at[idx, "update_reason"] = "Projected increase from approved distribution."
 
     cashflow_row = pd.DataFrame(
         [
@@ -188,9 +171,10 @@ def apply_distribution_update(record: dict, cash_df: pd.DataFrame) -> tuple[pd.D
                 "currency": record.get("currency"),
                 "source_document_id": record["document_id"],
                 "update_type": "distribution",
+                "liquidity_treatment": "projected_distribution",
                 "extraction_mode": record["extraction_mode"],
                 "update_applied_flag": True,
-                "update_reason": "Approved distribution added to private market cashflows.",
+                "update_reason": "Approved distribution captured as a projected inflow; baseline cash remains unchanged until a future official close.",
             }
         ]
     )
@@ -245,6 +229,63 @@ def apply_newsletter_update(record: dict) -> pd.DataFrame:
     )
 
 
+def apply_expected_position_updates(
+    positions_df: pd.DataFrame,
+    approved_records: list[dict],
+    expected_updates_df: pd.DataFrame,
+) -> pd.DataFrame:
+    if positions_df.empty or expected_updates_df.empty or "fund_id" not in positions_df.columns:
+        return positions_df
+
+    approved_document_ids = {record["document_id"] for record in approved_records}
+    if not approved_document_ids:
+        return positions_df
+
+    updated_positions_df = positions_df.copy()
+    working_updates_df = expected_updates_df.copy()
+    if "update_status" in working_updates_df.columns:
+        working_updates_df = working_updates_df[
+            working_updates_df["update_status"].astype(str).str.casefold().eq("approved")
+        ].copy()
+    if working_updates_df.empty:
+        return updated_positions_df
+
+    for row in working_updates_df.itertuples():
+        source_document_ids = {
+            item.strip()
+            for item in str(getattr(row, "source_document_ids", "")).split(",")
+            if item and item.strip()
+        }
+        if not source_document_ids or not source_document_ids.issubset(approved_document_ids):
+            continue
+
+        match_index = updated_positions_df.index[updated_positions_df["fund_id"] == getattr(row, "fund_id")].tolist()
+        if not match_index:
+            continue
+        position_index = match_index[0]
+
+        field_map = {
+            "paid_in_capital_usd_m": getattr(row, "post_paid_in_usd_m", None),
+            "unfunded_commitment_usd_m": getattr(row, "post_unfunded_usd_m", None),
+            "current_nav_usd_m": getattr(row, "post_nav_estimate_usd_m", None),
+        }
+        for column, value in field_map.items():
+            if pd.notna(value):
+                updated_positions_df.at[position_index, column] = value
+
+        if hasattr(row, "as_of_date") and pd.notna(getattr(row, "as_of_date")) and "as_of_date" in updated_positions_df.columns:
+            updated_positions_df.at[position_index, "as_of_date"] = getattr(row, "as_of_date")
+        if "source_document_id" in updated_positions_df.columns:
+            updated_positions_df.at[position_index, "source_document_id"] = ", ".join(sorted(source_document_ids))
+        if "update_type" in updated_positions_df.columns:
+            updated_positions_df.at[position_index, "update_type"] = "expected_position_update"
+        if "update_reason" in updated_positions_df.columns:
+            updated_positions_df.at[position_index, "update_reason"] = (
+                "Applied approved expected position update from synthetic May document mapping."
+            )
+    return updated_positions_df
+
+
 def _seed_historical_capital_call_cashflows(capital_calls_df: pd.DataFrame) -> pd.DataFrame:
     required = {"mapped_fund_name", "due_date", "amount_due_usd_m"}
     if capital_calls_df.empty or not required.issubset(capital_calls_df.columns):
@@ -262,6 +303,9 @@ def _seed_historical_capital_call_cashflows(capital_calls_df: pd.DataFrame) -> p
     history_df = history_df.dropna(subset=["due_date", "amount_due_usd_m"])
     if history_df.empty:
         return pd.DataFrame()
+    history_df = history_df.drop_duplicates(
+        subset=[column for column in ["event_id", "mapped_fund_name", "due_date", "amount_due_usd_m"] if column in history_df.columns]
+    )
     return pd.DataFrame(
         {
             "document_id": history_df.get("document_id"),
@@ -274,6 +318,7 @@ def _seed_historical_capital_call_cashflows(capital_calls_df: pd.DataFrame) -> p
             "currency": history_df.get("currency"),
             "source_document_id": history_df.get("event_id"),
             "update_type": "historical_capital_call",
+            "liquidity_treatment": "historical_reference",
             "extraction_mode": "baseline_history",
             "update_applied_flag": True,
             "update_reason": "Seeded approved historical capital call into private market cashflow history.",
@@ -299,6 +344,13 @@ def _seed_historical_distribution_cashflows(distributions_df: pd.DataFrame) -> p
     history_df = history_df.dropna(subset=["payment_date", amount_column])
     if history_df.empty:
         return pd.DataFrame()
+    history_df = history_df.drop_duplicates(
+        subset=[
+            column
+            for column in ["event_id", "mapped_fund_name", "payment_date", "net_distribution_usd_m", "gross_distribution_usd_m"]
+            if column in history_df.columns
+        ]
+    )
     return pd.DataFrame(
         {
             "document_id": history_df.get("document_id"),
@@ -311,11 +363,35 @@ def _seed_historical_distribution_cashflows(distributions_df: pd.DataFrame) -> p
             "currency": history_df.get("currency"),
             "source_document_id": history_df.get("event_id"),
             "update_type": "historical_distribution",
+            "liquidity_treatment": "historical_reference",
             "extraction_mode": "baseline_history",
             "update_applied_flag": True,
             "update_reason": "Seeded approved historical distribution into private market cashflow history.",
         }
     )
+
+
+def _deduplicate_cashflow_rows(cashflows_df: pd.DataFrame) -> pd.DataFrame:
+    if cashflows_df.empty:
+        return cashflows_df
+    subset = [
+        column
+        for column in [
+            "document_id",
+            "fund_name",
+            "cashflow_type",
+            "cashflow_date",
+            "expected_cash_inflow_usd_m",
+            "gross_distribution_usd_m",
+            "net_distribution_usd_m",
+            "source_document_id",
+            "update_type",
+        ]
+        if column in cashflows_df.columns
+    ]
+    if not subset:
+        return cashflows_df
+    return cashflows_df.drop_duplicates(subset=subset).reset_index(drop=True)
 
 
 def _seed_historical_newsletters(newsletters_df: pd.DataFrame) -> pd.DataFrame:
@@ -360,9 +436,38 @@ def _build_document_processing_status(
         review_queue_df = pd.read_csv(review_queue_path)
         blocked_reason_map = review_queue_df.set_index("document_id")["issue_summary"].to_dict()
 
+    validation_results_path = OUTPUTS_DIR / "validation" / "validation_results_actual.csv"
+    effective_validation_df = (
+        apply_review_decisions_to_validation_results(pd.read_csv(validation_results_path))
+        if validation_results_path.exists()
+        else pd.DataFrame()
+    )
+    decision_columns = [
+        "document_id",
+        "extraction_mode",
+        "system_review_status",
+        "manual_review_status",
+        "review_status_source",
+        "reviewer_note",
+        "reviewed_at_utc",
+    ]
+    if not effective_validation_df.empty:
+        review_metadata_df = (
+            effective_validation_df[decision_columns]
+            .drop_duplicates(subset=["document_id", "extraction_mode"])
+            .reset_index(drop=True)
+        )
+        review_metadata_lookup = {
+            (str(row.document_id), str(row.extraction_mode)): row._asdict()
+            for row in review_metadata_df.itertuples(index=False)
+        }
+    else:
+        review_metadata_lookup = {}
+
     rows = []
     for record in records:
         review_status = validation_status.get(record["document_id"], "unknown")
+        review_metadata = review_metadata_lookup.get((str(record["document_id"]), str(record["extraction_mode"])), {})
         rows.append(
             {
                 "document_id": record["document_id"],
@@ -370,6 +475,11 @@ def _build_document_processing_status(
                 "fund_name": _fund_name(record),
                 "extraction_mode": record["extraction_mode"],
                 "extraction_status": record["extraction_status"],
+                "system_validation_review_status": review_metadata.get("system_review_status", review_status),
+                "manual_review_status": review_metadata.get("manual_review_status"),
+                "review_status_source": review_metadata.get("review_status_source", "system"),
+                "reviewer_note": review_metadata.get("reviewer_note"),
+                "reviewed_at_utc": review_metadata.get("reviewed_at_utc"),
                 "validation_review_status": review_status,
                 "update_applied_flag": record["document_id"] in applied_document_ids,
                 "blocked_reason": "" if record["document_id"] in applied_document_ids else blocked_reason_map.get(record["document_id"], ""),
@@ -417,13 +527,13 @@ def _write_update_summary(
         "",
         "## Assumptions",
         "",
-        "- Only records with document-level validation status `approved` were applied.",
-        "- Distribution cash inflows within May 2026 were projected into USD operating cash.",
+        "- Only records with effective document-level validation status `approved` were applied.",
+        "- The official portfolio baseline remains `2026-04-30`; approved May 2026 calls and distributions are tracked as projected overlay items rather than booked cash movements.",
         "- Newsletter updates create commentary output only and do not alter numeric portfolio state.",
         "",
         "## Recommended Next Step",
         "",
-        "- Build a downstream review-to-approval workflow so `needs_review` documents can be corrected and re-applied safely.",
+        "- Review any remaining blocked documents and promote only validated records into the portfolio overlay.",
     ]
     summary_path.write_text("\n".join(report_lines), encoding="utf-8")
     return summary_path
@@ -442,6 +552,7 @@ def run(mode: str = "baseline") -> dict[str, Any]:
     baseline_capital_calls_df = load_baseline_capital_calls()
     baseline_distributions_df = load_baseline_distributions()
     baseline_newsletters_df = load_baseline_newsletters()
+    expected_position_updates_df = load_expected_position_updates()
     positions_df = _ensure_metadata_columns(positions_df)
     cash_df = _ensure_metadata_columns(cash_df)
 
@@ -469,6 +580,8 @@ def run(mode: str = "baseline") -> dict[str, Any]:
         applied_counts[record["document_type"]] += 1
         applied_document_ids.add(record["document_id"])
 
+    positions_df = apply_expected_position_updates(positions_df, approved_records, expected_position_updates_df)
+
     capital_call_calendar_df = (
         pd.concat(capital_call_calendar_rows, ignore_index=True)
         if capital_call_calendar_rows
@@ -487,9 +600,14 @@ def run(mode: str = "baseline") -> dict[str, Any]:
             ]
         )
     )
+    non_empty_cashflow_rows = [
+        df.dropna(axis=1, how="all")
+        for df in private_market_cashflow_rows
+        if df is not None and not df.empty
+    ]
     private_market_cashflows_df = (
-        pd.concat([df for df in private_market_cashflow_rows if df is not None and not df.empty], ignore_index=True)
-        if any(df is not None and not df.empty for df in private_market_cashflow_rows)
+        pd.concat(non_empty_cashflow_rows, ignore_index=True)
+        if non_empty_cashflow_rows
         else pd.DataFrame(
             columns=[
                 "document_id",
@@ -502,12 +620,14 @@ def run(mode: str = "baseline") -> dict[str, Any]:
                 "currency",
                 "source_document_id",
                 "update_type",
+                "liquidity_treatment",
                 "extraction_mode",
                 "update_applied_flag",
                 "update_reason",
             ]
         )
     )
+    private_market_cashflows_df = _deduplicate_cashflow_rows(private_market_cashflows_df)
     commentary_df = (
         pd.concat([df for df in commentary_rows if df is not None and not df.empty], ignore_index=True)
         if any(df is not None and not df.empty for df in commentary_rows)
@@ -567,7 +687,7 @@ def run(mode: str = "baseline") -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Apply approved portfolio updates.")
-    parser.add_argument("--mode", default="baseline", choices=["baseline"])
+    parser.add_argument("--mode", default="baseline", choices=["baseline", "intake", "llm"])
     args = parser.parse_args()
     results = run(mode=args.mode)
     print(

@@ -1,6 +1,6 @@
 # Data QA Report
 
-- Timestamp: `2026-06-18T08:27:07.135779+00:00`
+- Timestamp: `2026-07-29T10:29:09.100584+00:00`
 
 ## Repository Structure Summary
 
@@ -179,4 +179,4 @@
 
 ## Recommended Next Step
 
-- Build schema definitions in `schemas/` and prepare the extraction module interface without modifying raw data.
+- Re-run the baseline extraction, validation, approved-update, and risk steps, then launch the Streamlit dashboard against this locked synthetic demo dataset.
