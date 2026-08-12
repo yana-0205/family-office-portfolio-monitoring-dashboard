@@ -9,4 +9,4 @@
 
 - `PDF_001` | `needs_review` | `medium` | Commitment consistency
 - `PDF_002` | `needs_review` | `medium` | Commitment consistency; Fuzzy fund name warning
-- `PDF_005` | `rejected` | `critical` | Commitment consistency; NAV roll-forward check
+- `PDF_005` | `rejected` | `critical` | Commitment consistency; NAV roll-forward check; Low confidence review

@@ -1,10 +1,10 @@
 # Demo Readiness Report
 
-- Generated at: `2026-07-29T10:29:09.124996+00:00`
+- Generated at: `2026-08-12T20:37:31.325088+00:00`
 - Extracted JSON files: `6`
-- Validation status: `3 approved / 2 needs_review / 1 rejected`
-- Applied updates: `3`
-- Blocked updates: `3`
+- Validation status: `5 approved / 0 needs_review / 1 rejected`
+- Applied updates: `5`
+- Blocked updates: `1`
 - Risk data source: `real`
 - Risk proxy tickers: `30`
 
@@ -22,11 +22,11 @@
 - processed output exists: document_processing_status.csv: /Users/yana/Documents/GitHub/project_portfolio_dashboard/data/processed/document_processing_status.csv exists=True
 - processed output exists: fund_commentary_post_ingestion.csv: /Users/yana/Documents/GitHub/project_portfolio_dashboard/data/processed/fund_commentary_post_ingestion.csv exists=True
 - baseline extraction produced 6 JSON files: actual=6, expected=6
-- approved documents count is 3: actual=3, expected=3
-- needs_review documents count is 2: actual=2, expected=2
+- approved documents count is 5: actual=5, expected=5
+- needs_review documents count is 0: actual=0, expected=0
 - rejected documents count is 1: actual=1, expected=1
-- applied updates count is 3: actual=3, expected=3
-- blocked updates count is 3: actual=3, expected=3
+- applied updates count is 5: actual=5, expected=5
+- blocked updates count is 1: actual=1, expected=1
 - risk data source is real: actual=real, expected=real
 - risk proxy ticker count is 30: actual=30, expected=30
 

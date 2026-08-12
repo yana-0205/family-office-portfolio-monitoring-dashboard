@@ -8,6 +8,6 @@
 
 ## Documents
 
-- `PDF_005` -> `capital_statement` | status=`extracted` | confidence=`0.85`
+- `PDF_005` -> `capital_statement` | status=`extracted` | confidence=`0.8`
   schema warnings: ["Schema validation: 'intake' is not one of ['baseline', 'llm']"]
   classification reasons: ["capital_statement: matched 'partner capital account statement'", "capital_statement: matched 'pcap'", "capital_statement: matched 'ending nav'", "capital_statement: matched 'unfunded commitment'", "capital_statement: matched 'capital account roll-forward'", "capital_statement: filename contains 'pcap'"]

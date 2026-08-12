@@ -1296,9 +1296,40 @@ def show_json_preview(records: list[dict], document_id_column: str = "document_i
     selected_record = record_map[selected_document]
     meta_cols = st.columns(3)
     with meta_cols[0]:
-        st.metric("Confidence", selected_record.get("confidence_score", "N/A"))
+        st.metric(
+            "Rule-based Confidence",
+            selected_record.get("confidence_score", "N/A"),
+            help=(
+                "Confidence = 30% × required-field completeness + 20% × label/evidence match "
+                "+ 15% × fund-name match + 20% × reconciliation quality + 10% × date-format quality "
+                "+ 5% × source-reference quality. This rule-based score is not a probability that the extraction is correct."
+            ),
+        )
     with meta_cols[1]:
         st.metric("Extraction Status", selected_record.get("extraction_status", "N/A"))
     with meta_cols[2]:
         st.metric("Mode", selected_record.get("extraction_mode", "N/A"))
+    confidence_details = selected_record.get("confidence_details", {})
+    components = confidence_details.get("components", {}) if isinstance(confidence_details, dict) else {}
+    if components:
+        confidence_rows = [
+            {
+                "Component": name.replace("_", " ").title(),
+                "Weight": detail.get("weight"),
+                "Component Score": detail.get("score"),
+                "Weighted Score": detail.get("weight", 0) * detail.get("score", 0),
+                "Reason": detail.get("reason", ""),
+            }
+            for name, detail in components.items()
+        ]
+        with st.expander("How this confidence was calculated"):
+            st.caption("Rule-based score, not a probability that the extraction is correct.")
+            st.dataframe(
+                format_display_dataframe(
+                    pd.DataFrame(confidence_rows),
+                    pct_columns=["Weight", "Component Score", "Weighted Score"],
+                ),
+                use_container_width=True,
+                hide_index=True,
+            )
     st.json(selected_record)

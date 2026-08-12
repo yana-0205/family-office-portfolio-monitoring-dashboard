@@ -141,6 +141,10 @@
       "minimum": 0,
       "maximum": 1
     },
+    "confidence_details": {
+      "type": "object",
+      "description": "Optional transparent breakdown for rule-based confidence scores."
+    },
     "extraction_status": {
       "type": "string",
       "enum": ["not_started", "extracted", "partial", "failed"]

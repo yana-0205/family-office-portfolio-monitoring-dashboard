@@ -1,9 +1,9 @@
 {
   "document_id": "PDF_006",
   "document_type": "newsletter",
-  "document_filename": "PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
-  "extraction_mode": "baseline",
-  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
+  "document_filename": "20260812T201515Z_abe2d988_PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
+  "extraction_mode": "intake",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/interim/document_ingestion/uploaded_pdfs/20260812T201515Z_abe2d988_PDF_006_Blue_Horizon_Ventures_III_Quarterly_Newsletter.pdf",
   "fund_name_raw": "Blue Horizon Ventures III",
   "fund_name_mapped": "Blue Horizon Ventures III",
   "investor_entity": null,
@@ -26,7 +26,7 @@
       "follow-on financing risk"
     ],
     "valuation_commentary": [
-      "\u007f Portfolio marks are broadly stable with modest uplift in top quartile names."
+      "\\177 Portfolio marks are broadly stable with modest uplift in top quartile names."
     ],
     "expected_capital_activity": [
       "USD 1.0m to 2.0m in Q3 2026"
@@ -90,5 +90,7 @@
   "extraction_status": "extracted",
   "validation_status": "pending",
   "review_status": "pending",
-  "warnings": []
+  "warnings": [
+    "Schema validation: 'intake' is not one of ['baseline', 'llm']"
+  ]
 }

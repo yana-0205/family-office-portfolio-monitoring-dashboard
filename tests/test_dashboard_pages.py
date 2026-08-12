@@ -61,6 +61,28 @@ def test_sidebar_navigation_matches_delivery_structure() -> None:
     assert button_labels == EXPECTED_PAGES
 
 
+def test_asset_class_page_recovers_from_stale_month_control_state() -> None:
+    app_test = AppTest.from_file("app.py")
+    app_test.run(timeout=30)
+    stale_month = "1900-01"
+    app_test.session_state["asset_class_month_value"] = stale_month
+    app_test.session_state["asset_class_month_slider"] = stale_month
+    app_test.session_state["asset_class_month_jump"] = stale_month
+
+    for button in app_test.sidebar.button:
+        if button.label == "Asset Class":
+            button.click()
+            break
+
+    app_test.run(timeout=30)
+
+    assert not app_test.exception
+    selected_month = app_test.session_state["asset_class_month_value"]
+    assert selected_month != stale_month
+    assert app_test.session_state["asset_class_month_slider"] == selected_month
+    assert app_test.session_state["asset_class_month_jump"] == selected_month
+
+
 def test_each_page_exposes_expected_tabs_and_title() -> None:
     expected_titles = {
         "Overview": "Family Office Portfolio Overview",

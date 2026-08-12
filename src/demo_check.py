@@ -11,11 +11,11 @@ from src.config import OUTPUTS_DIR, PROCESSED_DATA_DIR, REPORTS_DIR
 
 
 EXPECTED_EXTRACTED_JSON_COUNT = 6
-EXPECTED_APPROVED_COUNT = 3
-EXPECTED_NEEDS_REVIEW_COUNT = 2
+EXPECTED_APPROVED_COUNT = 5
+EXPECTED_NEEDS_REVIEW_COUNT = 0
 EXPECTED_REJECTED_COUNT = 1
-EXPECTED_APPLIED_UPDATES = 3
-EXPECTED_BLOCKED_UPDATES = 3
+EXPECTED_APPLIED_UPDATES = 5
+EXPECTED_BLOCKED_UPDATES = 1
 EXPECTED_PROXY_TICKERS = 30
 EXPECTED_RISK_DATA_SOURCE = "real"
 
@@ -124,11 +124,15 @@ def run_demo_check(write_report: bool = True) -> dict[str, Any]:
     blocked_updates = len(document_status_df) - applied_updates if not document_status_df.empty else 0
 
     for name, actual, expected in [
-        ("approved documents count is 3", approved_count, EXPECTED_APPROVED_COUNT),
-        ("needs_review documents count is 2", needs_review_count, EXPECTED_NEEDS_REVIEW_COUNT),
-        ("rejected documents count is 1", rejected_count, EXPECTED_REJECTED_COUNT),
-        ("applied updates count is 3", applied_updates, EXPECTED_APPLIED_UPDATES),
-        ("blocked updates count is 3", blocked_updates, EXPECTED_BLOCKED_UPDATES),
+        (f"approved documents count is {EXPECTED_APPROVED_COUNT}", approved_count, EXPECTED_APPROVED_COUNT),
+        (
+            f"needs_review documents count is {EXPECTED_NEEDS_REVIEW_COUNT}",
+            needs_review_count,
+            EXPECTED_NEEDS_REVIEW_COUNT,
+        ),
+        (f"rejected documents count is {EXPECTED_REJECTED_COUNT}", rejected_count, EXPECTED_REJECTED_COUNT),
+        (f"applied updates count is {EXPECTED_APPLIED_UPDATES}", applied_updates, EXPECTED_APPLIED_UPDATES),
+        (f"blocked updates count is {EXPECTED_BLOCKED_UPDATES}", blocked_updates, EXPECTED_BLOCKED_UPDATES),
     ]:
         _record(results, name, actual == expected, f"actual={actual}, expected={expected}")
 

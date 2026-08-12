@@ -1401,7 +1401,85 @@ def distribution_timeline_chart(df: pd.DataFrame):
         chart_df = chart_df[chart_df["cashflow_type"].astype(str).str.contains("distribution", case=False, na=False)]
     if chart_df.empty:
         return "No approved distributions are available in the current dataset."
-    return private_market_cashflow_chart(chart_df)
+    required = ["cashflow_date", "fund_name"]
+    error = _require_columns(chart_df, required, "Unable to build distribution timeline.")
+    if error:
+        return error
+    chart_df["cashflow_date"] = pd.to_datetime(chart_df["cashflow_date"], errors="coerce")
+    amount_column = next(
+        (column for column in ["expected_cash_inflow_usd_m", "net_distribution_usd_m", "gross_distribution_usd_m"] if column in chart_df.columns),
+        None,
+    )
+    if amount_column is None:
+        return "No distribution amount column is available."
+    chart_df[amount_column] = pd.to_numeric(chart_df[amount_column], errors="coerce")
+    chart_df = chart_df.dropna(subset=["cashflow_date", amount_column])
+    if chart_df.empty:
+        return "No approved distributions are available in the current dataset."
+
+    projected = chart_df.get("liquidity_treatment", pd.Series("", index=chart_df.index)).astype(str).str.contains("projected", case=False, na=False)
+    historical = chart_df.get("update_type", pd.Series("", index=chart_df.index)).astype(str).str.contains("historical", case=False, na=False)
+    chart_df["Cashflow Status"] = "Booked"
+    chart_df.loc[historical, "Cashflow Status"] = "Historical / Booked"
+    chart_df.loc[projected, "Cashflow Status"] = "Projected"
+    chart_df["Amount (USD m)"] = chart_df[amount_column]
+
+    hover_columns = [
+        column
+        for column in ["fund_name", "Cashflow Status", "gross_distribution_usd_m", "net_distribution_usd_m", "expected_cash_inflow_usd_m"]
+        if column in chart_df.columns
+    ]
+    figure = px.scatter(
+        chart_df.sort_values("cashflow_date"),
+        x="cashflow_date",
+        y="Amount (USD m)",
+        color="fund_name",
+        symbol="Cashflow Status",
+        size="Amount (USD m)",
+        hover_data=hover_columns,
+        title="Distribution Timeline",
+        labels={"cashflow_date": "Expected / booked date", "fund_name": "Fund"},
+    )
+    figure.update_traces(marker={"line": {"width": 1, "color": "white"}}, selector={"mode": "markers"})
+    figure.update_xaxes(type="date")
+    return figure
+
+
+def projected_distributions_by_fund_chart(df: pd.DataFrame):
+    error = _require_columns(df, ["fund_name"], "Unable to build projected distributions by fund chart.")
+    if error:
+        return error
+    amount_column = next(
+        (column for column in ["expected_cash_inflow_usd_m", "net_distribution_usd_m", "gross_distribution_usd_m"] if column in df.columns),
+        None,
+    )
+    if amount_column is None:
+        return "No distribution amount column is available."
+
+    chart_df = df.copy()
+    chart_df[amount_column] = pd.to_numeric(chart_df[amount_column], errors="coerce")
+    chart_df = (
+        chart_df.dropna(subset=["fund_name", amount_column])
+        .groupby("fund_name", as_index=False)[amount_column]
+        .sum()
+        .rename(columns={amount_column: "Projected Distribution (USD m)"})
+        .sort_values("Projected Distribution (USD m)")
+    )
+    if chart_df.empty:
+        return "No approved projected distributions are available."
+
+    figure = px.bar(
+        chart_df,
+        x="Projected Distribution (USD m)",
+        y="fund_name",
+        orientation="h",
+        text_auto=".2f",
+        title="Projected Distributions by Fund",
+        labels={"fund_name": "Fund"},
+    )
+    figure.update_traces(marker_color="#2563EB", textposition="outside", hovertemplate="%{y}<br>Projected distribution: USD %{x:.2f}m<extra></extra>")
+    figure.update_layout(showlegend=False)
+    return figure
 
 
 def unfunded_commitments_by_fund_chart(private_positions_df: pd.DataFrame):
