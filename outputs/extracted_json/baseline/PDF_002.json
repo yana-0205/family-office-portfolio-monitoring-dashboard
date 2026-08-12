@@ -72,7 +72,41 @@
       "evidence_text": "Not stated in notice"
     }
   ],
-  "confidence_score": 0.85,
+  "confidence_score": 0.867,
+  "confidence_details": {
+    "method": "rule_based_v1",
+    "components": {
+      "required_field_completeness": {
+        "weight": 0.3,
+        "score": 0.6666666666666666
+      },
+      "label_match_quality": {
+        "weight": 0.2,
+        "score": 1.0
+      },
+      "fund_name_match_quality": {
+        "weight": 0.15,
+        "score": 1.0
+      },
+      "reconciliation_quality": {
+        "weight": 0.2,
+        "score": 1.0,
+        "reason": "Capital-call components reconcile to amount due."
+      },
+      "date_format_quality": {
+        "weight": 0.1,
+        "score": 0.6666666666666666
+      },
+      "source_reference_quality": {
+        "weight": 0.05,
+        "score": 1.0
+      }
+    },
+    "deductions": [
+      "required_field_completeness",
+      "date_format_quality"
+    ]
+  },
   "extraction_status": "partial",
   "validation_status": "pending",
   "review_status": "pending",

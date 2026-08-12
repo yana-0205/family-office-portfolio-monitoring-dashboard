@@ -1,22 +1,20 @@
 # Update Summary
 
-- Timestamp: `2026-07-17T06:57:28.314029+00:00`
-- Extraction mode: `baseline`
+- Timestamp: `2026-08-12T20:19:12.094027+00:00`
+- Extraction mode: `intake`
 - Number of extracted records: `6`
-- Number approved: `3`
-- Number blocked: `3`
+- Number approved: `5`
+- Number blocked: `1`
 
 ## Updates Applied By Document Type
 
-- `capital_call`: `0`
+- `capital_call`: `2`
 - `distribution`: `1`
 - `capital_statement`: `1`
 - `newsletter`: `1`
 
 ## Blocked Documents
 
-- `PDF_001` | `capital_call` | status blocked
-- `PDF_002` | `capital_call` | status blocked
 - `PDF_005` | `capital_statement` | status blocked
 
 ## Output Files Written

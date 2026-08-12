@@ -3,7 +3,7 @@
   "document_type": "capital_statement",
   "document_filename": "PDF_005_LionRock_Asia_Private_Credit_Q1_2026_PCAP_Exception.pdf",
   "extraction_mode": "llm",
-  "source_path": "/private/var/folders/_1/c6gzq0jj1rgc2ltb5_w56gqh0000gn/T/pytest-of-yana/pytest-39/test_run_extraction_supports_l0/PDF_005_LionRock_Asia_Private_Credit_Q1_2026_PCAP_Exception.pdf",
+  "source_path": "/private/var/folders/_1/c6gzq0jj1rgc2ltb5_w56gqh0000gn/T/pytest-of-yana/pytest-3/test_run_extraction_supports_l0/PDF_005_LionRock_Asia_Private_Credit_Q1_2026_PCAP_Exception.pdf",
   "fund_name_raw": "Northstar Buyout Fund IV",
   "fund_name_mapped": "Northstar Buyout Fund IV",
   "investor_entity": "Example Family Office",

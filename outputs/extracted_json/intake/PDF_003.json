@@ -1,9 +1,9 @@
 {
   "document_id": "PDF_003",
   "document_type": "distribution",
-  "document_filename": "PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
-  "extraction_mode": "baseline",
-  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
+  "document_filename": "20260812T201515Z_d77b488a_PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
+  "extraction_mode": "intake",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/interim/document_ingestion/uploaded_pdfs/20260812T201515Z_d77b488a_PDF_003_Harbor_Peak_Partners_V_Distribution.pdf",
   "fund_name_raw": "Harbor Peak Partners V",
   "fund_name_mapped": "Harbor Peak Partners V",
   "investor_entity": "Atlas Investment Partners USD Ltd.",
@@ -102,5 +102,7 @@
   "extraction_status": "extracted",
   "validation_status": "pending",
   "review_status": "pending",
-  "warnings": []
+  "warnings": [
+    "Schema validation: 'intake' is not one of ['baseline', 'llm']"
+  ]
 }

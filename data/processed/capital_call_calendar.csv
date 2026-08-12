@@ -1,1 +1,3 @@
 document_id,fund_name,due_date,amount_due_usd_m,currency,source_document_id,update_type,extraction_mode,update_applied_flag,update_reason
+PDF_001,Northstar Buyout Fund IV,2026-05-24,4.2,USD,PDF_001,capital_call,intake,True,Approved capital call added to projected call calendar; no booked cash change applied to the baseline state.
+PDF_002,SeedSpring Southeast Asia VC Fund I,2026-05-22,2.75,USD,PDF_002,capital_call,intake,True,Approved capital call added to projected call calendar; no booked cash change applied to the baseline state.

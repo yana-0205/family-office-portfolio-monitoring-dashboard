@@ -40,6 +40,7 @@ from src.dashboard.charts import (
     portfolio_return_bars_cumulative_line_chart,
     portfolio_value_trend_chart,
     private_market_cashflow_chart,
+    projected_distributions_by_fund_chart,
     private_nav_trend_chart,
     private_statement_lag_chart,
     private_total_nav_trend_chart,
@@ -620,6 +621,9 @@ def _render_demo_reset_panel() -> None:
             st.session_state.pop("manual_review_message", None)
             st.session_state.pop("intake_pipeline_message", None)
             st.session_state.pop("market_refresh_message", None)
+            for key in list(st.session_state):
+                if key.endswith(("_month_value", "_month_slider", "_month_jump")):
+                    st.session_state.pop(key)
             st.session_state["demo_reset_message"] = (
                 "Demo reset complete. "
                 f"Backup written to {results['backup_root']}. "
@@ -1255,16 +1259,22 @@ def _panel_data_table(exposure_panel_df: pd.DataFrame, source_name: str, field_n
 
 
 def _render_synced_month_controls(prefix: str, month_labels: list[str], default_value: str) -> str:
+    if not month_labels:
+        raise ValueError("Month controls require at least one month label.")
+    if default_value not in month_labels:
+        raise ValueError(f"Default month '{default_value}' is not available in month labels.")
+
     state_key = f"{prefix}_month_value"
     slider_key = f"{prefix}_month_slider"
     jump_key = f"{prefix}_month_jump"
 
-    if state_key not in st.session_state:
-        st.session_state[state_key] = default_value
-    if slider_key not in st.session_state:
-        st.session_state[slider_key] = st.session_state[state_key]
-    if jump_key not in st.session_state:
-        st.session_state[jump_key] = st.session_state[state_key]
+    selected_value = st.session_state.get(state_key, default_value)
+    if selected_value not in month_labels:
+        selected_value = default_value
+
+    for key in (state_key, slider_key, jump_key):
+        if st.session_state.get(key) not in month_labels:
+            st.session_state[key] = selected_value
 
     def _sync_from_slider():
         st.session_state[state_key] = st.session_state[slider_key]
@@ -3135,11 +3145,52 @@ def render_liquidity_commitments_page():
             cashflows_df,
             liquidity_metrics.get("as_of_date"),
         )
-        st.caption("Distributions shown here are approved projected private-market inflows only. They support soft coverage analysis but do not alter booked baseline cash.")
+        st.caption("Projected distributions support soft coverage but are not available cash until booked.")
+        distribution_amount = safe_sum(projected_distribution_df, ["expected_cash_inflow_usd_m"])
+        distribution_funds = (
+            projected_distribution_df["fund_name"].nunique()
+            if not projected_distribution_df.empty and "fund_name" in projected_distribution_df.columns
+            else 0
+        )
+        distribution_dates = (
+            pd.to_datetime(projected_distribution_df["cashflow_date"], errors="coerce").dropna()
+            if not projected_distribution_df.empty and "cashflow_date" in projected_distribution_df.columns
+            else pd.Series(dtype="datetime64[ns]")
+        )
+        summary_cols = st.columns(3)
+        with summary_cols[0]:
+            metric_card("Projected Distribution Total", format_usd_millions(distribution_amount))
+        with summary_cols[1]:
+            metric_card("Next Expected Date", _format_optional_date(distribution_dates.min() if not distribution_dates.empty else None))
+        with summary_cols[2]:
+            metric_card("Funds", f"{distribution_funds:,}")
         section_header("Projected Distributions Timeline")
         _render_chart(distribution_timeline_chart(projected_distribution_df))
-        section_header("Projected Distribution Cashflows")
-        _render_chart(private_market_cashflow_chart(projected_distribution_df))
+        section_header("Projected Distributions by Fund", "Expected cash inflows aggregated by fund; this is not a booking-status chart.")
+        distribution_fund_count = (
+            projected_distribution_df["fund_name"].nunique()
+            if not projected_distribution_df.empty and "fund_name" in projected_distribution_df.columns
+            else 0
+        )
+        if distribution_fund_count == 1 and len(projected_distribution_df) == 1:
+            event = projected_distribution_df.iloc[0]
+            with st.container(border=True):
+                event_cols = st.columns([2.2, 1.2, 1.2, 1.4])
+                with event_cols[0]:
+                    st.caption("Fund")
+                    st.markdown(f"**{event.get('fund_name', 'N/A')}**")
+                with event_cols[1]:
+                    st.caption("Expected Date")
+                    st.markdown(f"**{_format_optional_date(event.get('cashflow_date'))}**")
+                with event_cols[2]:
+                    st.caption("Expected Inflow")
+                    st.markdown(f"**{format_usd_millions(event.get('expected_cash_inflow_usd_m'))}**")
+                with event_cols[3]:
+                    st.caption("Status")
+                    st.markdown("**Projected · Not Booked**")
+            st.caption("A comparison chart is hidden because only one fund currently has an approved projected distribution.")
+        else:
+            _render_chart(projected_distributions_by_fund_chart(projected_distribution_df))
         section_header("Distributions and Cashflows Table")
         cashflow_display_df = format_display_dataframe(
             projected_distribution_df,

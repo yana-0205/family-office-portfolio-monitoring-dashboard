@@ -20,6 +20,7 @@ from src.dashboard.charts import (
     public_market_value_trend_chart,
     public_proxy_performance_chart,
     portfolio_return_bars_cumulative_line_chart,
+    projected_distributions_by_fund_chart,
     sector_exposure_chart,
     usd_vs_non_usd_chart,
 )
@@ -41,6 +42,7 @@ def test_chart_functions_handle_empty_dataframes_gracefully() -> None:
     assert isinstance(portfolio_return_bars_cumulative_line_chart(pd.DataFrame()), str)
     assert isinstance(capital_call_calendar_chart(pd.DataFrame()), str)
     assert isinstance(distribution_timeline_chart(pd.DataFrame()), str)
+    assert isinstance(projected_distributions_by_fund_chart(pd.DataFrame()), str)
     assert isinstance(liquidity_coverage_chart(pd.DataFrame(), pd.DataFrame()), str)
     assert isinstance(drawdown_chart(pd.DataFrame()), str)
     assert isinstance(sector_exposure_chart(pd.DataFrame()), str)
@@ -50,6 +52,41 @@ def test_chart_functions_handle_empty_dataframes_gracefully() -> None:
 
 def test_correlation_heatmap_handles_empty_dataframe() -> None:
     assert isinstance(correlation_heatmap(pd.DataFrame()), str)
+
+
+def test_single_distribution_keeps_a_date_axis() -> None:
+    figure = distribution_timeline_chart(
+        pd.DataFrame(
+            {
+                "cashflow_date": ["2026-09-30"],
+                "fund_name": ["Example Fund"],
+                "cashflow_type": ["distribution"],
+                "expected_cash_inflow_usd_m": [2.5],
+                "liquidity_treatment": ["projected_inflow"],
+            }
+        )
+    )
+
+    assert not isinstance(figure, str)
+    assert figure.layout.xaxis.type == "date"
+    assert figure.data[0].mode == "markers"
+
+
+def test_projected_distributions_by_fund_has_no_cashflow_type_axis_or_legend() -> None:
+    figure = projected_distributions_by_fund_chart(
+        pd.DataFrame(
+            {
+                "fund_name": ["Example Fund"],
+                "cashflow_type": ["distribution"],
+                "expected_cash_inflow_usd_m": [2.5],
+            }
+        )
+    )
+
+    assert not isinstance(figure, str)
+    assert figure.layout.xaxis.title.text == "Projected Distribution (USD m)"
+    assert figure.layout.yaxis.title.text == "Fund"
+    assert figure.layout.showlegend is False
 
 
 def test_asset_class_exposure_filter_chart_returns_figure_for_valid_input() -> None:

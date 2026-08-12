@@ -1,9 +1,9 @@
 {
   "document_id": "PDF_001",
   "document_type": "capital_call",
-  "document_filename": "PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
-  "extraction_mode": "baseline",
-  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/raw/family_office_corrected_dataset_v1/documents/PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
+  "document_filename": "20260812T201515Z_f4b07a0d_PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
+  "extraction_mode": "intake",
+  "source_path": "/Users/yana/Documents/GitHub/project_portfolio_dashboard/data/interim/document_ingestion/uploaded_pdfs/20260812T201515Z_f4b07a0d_PDF_001_Northstar_Buyout_Fund_IV_Capital_Call.pdf",
   "fund_name_raw": "Northstar Buyout Fund IV",
   "fund_name_mapped": "Northstar Buyout Fund IV",
   "investor_entity": "Atlas Investment Partners USD Ltd.",
@@ -109,5 +109,7 @@
   "extraction_status": "extracted",
   "validation_status": "pending",
   "review_status": "pending",
-  "warnings": []
+  "warnings": [
+    "Schema validation: 'intake' is not one of ['baseline', 'llm']"
+  ]
 }
