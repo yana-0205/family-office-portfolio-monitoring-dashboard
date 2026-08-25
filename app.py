@@ -405,24 +405,14 @@ def _inject_dashboard_theme() -> None:
             background: rgba(255, 255, 255, 0.82);
         }
 
-        .fo-chart-card {
-            background: rgba(255, 255, 255, 0.97);
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            border-radius: 24px;
-            padding: 1rem 1rem 0.65rem 1rem;
-            margin: 0.35rem 0 1.1rem 0;
-            box-shadow: var(--fo-shadow);
-            overflow: hidden;
-        }
-
-        .fo-chart-card div[data-testid="stPlotlyChart"] {
+        div[data-testid="stPlotlyChart"] {
             border-radius: 18px;
             overflow: hidden;
         }
 
-        .fo-chart-card .js-plotly-plot,
-        .fo-chart-card .plot-container,
-        .fo-chart-card .svg-container {
+        div[data-testid="stPlotlyChart"] .js-plotly-plot,
+        div[data-testid="stPlotlyChart"] .plot-container,
+        div[data-testid="stPlotlyChart"] .svg-container {
             border-radius: 18px !important;
         }
 
@@ -935,13 +925,11 @@ def _render_chart(chart_or_message):
             legend_font=dict(color="#475467"),
             margin=dict(l=36, r=28, t=72, b=42),
         )
-        st.markdown('<div class="fo-chart-card">', unsafe_allow_html=True)
         st.plotly_chart(
             chart_or_message,
             width="stretch",
             key=f"plotly_chart_{next(_PLOTLY_CHART_COUNTER)}",
         )
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 def _render_page_header(title: str, subtitle: str) -> None:
